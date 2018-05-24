@@ -13,7 +13,7 @@ const server = http.createServer(forntController);
  */
 function forntController(req, res) {
     req.path = url.parse(req.url).pathname;
-    res.sendHtml = function(path){
+    res.sendHtml = function (path) {
         fs.readFile(path, 'utf8', function (err, data) {
             if (err) {
                 fs.readFile('./views/error.html', 'utf8', (err, data) => {
@@ -33,11 +33,23 @@ function forntController(req, res) {
         });
     };
 
-    for (let handler of handlers) {
-        if (!handler(req, res)) {
-            break;
+    if (req.method == 'GET') {
+        for (let handler of handlers) {
+            if (!handler(req, res)) {
+                break;
+            }
         }
+    } else if (req.method === 'POST') {
+        let body = '';
+        req.on('data', function (data) {
+            body += data;
+        });
+        req.on('end', function () {
+            console.log(body);
+            res.end();
+        });
     }
+
 
 }
 

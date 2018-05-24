@@ -1,6 +1,6 @@
 
 module.exports = function (req, res) {
-    if (req.path === '/about.html' && req.method === 'GET') {
+    if (req.path === '/about.html' ) {
         res.sendHtml('./views/about.html');
     } else {
         return true;

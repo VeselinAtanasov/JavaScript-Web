@@ -12,10 +12,20 @@ module.exports = function (req, res) {
         res.writeHead(200, {
             'content-type': mimeTypes[extension]
         });
-        fs.readFile('.' + req.path, 'utf8', (err, data) => {
-            res.write(data);
-            res.end();
-        });
+
+        //if we use readStream...
+        try {
+            const stream = fs.createReadStream('.' + req.path);
+            stream.pipe(res);
+        } catch (error) {
+            console.log(error);
+            return true ;
+        }
+
+        // fs.readFile('.' + req.path, 'utf8', (err, data) => {
+        //     res.write(data);
+        //     res.end();
+        // });
     } else {
         return true;
     }
