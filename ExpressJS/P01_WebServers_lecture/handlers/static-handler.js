@@ -3,7 +3,8 @@ const mimeTypes = {
     'css': 'text/css',
     'js': 'application/javascript',
     'png': 'image/png'
-}
+};
+
 
 module.exports = function (req, res) {
     if (req.path.startsWith('/static/')) {
