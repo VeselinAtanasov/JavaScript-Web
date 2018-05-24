@@ -9,7 +9,7 @@ function generateHesh(salt, pswd) {
     return hmac.update(pswd).digest('hex');
 }
 
-//to test:
+//to test the module
 let salt = generateSalt();
 let pass='vesko123';
 const heshedPswd=generateHesh(salt,pass);
