@@ -1,5 +1,5 @@
 const storage = require('./storage.js');
-console.log(storage)
+
 
 storage.load();
 storage.put('first','firstValue');

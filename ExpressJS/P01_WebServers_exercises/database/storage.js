@@ -1,4 +1,4 @@
-let db = () => {
+let db = (function () {
     const fs = require('fs');
     let storage = {
 
@@ -74,6 +74,6 @@ let db = () => {
         save,
         load
     };
-};
+})();
 
 module.exports = db;
