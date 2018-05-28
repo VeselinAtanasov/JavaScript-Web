@@ -13,19 +13,28 @@ let db = (function () {
         }
         storage[key] = value;
     }
-    function get(key) {
+    function get(key,callback) {
         if (typeof key !== 'string') {
             throw "The key parameter in get method should be a string";
         }
         if (!storage.hasOwnProperty(key)) {
             throw "The key parameter in get method is not resent in the db";
         }
-        return storage[key];
+        if(callback){
+            callback(storage[key]);
+        }else{
+            return storage[key];
+        }
+        
     }
-    function getAll() {
+    function getAll(callback) {
         if (Object.keys(storage).length === 0) {
             throw "The DB is empty";
         }
+        if(callback){
+            callback(storage);
+            return;
+        } 
         return storage;
 
     }
@@ -56,12 +65,10 @@ let db = (function () {
 
     function load(callback) {
         try{
-            storage =JSON.parse(fs.readFileSync('./storage.json'.JSON.stringify(storage),'utf8'))
+            storage =JSON.parse(fs.readFileSync('./storage.json'.JSON.stringify(storage),'utf8'));
         }catch(err){
             console.log('Error reading from file..');
         }
-        
-        // fs.readFileSync('./storage.json',JSON.parse( fs.writeFileSync('storage.json', JSON.stringify(db))), 'utf8');
     }
 
     return {
