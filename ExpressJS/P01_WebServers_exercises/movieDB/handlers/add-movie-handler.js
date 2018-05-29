@@ -15,7 +15,15 @@ module.exports = function (req, res) {
             res.end();
         });
     } else if (req.path === '/addMovie' && req.method == 'POST') {
-        console.log('Post method');
+        let form = new formidable.IncomingForm();
+        form.parse(req, function (err, fields, files) {
+            if(err){
+                console.log(err);
+                return;
+            }
+            console.log(fields);
+            console.log(files);
+        });
     } else {
         return true;
     }
