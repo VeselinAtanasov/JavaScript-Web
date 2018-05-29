@@ -1,4 +1,5 @@
 const fs = require('fs');
+var formidable = require('formidable');
 
 module.exports = function (req, res) {
     if (req.path === '/addMovie' && req.method == 'GET') {
@@ -13,7 +14,9 @@ module.exports = function (req, res) {
             res.write(data);
             res.end();
         });
-    }else{
+    } else if (req.path === '/addMovie' && req.method == 'POST') {
+        console.log('Post method');
+    } else {
         return true;
     }
 };
