@@ -3,8 +3,8 @@ const faviconIco = '/public/images/favicon.ico';
 
 module.exports = function (request, response) {
 
-    if (request.path === faviconIco) {
-        fs.readFile('..' + faviconIco, function (err, data) {
+    if (request.path === '/favicon.ico') {
+        fs.readFile('.' + faviconIco, function (err, data) {
             if (err) {
                 console.log(err);
                 return;
@@ -15,7 +15,7 @@ module.exports = function (request, response) {
             response.write(data);
             response.end();
         });
-    }else{
+    } else {
         return true;
     }
-}
+};

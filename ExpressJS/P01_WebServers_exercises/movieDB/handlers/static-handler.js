@@ -6,6 +6,21 @@ const mimeTypes = {
     'ico': 'image/x-icon'
 };
 
+// let getContentType = (url) => {
+//     let contentType = '';
+//     if (url.endsWith('.css')) {
+//         contentType = 'text/css'
+//     } else if (url.endsWith('.js')) {
+//         contentType = 'application/javascript'
+//     } else if (url.endsWith('.png')) {
+//         contentType = 'image/png'
+//     } else if (url.endsWith('.jpg')) {
+//         contentType = 'image/jpeg'
+//     }
+
+//     return contentType;
+// }
+
 module.exports = function (req, res) {
     console.log(req.path);
     if (req.path.startsWith('/public/') && req.method === 'GET') {
@@ -24,3 +39,4 @@ module.exports = function (req, res) {
         return true;
     }
 };
+
