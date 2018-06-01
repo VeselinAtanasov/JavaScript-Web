@@ -9,7 +9,7 @@ module.exports = function (req, res) {
     if ((req.path === '/' || req.path === '/index.html' || req.path === '/home.html') && req.method === 'GET') {
         fs.readFile('./views/home.html', 'utf8', function (err, data) {
             if (err) {
-                fs.readFile('../views/error.html', 'utf8', function (err, data) {
+                fs.readFile('../views/error.html','utf8',function(err,data){
                     res.writeHead(404, {
                         'content-type': 'text/html'
                     });

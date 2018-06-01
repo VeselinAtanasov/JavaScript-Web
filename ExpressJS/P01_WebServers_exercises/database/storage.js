@@ -1,5 +1,6 @@
 let db = (function () {
     const fs = require('fs');
+    const STORAGE_PATH = './package.json';
     let storage = {
 
     };
@@ -13,28 +14,28 @@ let db = (function () {
         }
         storage[key] = value;
     }
-    function get(key,callback) {
+    function get(key, callback) {
         if (typeof key !== 'string') {
             throw "The key parameter in get method should be a string";
         }
         if (!storage.hasOwnProperty(key)) {
             throw "The key parameter in get method is not resent in the db";
         }
-        if(callback){
+        if (callback) {
             callback(storage[key]);
-        }else{
+        } else {
             return storage[key];
         }
-        
+
     }
     function getAll(callback) {
         if (Object.keys(storage).length === 0) {
-            throw "The DB is empty";
+            console.log("The DB is empty");
         }
-        if(callback){
+        if (callback) {
             callback(storage);
             return;
-        } 
+        }
         return storage;
 
     }
@@ -57,18 +58,36 @@ let db = (function () {
         delete storage[key];
     }
     function clear() {
-        storage={};
+        storage = {};
     }
-    function save() {
-        fs.writeFileSync('./storage.json', JSON.stringify(storage), 'utf8');
+    function save(callback) {
+        let json = JSON.stringify(storage);
+
+        fs.writeFile(STORAGE_PATH, json, 'utf-8', function (err) {
+            if (err) {
+                console.log(err);
+
+                return;
+            }
+
+            callback();
+        });
     }
 
     function load(callback) {
-        try{
-            storage =JSON.parse(fs.readFileSync('./storage.json'.JSON.stringify(storage),'utf8'));
-        }catch(err){
-            console.log('Error reading from file..');
-        }
+        
+        fs.readFile('./storage.json', (err, data) => {
+            console.log("Try to load the data");
+            if (err) {
+                console.log(err);
+                console.log("Try to load the data");
+                return;
+            }
+            console.log("Data was save successfully!");
+            storage = JSON.parse(data);
+            console.log(storage);
+            callback();
+        });
     }
 
     return {

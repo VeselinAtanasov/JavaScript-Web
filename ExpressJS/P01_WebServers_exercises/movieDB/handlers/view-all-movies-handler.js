@@ -1,10 +1,11 @@
 const fs = require('fs');
+const formidable = require('formidable');
 const db = require('../config/dataBase.js');
 
 
 module.exports = function (req, res) {
-    if (req.path.startsWith('/details/')) {
-        fs.readFile('./views/details.html', 'utf8', function (err, data) {
+    if (req.path === '/viewAllMovies' && req.method === 'GET') {
+        fs.readFile('./views/viewAll.html', 'utf8', function (err, data) {
             if (err) {
                 fs.readFile('./views/error.html', 'utf8', function (err, data) {
                     res.writeHead(404, {
@@ -15,25 +16,24 @@ module.exports = function (req, res) {
                 });
                 return;
             }
-
             res.writeHead(200, {
                 'content-type': 'text/html'
             });
-            let id = req.path.split('/').pop();
-            let film = db.getById(id);
+            let films = db.getAllFilms();
 
-            let userData = `<div class="content">
-            <img src="${film.moviePoster}" alt=""/>
-            <h3>Title  ${film.movieTitle}</h3>
-            <h3>Year ${film.movieYear}</h3>
-            <p> ${film.movieDescription}</p>
-        </div>
-        `;
-            let html = data.toString().replace('<div id="replaceMe">{{replaceMe}}</div>', userData);
+            let allFilms = '';
+            for (let i=0; i<films.length ;i++) {
+                let film =films[i];
+                allFilms += `<div class="movie">
+                <img class="moviePoster" src="${film.moviePoster}"/>  
+                <a href=/details/${i}>Diteils</a>        
+              </div>`;
+            }
+            let html = data.toString().replace('<div id="replaceMe">{{replaceMe}}</div>', allFilms);
+
             res.write(html);
             res.end();
         });
-
     } else {
         return true;
     }

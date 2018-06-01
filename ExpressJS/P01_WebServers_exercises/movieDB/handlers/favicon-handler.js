@@ -1,9 +1,9 @@
 const fs = require('fs');
-const faviconIco = '/public/images/favicon.ico';
+const faviconIco = '/pictures/favicon.ico';
 
 module.exports = function (request, response) {
 
-    if (request.path === '/favicon.ico') {
+    if (request.path === faviconIco) {
         fs.readFile('.' + faviconIco, function (err, data) {
             if (err) {
                 console.log(err);
@@ -15,7 +15,7 @@ module.exports = function (request, response) {
             response.write(data);
             response.end();
         });
-    } else {
+    }else{
         return true;
     }
-};
+}

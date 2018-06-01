@@ -1,4 +1,4 @@
-const port = 6900;
+const port = 3100;
 const http = require('http');
 const url = require('url');
 const fs = require('fs');
@@ -12,9 +12,6 @@ http.createServer(function (req, res) {
             break;
         }
     }
-
-
-
 }).listen(port);
 
 console.log(`Server is up and listening on port :${port}...`);
