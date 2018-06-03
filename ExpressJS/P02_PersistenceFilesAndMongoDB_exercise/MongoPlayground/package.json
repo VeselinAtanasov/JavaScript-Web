@@ -1,0 +1,20 @@
+{
+  "name": "mongoplayground",
+  "version": "1.0.0",
+  "description": "MongoDb and Mongoose practice",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mongoDB",
+    "mongoose"
+  ],
+  "author": "VA",
+  "license": "MIT",
+  "dependencies": {
+    "formidable": "1.2.1",
+    "mongodb": "3.0.9",
+    "mongoose": "^5.1.3"
+  }
+}
