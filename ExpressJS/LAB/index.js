@@ -1,19 +1,22 @@
+
+const config = require('./config/config.js');
+const database = require('./config/database.config.js');
+const url = require('url');
+const express = require('express');
+const app = express();
+
+const environment = process.env.NODE_ENV || 'development';
 const http = require('http');
 const port = 3001;
-const url = require('url');
-const handlers = require('./handlers/index.js');
 
-http.createServer(function (request, response) {
-    request.pathname=url.parse(request.url).pathname;
-    
-    for (let handler of handlers) {
-        let result = handler(request, response);
-        if (!result) {
-            break;
-        }
-    };
+const handlers = require('./controllers/index.js');
 
-}).listen(port);
 
+
+database(config[environment]);
+require('./config/express.js')(app, config[environment]);
+require('./config/routers.js')(app);
+require('./config/passport')();
+app.listen(port);
 
 console.log(`Server is listening on port : ${port}`);

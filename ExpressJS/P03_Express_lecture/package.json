@@ -1,0 +1,18 @@
+{
+  "name": "p03_express_lecture",
+  "version": "1.0.0",
+  "description": "Introduction to Express.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "VA",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "1.18.3",
+    "express": "4.16.3"
+  }
+}
