@@ -1,30 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>My Cool Blog System</title>
-  <link href="/css/site.css" type="text/css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <title>Doner Place</title>
+    {{#if error}}
+    <p class="error">{{error}}</p>
+    {{/if}}
+    <link href="/static/css/site.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <ul class="menu">
-      <li><a href="/">Home</a></li>
-      <li><a href="/about">About</a></li>
-      <li></li>
-      {{#if currentUser}}
-        <li>{{currentUser.username}}</li>
-        <li>
-          <form id="logout-form" action="/users/logout" method="POST"></form>
-          <a href="javascript:document.getElementById('logout-form').submit()">Logout</a>
-        </li>
-      {{else}}
-        <li><a href="/users/register">Register</a></li>
-        <li><a href="/users/login">Login</a></li>
-      {{/if}}
-    </ul>
-    {{#if globalError}}
-      <h3>{{globalError}}</h3>
-    {{/if}}
-    {{{body}}}
-  </div>
+    <div class="container">
+        <header>
+            <span class="logo">Doner  Place</span>
+            {{#if currentUser}}
+            <form id="logout-form" action="/users/logout" method="POST"></form>
+            <span class="greeting">Welcome, {{currentUser.firstName}} {{currentUser.lastName}}! | <a href="javascript:document.getElementById('logout-form').submit()">[logout]</a></span>
+            {{/if}}
+            <ul class="menu">
+				<li><a class="button" href="/">Home</a></li>
+                    {{#if currentUser}}
+                <li><a class="button" href="/order">Order Status</a></li>
+                     {{else}}
+                <li><a class="button" href="/users/login">Login</a></li>
+                <li><a class="button" href="/users/register">Register</a></li>
+                {{/if}}
+            </ul>
+        </header>
+        <main>
+ {{{body}}}
+        </main>
+        <footer>Doner Place &copy; 2017</footer>
+    </div>
 </body>
 </html>

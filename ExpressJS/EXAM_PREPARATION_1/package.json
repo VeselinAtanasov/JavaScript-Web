@@ -1,17 +1,17 @@
 {
-  "name": "blog-system",
+  "name": "douner-system",
   "version": "0.0.1",
-  "description": "Blog System",
+  "description": "Douner System",
   "main": "index.js",
   "engines": {
     "node": "7.10.0",
     "npm": "4.2.0"
   },
   "keywords": [
-    "blog",
+    "douner",
     "system"
   ],
-  "author": "IK",
+  "author": "VA",
   "license": "MIT",
   "dependencies": {
     "body-parser": "1.17.2",

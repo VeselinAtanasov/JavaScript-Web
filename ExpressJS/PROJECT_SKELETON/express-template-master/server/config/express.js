@@ -34,7 +34,9 @@ module.exports = (app) => {
         next();
     });
 
-    app.use(express.static('public'));
+    
+	  app.use(express.static('public')); // could be also static...
+    //app.use('/static',express.static('static'));  //this should works without chaging the path in ht html
 
     console.log('Express ready!');
 };

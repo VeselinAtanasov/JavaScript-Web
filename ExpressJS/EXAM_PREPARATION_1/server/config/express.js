@@ -30,11 +30,11 @@ module.exports = (app) => {
         if (req.user) {
             res.locals.currentUser = req.user;
         }
-
         next();
     });
 
-    app.use(express.static('public'));
+    //app.use(express.static('static')); // could be also static...
+    app.use('/static',express.static('static'));  //this should works without chaging the path in ht html
 
     console.log('Express ready!');
 };

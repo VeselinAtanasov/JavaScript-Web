@@ -9,6 +9,7 @@ module.exports = (settings) => {
 
     db.once('open', err => {
         if (err) {
+            console.log('MongoDB is not running...');
             throw err;
         }
 
