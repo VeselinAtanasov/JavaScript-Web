@@ -1,0 +1,17 @@
+<h1></h1>
+    Welcome to SoftUni Wiki!</h1>
+<section>
+    <h2>All articles</h2>
+    <div class="spacer">
+        <ul>
+            {{#each allArticles}}
+            <li>
+                <a href="/article/details/{{this._id}}">{{this.title}}</a>
+            </li>
+            {{else}}
+            <p>No Articles in DB</p>
+            {{/each}}
+            
+        </ul>
+    </div>
+</section>
