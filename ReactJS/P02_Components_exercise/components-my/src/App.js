@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Slider from './components/Slider';
 import Requestor from './components/RosterRequestor';
-import Hero from './components/HeroDetails';
-import observerMenu from './utils/observer.js';
+import Hero from './components/Hero';
 import './App.css';
 
 class App extends Component {
@@ -14,23 +13,29 @@ class App extends Component {
         this.eventHandler = this.eventHandler.bind(this);
     }
     eventHandler(newState) {
-
+        console.log('The state for updating update:'+newState)
+        // this.setState((prevState) =>{
+        //     let focusedPicture=prevState.focusedPicture;
+        //     focusedPicture=newState;
+        //     console.log(`After the ubdate the state is :`+focusedPicture);
+        //     return{
+        //         focusedPicture
+        //     };
+        // });
         this.setState({
             focusedPicture: newState
         });
-    }
-    componentDidMount() {
-        observerMenu.addObserver('changeFocus', this.eventHandler);
-        console.log(this.state.focusedPicture)
+        console.log(`After the ubdate the state is :`+this.state.focusedPicture);
+
     }
 
     render() {
         return (
             <div className="App">
                 <Slider />
-                <Requestor />
-                {console.log('State from App: ' + this.state.focusedPicture)}
-                <Hero change={this.state.focusedPicture} />
+                <Requestor func={this.eventHandler} />
+                {console.log('rerender '+this.state.focusedPicture)}
+                <Hero change={this.state.focusedPicture}  />
             </div>
         );
     }
