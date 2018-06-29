@@ -1,29 +1,34 @@
 
 import React, { Component } from 'react';
-import observerMenu from '../utils/observer';
+
 
 class Image extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
+        this.state = {
+            id: ''
+        };
 
-        this.getDetails=this.getDetails.bind(this);
+        this.getDetails = this.getDetails.bind(this);
     }
 
-    getDetails(){
-        console.log('From Image....');
-        console.log(this.props.params.id);
-        observerMenu.executeObserver('changeFocus',this.props.params.id);
+    getDetails() {
+        this.setState((prevState) => {
+            let id = this.props.params.id;
+            this.props.func(id);
+        });
     }
 
     render() {
-
         return (
+            
             <img
                 className='hero-image'
                 alt='img'
                 src={this.props.params.url}
-                onClick={this.getDetails} 
+                onClick={this.getDetails}
             />
+        
         );
     }
 }
