@@ -1,12 +1,11 @@
 {
-  "name": "components-my",
+  "name": "demo-form",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4",
-    "@amcharts/amcharts3-react": "^3.0.0"
+    "react-scripts": "1.1.4"
   },
   "scripts": {
     "start": "react-scripts start",

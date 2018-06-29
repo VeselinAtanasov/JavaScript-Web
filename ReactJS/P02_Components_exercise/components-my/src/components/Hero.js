@@ -19,7 +19,7 @@ class Hero extends Component {
     render() {
         return (
             <div>
-                <fieldset>
+                <fieldset className="field">
                     <div></div>
                     <p>{this.props.params.name}</p>
                     <Image params={this.props.params} func={this.dummyCallback}/>
