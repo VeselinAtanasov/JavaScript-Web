@@ -7,12 +7,15 @@ class Hero extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            hero: ''
+            id: ''
         };
+        this.pressed = this.pressed.bind(this);
     }
 
-    componentWillReceiveProps() {
+    componentWillUpdate(newProps) {
+
         let Id = this.props.change;
+        console.log('updating....' + Id)
         fetch('http://localhost:9999/character/' + Id)
             .then(data => {
                 return data.json();
@@ -27,11 +30,19 @@ class Hero extends Component {
                     bio: parseData.bio
                 });
             });
+
+    }
+
+    pressed(id) {
+        this.setState({
+            id: id
+        });
+        console.log(`From Pressed method :` + this.state.id);
     }
     componentDidMount() {
-
+        console.log('did mount')
         let Id = this.props.change;
-
+        console.log('did mount' + Id)
         fetch('http://localhost:9999/character/' + Id)
             .then(data => {
                 return data.json();
