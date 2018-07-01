@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  max-width: 600px,
 }
 
 .App-logo {
@@ -21,11 +22,15 @@
 .App-intro {
   font-size: large;
 }
+.red-error{
+  background-color: red
+}
+.bordered{
+  display: inline-block;
+  border: 2px solid orange
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
-div{
-  margin: 25px
 }

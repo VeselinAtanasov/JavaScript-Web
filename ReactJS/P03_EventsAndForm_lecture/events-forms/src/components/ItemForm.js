@@ -5,7 +5,8 @@ class ItemForm extends Component {
         super(props);
 
         this.state={
-            itemName:''
+            itemName:'',
+            error: ''
         };
 
         this.onInputChangedEvent =this.onInputChangedEvent.bind(this);
@@ -19,11 +20,18 @@ class ItemForm extends Component {
     }
     onItemSaved(event){
         event.preventDefault();
+        if(!this.setState.itemName){
+            this.setState({
+                error: 'Item cannot be empty'
+            });
+            return ;
+        }
         this.props.addItem(this.state.itemName);
     }
     render(){
         return  (
             <form onSubmit={this.onItemSaved}>
+                <div>{this.state.error}</div>
                 Item Name:
                 <input 
                     type="text"

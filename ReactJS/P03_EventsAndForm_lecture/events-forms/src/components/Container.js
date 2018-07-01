@@ -19,7 +19,7 @@ class Container extends Component{
                 id:items.length+1,
                 name:itemName
             });
-            return{ items };
+            return { items };
         });
     }
     render(){
