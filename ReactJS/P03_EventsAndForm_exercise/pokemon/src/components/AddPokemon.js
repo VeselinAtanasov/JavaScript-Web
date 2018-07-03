@@ -7,7 +7,7 @@ class AddPokemon extends Component {
         super(props);
         this.state = {
             pokemons: [],
-        }
+        };
         this.rerenderApp = this.rerenderApp.bind(this);
         this.renderLogin = this.renderLogin.bind(this);
         this.renderRegister = this.renderRegister.bind(this);

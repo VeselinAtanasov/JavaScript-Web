@@ -24,6 +24,7 @@ class SignUpForm extends Component {
         this.setState({ form });
     }
     handleSubmit(event) {
+        let varia = '';
         event.preventDefault();
         //Set request to the server:
         fetch(

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-
 class AddPokemonForm extends Component {
     constructor(props) {
         super(props);
@@ -19,19 +18,19 @@ class AddPokemonForm extends Component {
         fetch(
             'http://localhost:5000/pokedex/create',
             {
-                method:"POST",
+                method: "POST",
                 body: JSON.stringify(this.state.pokemon),
                 headers: {
                     'Content-Type': 'application/json'
                 }
 
             })
-            .then(data =>{console.log(data);})
+            .then(data => { console.log(data); })
             .then(pokemon => {
                 this.props.rerenderApp();
             })
             .catch(err => console.log(err));
-            
+
     }
     handleInputChanged(event) {
         let pokemon = this.state.pokemon;
