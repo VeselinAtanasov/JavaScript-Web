@@ -1,11 +1,8 @@
 {
-  "name": "events-forms",
+  "name": "hoc-demo",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bootstrap": "^4.1.1",
-    "eslint": "^5.0.1",
-    "exact": "^0.8.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4"

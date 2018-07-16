@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
 import SignUpForm from './components/sign-up-components/SignUpForm';
 import LoginForm from './components/login-form/LoginForm';
 import AddPokemonForm from './components/AddPokemon';
-import './App.css';
+import './App.css'
 
 
 class App extends Component {
@@ -41,7 +40,7 @@ class App extends Component {
         });
     }
     render() {
-      console.log(this.state.route)
+        console.log(this.state.route)
         return (
             <div className="App">
                 {this.getCorrectPage()}
