@@ -1,0 +1,30 @@
+<input #name placeholder="username" />
+<button (click) = "showName(name.value)">Show Name</button>
+<br>
+<!-- Two way bindings: helpful in case of edit of forms... -->
+<h1 *ngIf="username">You name is: {{username}} </h1>
+<input [(ngModel)]="username" placeholder="two-way-binding" />
+<button >Two Way Binding</button>
+<br>
+<div *ngIf = "games">
+  <ul>
+    <!-- to display the index of the element in array can use i = index in the for of: -->
+    <li *ngFor= "let game of games; let i = index">
+      <h1 [class.myStyle]="isShown">{{game.title | titlecase}}</h1>
+      <h5>Current Id: {{game.id}} and Current Index: {{i}} </h5>
+      <br/>
+      <img src="{{game.image}}" alt="picture">
+      <br/>
+      <!-- nesting of components -> I am using the selector app-subscribe -->
+      <!-- this is the way to handle info from child in the parent -->
+      <app-subscribe (notification)="showNotification($event)" [subGameProp]="game"></app-subscribe>
+    </li>
+  </ul>
+  <!-- attach events -->
+  <button (click)="showContacts(event$)" [style.color]="isShown ? 'red': 'blue'">Show Contacts</button>
+</div>
+<div *ngIf="isShown">
+ <h1>Our Contacts....</h1> 
+ <!-- property binding: -->
+  <img [src]="games[0].image" alt="">
+</div> 
