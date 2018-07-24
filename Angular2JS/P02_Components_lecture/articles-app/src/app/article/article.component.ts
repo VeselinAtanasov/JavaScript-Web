@@ -27,9 +27,11 @@ export class ArticleComponent implements OnInit {
 
   readMore(){
     this.articleDescLen = this.symbols;
+    this.descToShow = this.articleDesc;
     if(this.articleDescLen>=this.articleDesc.length){
-      this.showReadMoreBtn=false;
+
       this.showHideBtn=true;
+      this.showReadMoreBtn=false;
     }else{
       this.descToShow = this.articleDesc.substring(0,this.articleDescLen);
     }
