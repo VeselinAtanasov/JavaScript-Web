@@ -22,8 +22,8 @@ export class SubscribeComponent implements OnInit {
     //the idea is to show notification to the subscriber that the subscription is succ/unsucc
     //so we need to send info from the child to the parent :
 
+	
     this.notification.emit('You were successfully subscribed')
-
   }
 
 }
