@@ -1,0 +1,26 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+</div>
+
+<!-- Define router: -->
+<nav>
+  <ul>
+   <li>
+     <a routerLink="/home">Home</a>
+   </li>
+   <li>
+    <a routerLink="/about">About</a>
+  </li>
+  <li>
+    <a routerLink="/about/:id/:name">About with Params</a>
+  </li>
+  </ul>
+</nav>
+
+<!-- Instead of having many components selectors:
+<app-home></app-home>
+We define only one - specific for the router: -->
+<router-outlet></router-outlet>
