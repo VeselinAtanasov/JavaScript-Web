@@ -1,0 +1,74 @@
+<div class="jumbotron">
+  <div class="container">
+    <h1>Find a movie</h1>
+    <p>Search for a movie using the form below:</p>
+    <form #searchForm="ngForm" (submit)="findMovie(searchForm.value)">
+      <input type="text" class="form-control" name="search" ngModel>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  </div>
+</div>
+
+<div class="panel panel-default" *ngIf="searchedMovie">
+    <div class="panel-heading">
+      <h3 class="panel-title">Searched Movies</h3>
+    </div>
+    <div class="panel-body">
+      <div *ngIf="searchedMovie" class="row">
+        <div *ngFor="let movie of searchedMovie.results;let i=index" class="col-md-2">
+          <app-movie [movie]="movie" [index]="i"></app-movie>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Popular Movies</h3>
+  </div>
+  <div class="panel-body">
+    <div *ngIf="popularFilms" class="row">
+      <div *ngFor="let movie of popularFilms;let i=index" class="col-md-2">
+        <app-movie [movie]="movie" [index]="i"></app-movie>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">In Theaters</h3>
+  </div>
+  <div class="panel-body">
+    <div *ngIf="theatersFilms" class="row">
+      <div *ngFor="let movie of theatersFilms;let i=index" class="col-md-2">
+        <app-movie [movie]="movie" [index]="i"></app-movie>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Kids</h3>
+  </div>
+  <div class="panel-body">
+    <div *ngIf="kidsFilms" class="row">
+      <div *ngFor="let movie of kidsFilms;let i=index" class="col-md-2">
+        <app-movie [movie]="movie" [index]="i"></app-movie>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Dramas</h3>
+  </div>
+  <div class="panel-body">
+    <div *ngIf="dramaFilms" class="row">
+      <div *ngFor="let movie of dramaFilms;let i=index" class="col-md-2">
+        <app-movie [movie]="movie" [index]="i"></app-movie>
+      </div>
+    </div>
+  </div>
+</div>
