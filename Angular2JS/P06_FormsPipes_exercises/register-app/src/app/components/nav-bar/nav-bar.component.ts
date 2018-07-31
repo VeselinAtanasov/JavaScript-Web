@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { UserAdministration } from '../../services/user.administration-service';
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-nav-bar',
@@ -20,6 +20,7 @@ export class NavBarComponent implements OnInit {
       .logout()
       .subscribe(data => {
         localStorage.clear();
+        this.router.navigate(['/login'])
       }, err => this.error=err
       )
   }

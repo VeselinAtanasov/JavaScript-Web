@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { LoginModel } from '../../models.ts/login-model';
 import { UserAdministration } from '../../services/user.administration-service';
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login-form',

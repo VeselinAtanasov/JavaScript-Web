@@ -16,6 +16,7 @@ import { RegisterFormComponent } from './authentication/register-form/register-f
 
 //Services:
 import { UserAdministration } from './services/user.administration-service';
+import { AuthenticatedGuard } from './guards/authentication.guard';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { UserAdministration } from './services/user.administration-service';
     HttpClientModule,
     FormsModule    
   ],
-  providers: [UserAdministration],
+  providers: [UserAdministration, AuthenticatedGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
