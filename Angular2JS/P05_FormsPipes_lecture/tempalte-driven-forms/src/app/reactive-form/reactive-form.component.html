@@ -1,0 +1,24 @@
+<h2>Reactive Form Example:</h2>
+<div class="alert alert-danger" *ngIf="err"> {{err}}</div>
+
+<form (ngSubmit)="saveData()" [formGroup]="loginReactiveForm" >
+  <div class="form-group">
+    <label for="">Current Password</label>
+    <!-- name= is not needed here instead formControlName is needed! -->
+    <input type="text" class="form-control" formControlName="currentPass" required>
+    <!-- How to make validation: -->
+    <div  class="alert alert-danger" *ngIf="loginReactiveForm.get('currentPass') && loginReactiveForm.get('currentPass').touched && loginReactiveForm.get('currentPass').invalid">
+      <div  *ngIf="loginReactiveForm.get('currentPass').errors.required"> Filed is required </div>
+      <div  *ngIf="loginReactiveForm.get('currentPass').errors.minLength"> Minimum length is 3 chars </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="">New Password</label>
+    <input type="text" class="form-control" formControlName="newPass" required>
+  </div>
+  <div class="form-group">
+    <label for="">Repeat New Password</label>
+    <input type="text" class="form-control" formControlName="repNewPass" required>
+  </div>
+<button  type="submit" class="btn btn-primary">Submit</button>
+</form>

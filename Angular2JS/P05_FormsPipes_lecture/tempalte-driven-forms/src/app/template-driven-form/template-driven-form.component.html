@@ -1,0 +1,29 @@
+<h2>Template - Driven Form Example:</h2>
+<div class="alert alert-danger" *ngIf="hasError">Error from server</div>
+<form #loginForm="ngForm" (submit)="login(loginForm.value)">
+  <!-- Two way binding and name attribute is Mandatory.... -->
+  <div class="form-group">
+    <label for="">Processor address</label>
+    <input type="text" class="form-control" name="processor" required  [(ngModel)]="model.processor">
+  </div>
+  <!-- Instead of using 2way binding we can use also #variable syntax: -->
+  <div class="form-group">
+    <label for="">Email address</label>
+    <input (click)="log(emailVar)" type="email" class="form-control" name="email" #emailVar="ngModel" required ngModel>
+    <!-- All errors reagarding the input field are in the email.errors.required, .valid ... -->
+    <!-- We can use errors? which means optionally checks if errors exists: -->
+    <div class="alert alert-danger" *ngIf="emailVar.touched && emailVar.errors?.required">Email is required!</div>
+  </div>
+  <div class="form-group">
+    <label for="">Password</label>
+    <input type="password" class="form-control" name="pass" #passVar="ngModel" ngModel required minlength="3" maxlength="6">
+    <!-- Instead of using ? we can chain divs: -->
+    <div class="alert alert-danger" *ngIf="passVar.touched && passVar.errors">
+      <div *ngIf="passVar.errors.required">Password is required!</div>
+      <div *ngIf="passVar.errors.minlength">Min length should be 3 chars!</div>
+      <div *ngIf="passVar.errors.maxlength">Max length should be 6 chars!</div>
+    </div>
+  </div>
+  <!-- How to hide the button in and make it visible only when the date is valid: -->
+<button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary">Submit</button>
+</form>
