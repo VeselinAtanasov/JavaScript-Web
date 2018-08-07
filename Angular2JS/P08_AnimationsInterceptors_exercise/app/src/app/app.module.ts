@@ -6,6 +6,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app.routing';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { SigninComponent } from './authentication/signin/signin.component';
@@ -14,6 +16,12 @@ import { HomeComponent } from './home/home.component';
 import { AuthService } from './authentication/auth.service';
 import { JwtInterceptors } from './interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { CreateFurnitureComponent } from './furnitures/create-furniture/create-furniture.component';
+
+
+//Services:
+import {FurnitureService} from './services/furniture.service'
+import { SuccessInterceptor } from './interceptors/success.interceptor';
 
 
 @NgModule({
@@ -22,18 +30,21 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     NavigationComponent,
     SigninComponent,
     SignupComponent,
-    HomeComponent
+    HomeComponent,
+    CreateFurnitureComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     ToastrModule.forRoot()
   ],
   providers: [ 
     AuthService,
+    FurnitureService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptors,
@@ -42,6 +53,11 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SuccessInterceptor,
       multi: true
     }
 

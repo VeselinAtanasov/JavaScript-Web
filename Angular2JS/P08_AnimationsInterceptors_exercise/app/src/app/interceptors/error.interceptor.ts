@@ -25,6 +25,8 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this.toastr.error(err.error.message, "Warning!");
                     break;
                 case 400:
+                console.log(err)
+                this.toastr.error(err.error.message, "Error!");
                     break;
             }
 
