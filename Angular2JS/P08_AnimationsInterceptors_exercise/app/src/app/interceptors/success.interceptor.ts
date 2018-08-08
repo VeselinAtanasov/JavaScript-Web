@@ -17,7 +17,7 @@ export class SuccessInterceptor implements HttpInterceptor {
 
     constructor(private toastr: ToastrService, private router: Router) { }
 
-    
+
     private saveToken(data) {
         localStorage.setItem('currentUser', JSON.stringify({
             username: data.user.name,
@@ -33,13 +33,28 @@ export class SuccessInterceptor implements HttpInterceptor {
                 if (res instanceof HttpResponse && res.body.token) {
                     this.saveToken(res.body)
                     this.toastr.success(res.body.message, "Success!")
-                    this.router.navigate(['/furniture/create'])
+                    this.router.navigate(['/home'])
                 } else if (res instanceof HttpResponse && res.body.success && res.url.endsWith('signup')) {
                     this.toastr.success(res.body.message, "Success!")
                     this.router.navigate(['/signin'])
+                }else if (res instanceof HttpResponse && res.body.success && res.url.endsWith('signin')) {
+                    this.toastr.success(res.body.message, "Success!")
+                    this.router.navigate(['/furniture/all'])
                 } else if (res instanceof HttpResponse && req.url.endsWith('create')) {
                     this.toastr.success(res.body.message);
-                    this.router.navigate(['/all']);
+                    this.router.navigate(['/furniture/all']);
+                } else if (res instanceof HttpResponse && req.url.indexOf('details') !== -1) {
+                    if (res.body.message) {
+                        this.toastr.error(res.body.message);
+                        this.router.navigate(['/all']);
+                    }
+                } else if (res instanceof HttpResponse && req.url.indexOf('delete') !== -1) {
+                    if (res.body.success) {
+                        this.toastr.success(res.body.message);
+                    } else {
+                        this.toastr.error(res.body.message);
+                        this.router.navigate(['/myFurniture']);
+                    }
                 }
             }))
     }

@@ -17,7 +17,9 @@ import { AuthService } from './authentication/auth.service';
 import { JwtInterceptors } from './interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { CreateFurnitureComponent } from './furnitures/create-furniture/create-furniture.component';
-
+import { AllFurnitureComponent } from './furnitures/all-furniture/all-furniture.component';
+import { MyFurnitureComponent } from './furnitures/my-furniture/my-furniture.component';
+import { FurnitureDetailsComponent } from './furnitures/furniture-details/furniture-details.component';
 
 //Services:
 import {FurnitureService} from './services/furniture.service'
@@ -31,7 +33,10 @@ import { SuccessInterceptor } from './interceptors/success.interceptor';
     SigninComponent,
     SignupComponent,
     HomeComponent,
-    CreateFurnitureComponent
+    CreateFurnitureComponent,
+    AllFurnitureComponent,
+    MyFurnitureComponent,
+    FurnitureDetailsComponent
   ],
   imports: [
     BrowserModule,

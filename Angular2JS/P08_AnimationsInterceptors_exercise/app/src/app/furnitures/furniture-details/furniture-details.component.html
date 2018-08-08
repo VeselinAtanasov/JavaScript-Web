@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row space-top">
+      <div class="col-md-12">
+          <h1>Furniture Details</h1>
+      </div>
+  </div>
+  <div *ngIf="currentFurniture" class="row space-top">
+      <div class="col-md-4">
+          <div class="card text-white bg-primary">
+              <div class="card-body">
+                  <blockquote class="card-blockquote">
+                      <img src="{{currentFurniture.image}}" />
+                  </blockquote>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-4">
+          <p>Make: {{currentFurniture.make}}</p>
+          <p>Model: {{currentFurniture.model}}</p>
+          <p>Year: {{currentFurniture.year}}</p>
+          <p>Description: {{currentFurniture.description}}</p>
+          <p>Price: {{currentFurniture.price}}</p>
+          <p>Material: {{currentFurniture.material}}</p>
+      </div>
+  </div>
+</div>

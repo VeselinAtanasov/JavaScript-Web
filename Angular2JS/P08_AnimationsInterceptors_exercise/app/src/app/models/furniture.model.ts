@@ -9,7 +9,5 @@ export class Furniture {
         public description: string,
         public image: string,
         public price: number,
-        public material?: string) {
-
-    }
+        public material?: string) { }
 }

@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 
 import { Furniture } from '../models/furniture.model';
+import { SingleFurniture } from "../models/single-furniture.model";
 
 const baseUrl = 'http://localhost:5000/furniture/';
 const createEndpoint = baseUrl + 'create';
@@ -16,7 +17,19 @@ const editEndpoint = baseUrl + 'edit/';
 export class FurnitureService {
     constructor(private http: HttpClient) { }
 
-    create(data: Furniture): Observable<Furniture> {
+    createFurniture(data: Furniture): Observable<Furniture> {
         return this.http.post<Furniture>(createEndpoint, JSON.stringify(data));
-      }
+    }
+    getAllFurniture(): Observable<Array<SingleFurniture>>{
+         return this.http.get<SingleFurniture[]>(getAllEndpoint)
+    }
+    getFurnitureDetails(id: string) : Observable<SingleFurniture>{
+        return this.http.get<SingleFurniture>(detailsEndpoint+id)
+    }
+    getMyFurniture() : Observable<SingleFurniture[]>{
+        return this.http.get<SingleFurniture[]>(myFurnitureEndpoint)
+    }
+    deleteFurniture(id: string) : Observable<SingleFurniture>{
+        return this.http.delete<SingleFurniture>(deleteEndpoint + id);
+    }
 }
