@@ -1,0 +1,14 @@
+<div class="jumbotron">
+  <div class="container">
+    <h1>Register User</h1>
+    <form #registerForm="ngForm" (submit)="register(registerForm.value)">
+      username
+      <input type="text" class="form-control" name="username" ngModel>
+      password
+      <input type="text" class="form-control" name="password" ngModel>
+      <button type="submit" class="btn btn-primary">[Register]</button>
+    </form>
+  </div>
+</div> 
+
+

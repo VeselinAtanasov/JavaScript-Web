@@ -1,0 +1,63 @@
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable } from "rxjs";
+
+const appKey = "kid_B1UadEnVQ" // APP KEY HERE;
+const appSecret = "d856bfb0d1e44ae5ba534e8328127eea" // APP SECRET HERE;
+const masterSecret = "e60e6ef53c68450f951ce8ad9ff5c53a"; //Used for the roles
+const registerUrl = `https://baas.kinvey.com/user/${appKey}`;
+const roleUrl = `https://baas.kinvey.com/roles/${appKey}`
+const loginUrl = `https://baas.kinvey.com/user/${appKey}/login`;
+
+
+@Injectable()
+export class UserService {
+    constructor(private http: HttpClient) { }
+
+    deleteUser(userId){
+        let url = registerUrl +'/'+userId
+        return this.http
+        .delete(url, {
+            headers: new HttpHeaders({
+                'Authorization': `Kinvey ${localStorage.getItem('authToken')}`,
+                'Content-Type': 'application/json'
+            })
+        })
+       // GET to /user/:appKey/:id
+    }
+
+    /**
+     * This method retrieve all user Information
+     * @param userId 
+     */
+    retrieveUser(userId){
+        let url = registerUrl +'/'+userId
+        return this.http
+        .get(url, {
+            headers: new HttpHeaders({
+                'Authorization': `Kinvey ${localStorage.getItem('authToken')}`,
+                'Content-Type': 'application/json'
+            })
+        })
+       // GET to /user/:appKey/:id
+    }
+
+    register(user) {
+        return this.http
+            .post(registerUrl, user, {
+                headers: new HttpHeaders({
+                    'Authorization': `Basic ${btoa(`${appKey}:${appSecret}`)}`,
+                    'Content-Type': 'application/json'
+                })
+            })
+    }
+    login(user) {
+        return this.http
+            .post(loginUrl, user, {
+                headers: new HttpHeaders({
+                    'Authorization': `Basic ${btoa(`${appKey}:${appSecret}`)}`,
+                    'Content-Type': 'application/json'
+                })
+            })
+    }
+}
