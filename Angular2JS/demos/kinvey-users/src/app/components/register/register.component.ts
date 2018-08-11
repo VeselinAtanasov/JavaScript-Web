@@ -13,14 +13,15 @@ import { TestService } from '../../services/testService';
 export class RegisterComponent implements OnInit {
 
   constructor(private user: User, private books: TestService) { }
+
   register(user) {
     console.log(user)
     user['role'] = 'user'
     this.user.register(user).subscribe(data => {
       console.log(data)
-      let info = {
-        name: 'Admin'
-      }
+      // let info = {
+      //   name: 'Admin'
+      // }
       // this.user.createRole(info).subscribe(role =>{
       //   console.log('Role...')
       //   console.log(role)
@@ -33,10 +34,22 @@ export class RegisterComponent implements OnInit {
       console.log(err)
     })
   }
+
   login(user) {
     this.user.login(user).subscribe(data => {
       console.log(data)
-       
+
+      // let info = {
+      //   name: 'Admin'
+      // }
+      // this.user.createRole(info).subscribe(role => {
+      //   console.log('Role...')
+      //   console.log(role)
+      // }, err => {
+      //   console.log('Role error....')
+      //   console.log(err)
+      // })
+
       localStorage.setItem('auth', data['_kmd']["authtoken"])
       //  this.books.createData().subscribe(data => console.log(data),err => console.log(err))
       this.user.getRole(data['_id']).subscribe(data => console.log(data), err => console.log(err))
