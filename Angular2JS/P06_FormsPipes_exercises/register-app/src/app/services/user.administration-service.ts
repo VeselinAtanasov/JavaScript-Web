@@ -44,19 +44,21 @@ export class UserAdministration {
 
     getAuthtoken(): string {
         return localStorage.getItem('authToken');
-      }
+    }
 
-    
-      getUserId(): string {
+
+    getUserId(): string {
         return localStorage.getItem('userId');
-      }
-    
-      isLogged(): boolean {
+    }
+
+    isLogged(): boolean {
         return this.getAuthtoken() !== null;
-      }
+    }
 
     register(registerModel: RegisterModel) {
         let user = JSON.stringify(registerModel)
+        console.log('...from service:')
+        console.log(user)
         return this.http.post<RegisterModel>(registerUrl, user, {
             headers: this.createHttpHeaders('Basic')
         })

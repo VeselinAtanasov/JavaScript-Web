@@ -18,7 +18,11 @@ export class RegisterFormComponent implements OnInit {
   registerUser(data) {
     let user = data.value
     delete user.confirmPassword;
+    delete user.password;
+    console.log('logging from registeruser:')
+    console.log(user)
      this.authenticationService.register(user).subscribe(data =>{
+       console.log('...from callback:')
        console.log(data)
        this.router.navigate(['/home'])
      },err =>{
