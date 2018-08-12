@@ -16,6 +16,9 @@ export class MyGarageComponent implements OnInit {
   ngOnInit() {
     this.userID = this.authService.currentSessionData['userId']
     console.log(this.userID)
+    if (!this.userID){
+      return
+    }
     this.garageService
       .getMyGarage(this.userID)
       .subscribe(data => {

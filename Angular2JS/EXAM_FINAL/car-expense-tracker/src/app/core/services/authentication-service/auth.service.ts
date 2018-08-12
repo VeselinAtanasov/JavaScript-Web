@@ -45,14 +45,14 @@ export class AuthService {
     getUserName(): string {
         return this.sessionData['username']
     }
-    get currentSessionData(){
-        if(this.sessionData){
+    get currentSessionData() {
+        if (this.sessionData) {
             return this.sessionData;
         }
         return '';
-        
+
     }
-    
+
 
     get authToken(): string {
         return this.sessionAuthToken;
@@ -61,10 +61,9 @@ export class AuthService {
         this.sessionAuthToken = value
     }
     isAuthenticated() {
-       
-       // return this.sessionAuthToken || localStorage.getItem('currentUser') !== null
-         return this.sessionAuthToken  
-      //   return localStorage.getItem('currentUser') !== null  
+        // return this.sessionAuthToken || localStorage.getItem('currentUser') !== null
+        return this.sessionAuthToken || null
+        //return localStorage.getItem('currentUser') !== null  
     }
 
 }
