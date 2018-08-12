@@ -31,7 +31,8 @@ export class SuccessInterceptor implements HttpInterceptor {
             token: data['_kmd']['authtoken'],
             lastName: data['lastName'],
             firstName: data['firstName'],
-            email: data['email']
+            email: data['email'],
+            userId:data['_id']
         }))
         this.authService.importSessionData(localStorage.getItem('currentUser'))
     }
@@ -46,6 +47,7 @@ export class SuccessInterceptor implements HttpInterceptor {
                     this.toastr.success("Successful registration! Please login", "Success: ")
                     this.router.navigate(['/auth/login'])
                 } else if (res instanceof HttpResponse && res.ok && res.url.endsWith('login')) {
+                    console.log(res)
                     this.saveToken(res['body']);
                     this.toastr.success('Hello, '+this.authService.getUserName()+" and  Welcome to Car Expense Tracker", "Success:")
                     this.router.navigate(['/home'])

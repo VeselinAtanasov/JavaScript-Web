@@ -3,15 +3,22 @@ img {
     height: 100px;
     vertical-align: top;
   }
-
   
   a {
     margin-top: 10px;
     margin-bottom: 10px;
   }
 
-  .bg-primary{
+  /* .bg-primary{
     margin-top: 10px;
     margin-bottom: 10px; 
     max-width: 100%;
+  } */
+
+.btn-primary {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .col-3{
+    border-style:solid
   }

@@ -1,18 +1,16 @@
-import {NgModule} from '@angular/core';
-import {Route,RouterModule} from '@angular/router'
-import { LoginComponent } from './components/authentication/login/login.component';
-import { RegisterComponent } from './components/authentication/register/register.component';
+import { NgModule } from '@angular/core';
+import { Route, RouterModule } from '@angular/router'
 import { HomeComponent } from './components/shared/home/home.component';
+import { GarageModule } from './components/garage/garage.module';
+import { AuthenticationModule } from './components/authentication/authentication.module';
 
 
 
-const routes : Route[]=[
+const routes: Route[] = [
     { path: '', pathMatch: 'full', redirectTo: 'home' },
     { path: 'home', component: HomeComponent },
-    {path:'auth', children:[
-        {path:'login',component: LoginComponent},
-        {path:'register',component: RegisterComponent},
-    ]}
+    { path: 'auth', loadChildren: () => AuthenticationModule },
+    { path: 'garage', loadChildren: () => GarageModule }
 ]
 
 @NgModule({
@@ -21,4 +19,4 @@ const routes : Route[]=[
     ],
     exports: [RouterModule]
 })
-export class AppRoutingModule{}
+export class AppRoutingModule { }

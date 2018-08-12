@@ -14,6 +14,7 @@ import { HTTP_INTERCEPTORS,HttpClientModule } from '../../node_modules/@angular/
 import { ToastrModule} from 'ngx-toastr'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AuthService } from './core/services/authentication-service/auth.service';
+import { GarageModule } from './components/garage/garage.module';
 
 @NgModule({
   declarations: [
@@ -23,11 +24,11 @@ import { AuthService } from './core/services/authentication-service/auth.service
     BrowserModule,
     SharedModule,
     AuthenticationModule,
+    GarageModule,
     HttpClientModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
     AppRoutingModule,
-    
   ],
   providers: [
     AuthService,

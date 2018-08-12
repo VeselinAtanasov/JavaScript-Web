@@ -36,6 +36,7 @@ export class TokenInterceptor implements HttpInterceptor {
                 }
             })
         } else {
+            console.log('....using Kinvey authentication')
             request = request.clone({
                 setHeaders: {
                     'Authorization': `Kinvey ${this.getAuthToken()}`,

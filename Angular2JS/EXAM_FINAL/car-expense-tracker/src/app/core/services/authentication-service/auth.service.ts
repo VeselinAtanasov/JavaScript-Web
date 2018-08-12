@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { RegisterModel } from '../../models/auth-models/register.model';
 import { LoginModel } from '../../models/auth-models/login-model';
-import { JsonpCallbackContext } from '../../../../../node_modules/@angular/common/http/src/jsonp';
+
 
 const appKey = "kid_SkGn5VhSm" // APP KEY HERE;
 const appSecret = "1946192594dc4f1784bbef677ddb5c62" // APP SECRET HERE;
@@ -14,7 +14,7 @@ const logoutUrl = `https://baas.kinvey.com/user/${appKey}/_logout`;
 export class AuthService {
 
     private sessionAuthToken: string;
-    private sessionData: string
+    private sessionData: Object
     constructor(private http: HttpClient) {
 
     }
@@ -39,12 +39,20 @@ export class AuthService {
     importSessionData(data: string) {
         let userData = JSON.parse(data);
         this.authToken = userData['token']
-        this.sessionData = data;
+        this.sessionData = userData;
     }
 
     getUserName(): string {
-        return JSON.parse(this.sessionData)['username']
+        return this.sessionData['username']
     }
+    get currentSessionData(){
+        if(this.sessionData){
+            return this.sessionData;
+        }
+        return '';
+        
+    }
+    
 
     get authToken(): string {
         return this.sessionAuthToken;
@@ -53,7 +61,10 @@ export class AuthService {
         this.sessionAuthToken = value
     }
     isAuthenticated() {
-        return this.sessionAuthToken != null
+       
+       // return this.sessionAuthToken || localStorage.getItem('currentUser') !== null
+         return this.sessionAuthToken  
+      //   return localStorage.getItem('currentUser') !== null  
     }
 
 }
