@@ -9,7 +9,7 @@ import { AuthService } from '../../../core/services/authentication-service/auth.
 })
 export class MyGarageComponent implements OnInit {
 
-  public userID : string;
+  public userID: string;
   public garageData;
   constructor(private garageService: GarageService, private authService: AuthService) { }
 
@@ -17,11 +17,11 @@ export class MyGarageComponent implements OnInit {
     this.userID = this.authService.currentSessionData['userId']
     console.log(this.userID)
     this.garageService
-    .getMyGarage(this.userID)
-    .subscribe(data => {
-      this.garageData=data
-      console.log(this.garageData)
-    },err => console.log(err))
+      .getMyGarage(this.userID)
+      .subscribe(data => {
+        this.garageData = data
+        console.log(this.garageData)
+      }, err => console.log(err))
   }
 
 }

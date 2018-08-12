@@ -1,4 +1,4 @@
-import { CarModel } from "./car.model";
+import { CarModel } from "../cars/car.model";
 
 export class GarageModel {
     constructor(
@@ -6,6 +6,7 @@ export class GarageModel {
         public garageName: string,
         public garageDescription : string,
         public isPublic : boolean,
-        public createdBy: string
+        public createdBy: string,
+        public cars : Array<string>
     ) { }
 }

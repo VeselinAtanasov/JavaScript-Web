@@ -1,13 +1,14 @@
 
 //Components
-import { garageComponents } from '.';
+import { carComponents } from '.';
 
 //Modules
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common';  //Always add CommonModule in custom modules, otherwise we need to import BrowserModule
 import {  ReactiveFormsModule } from '@angular/forms';
-import { GarageRoutingModule } from './garage-routing.module';
-import { GarageService } from '../../core/services/garage-services/garage.service';
+import { CarsRoutingModule } from './cars-routing.module';
+import { CarsService } from '../../core/services/cars-service/cars.service';
+import { GarageModule } from '../garage/garage.module';
 
 
 //Services
@@ -16,15 +17,16 @@ import { GarageService } from '../../core/services/garage-services/garage.servic
 
 @NgModule({
     declarations: [
-        ...garageComponents
+        ...carComponents
     ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        GarageRoutingModule,
+        CarsRoutingModule,
+        GarageModule
     ],
-    providers: [
-        GarageService
+    providers: [  
+    CarsService
     ],
     bootstrap: [
     ],
@@ -32,4 +34,4 @@ import { GarageService } from '../../core/services/garage-services/garage.servic
     ]
 })
 
-export class GarageModule { }
+export class CarsModule { }

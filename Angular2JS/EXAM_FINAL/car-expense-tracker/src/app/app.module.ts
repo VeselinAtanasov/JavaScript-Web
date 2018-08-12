@@ -10,11 +10,14 @@ import { AuthenticationModule } from './components/authentication/authentication
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { SuccessInterceptor } from './core/interceptors/success.interceptor';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
-import { HTTP_INTERCEPTORS,HttpClientModule } from '../../node_modules/@angular/common/http';
+import { HTTP_INTERCEPTORS,HttpClientModule } from '@angular/common/http';
 import { ToastrModule} from 'ngx-toastr'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AuthService } from './core/services/authentication-service/auth.service';
 import { GarageModule } from './components/garage/garage.module';
+import { CarsModule } from './components/cars/cars.module';
+
+
 
 @NgModule({
   declarations: [
@@ -25,6 +28,7 @@ import { GarageModule } from './components/garage/garage.module';
     SharedModule,
     AuthenticationModule,
     GarageModule,
+    CarsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,

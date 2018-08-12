@@ -24,6 +24,7 @@ export class CreateGarageComponent implements OnInit {
       'garageDescription': new FormControl('', [
         Validators.required
       ]),
+      'garagePicture': new FormControl(''),
       'isPublic': new FormControl('')
     });
   }
@@ -36,8 +37,13 @@ export class CreateGarageComponent implements OnInit {
   get isPublic(): AbstractControl {
     return this.garageFrom.get('isPublic');
   }
+  get garagePicture(): AbstractControl{
+    return this.garageFrom.get('garagePicture');
+  }
   createGarage() {
     console.log(this.garageFrom.value)
+    let garage = this.garageFrom.value;
+    garage['cars']=[]
     this.garageService.createGarage(this.garageFrom.value).subscribe(data => console.log(data), err => console.log(err))
   }
 

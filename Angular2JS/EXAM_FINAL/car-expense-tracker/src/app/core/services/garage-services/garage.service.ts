@@ -19,6 +19,10 @@ export class GarageService {
     }
     getMyGarage(userID :string){
         const url = collectionUrl +`?query={"_acl.creator":"${userID}"}`  
-        return this.http.get<string>(url)
+        return this.http.get<GarageModel>(url)
+    }
+    updateGarageById(garageId,data){
+        const url = collectionUrl+'/'+garageId
+        return this.http.put<GarageModel>(url,data)
     }
 }
