@@ -27,44 +27,39 @@ export class MyGarageComponent implements OnInit {
     if (!this.userID) {
       return
     }
-
+    console.log('DropBox Was Invoked?')
     DropBoxConnector
       .filesListFolder(this.authService.getUserName())
       .then(response => {
-        console.log(response)
+        console.log('DropBox Was Invoked?22')
         let promises = [];
         for (let record of response.entries) {
+
           promises.push(DropBoxConnector.filesGetThumbnail(record.path_display));
         }
         Promise.all(promises).then((values) => {
-      
+
           let storedPictures = {}
           for (let currentUrl of values) {
             let url = window.URL.createObjectURL(currentUrl.fileBlob);
-            storedPictures[currentUrl['name']]=url
+            storedPictures[currentUrl['name']] = url
           }
-          console.log(storedPictures)
+
           this.garageService
-          .getMyGarage(this.userID)
-          .subscribe(data => {
-            //get all pictures of the user:
-            console.log(data)
-            for(let records of data){
-              records['garagePicture'] = storedPictures[records['garagePicture']]
-            }
+            .getMyGarage(this.userID)
+            .subscribe(data => {
+              //get all pictures of the user:
 
-            console.log(data)
-            this.garageData = data
-            if (this.garageData.length === 0) {
-              return
-            }
-            this.carService.getAllCarsByUserID(this.userID).subscribe(data => { this.cars = data })
-          })
+              for (let records of data) {
+                records['garagePicture'] = storedPictures[records['garagePicture']]
+              }
+              this.garageData = data
+              if (this.garageData.length === 0) {
+                return
+              }
+              this.carService.getAllCarsByUserID(this.userID).subscribe(data => { this.cars = data })
+            })
         })
-      }).catch(err => console.log(err))
-
-
-
-      }
-
+      }).catch()
+  }
 }

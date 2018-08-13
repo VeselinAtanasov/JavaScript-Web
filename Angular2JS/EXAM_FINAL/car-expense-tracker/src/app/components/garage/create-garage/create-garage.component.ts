@@ -44,28 +44,37 @@ export class CreateGarageComponent implements OnInit {
 
   fileChanged(event) {
     this.garageFrom['garagePicture'] = event.target.files[0];
-    console.log(this.garageFrom['garagePicture'])
+
   }
   createGarage() {
-    console.log(this.garageFrom.value)
+
     let garage = this.garageFrom.value;
     let fileName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + '.jpg';
 
     DropBoxConnector.filesUpload(this.authService.getUserName(), fileName, this.garageFrom['garagePicture'])
       .then(data => {
-        console.dir(data);
+
         garage['cars'] = []
         garage['dropboxData'] = {
           dropBoxUserId: data.id, // "id:656fdfj7574" id: should be removed in case of DropBoxApi invocation
           pictureName: data.name,
           path_display: data.path_display,
         };
-         garage['garagePicture'] = data['name']
 
-        this.garageService.createGarage(garage).subscribe(data => console.log(data), err => console.log(err))
+        let promise = DropBoxConnector.filesGetThumbnail(data.path_display)
+        Promise.resolve(promise).then((value) => {
+          let url = window.URL.createObjectURL(value.fileBlob);
+
+          garage['garagePicture'] = url;
+          this.garageService.createGarage(garage)
+            .subscribe(data => console.log(data),
+              err => console.log(err))
+        });
+
+
       })
       .catch(err => console.log(err))
-    
+
   }
 
 }

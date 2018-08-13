@@ -73,43 +73,44 @@ export class CreateCarComponent implements OnInit {
 
         let currentCar = this.carForm.value;
         currentCar['dropboxData'] = dropboxData;
-        currentCar['carPicture'] = dropboxData['pictureName'];
 
-        this.carService.createCar(currentCar).subscribe(data => {
-          let carId = data['_id'];
-          let creatorId = data['_acl']['creator']
-          this.garageService
-            .getMyGarage(creatorId)
-            .subscribe(resp => {
-              console.dir(resp)
-              let garage = resp[0]
-              let garageId = garage['_id']
-              let allCars = garage['cars'];
-              allCars.push(carId)
 
-              let garageData = {
-                garageDescription: garage['garageDescription'],
-                garageName: garage['garageName'],
-                garagePicture: garage['garagePicture'],
-                isPublic: garage['isPublic'],
-                cars: allCars,
-                dropboxData: garage['dropboxData']
-              }
-              this.garageService
-                .updateGarageById(garageId, garageData)
-                .subscribe(data => console.log(data),
-                  err => console.log(err))
-            }, err => console.log(err))
-        }, err => console.log(err))
+        let promise = DropBoxConnector.filesGetThumbnail(data.path_display)
+        Promise.resolve(promise).then((value) => {
+          let url = window.URL.createObjectURL(value.fileBlob);
 
+
+
+          currentCar['carPicture'] = url
+
+          this.carService.createCar(currentCar).subscribe(data => {
+            let carId = data['_id'];
+            let creatorId = data['_acl']['creator']
+            this.garageService
+              .getMyGarage(creatorId)
+              .subscribe(resp => {
+                console.dir(resp)
+                let garage = resp[0]
+                let garageId = garage['_id']
+                let allCars = garage['cars'];
+                allCars.push(carId)
+
+                let garageData = {
+                  garageDescription: garage['garageDescription'],
+                  garageName: garage['garageName'],
+                  garagePicture: garage['garagePicture'],
+                  isPublic: garage['isPublic'],
+                  cars: allCars,
+                  dropboxData: garage['dropboxData']
+                }
+                this.garageService
+                  .updateGarageById(garageId, garageData)
+                  .subscribe(data => console.log(data),
+                    err => console.log(err))
+              }, err => console.log(err))
+          }, err => console.log(err))
+        });
       })
       .catch(err => console.log(err))
-
-
-
-
-
-
   }
-
 }

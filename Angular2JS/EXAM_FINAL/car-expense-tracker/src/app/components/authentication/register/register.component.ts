@@ -61,8 +61,7 @@ export class RegisterComponent implements OnInit {
     .register(userData)
     .subscribe(data =>{
       console.log(userData)
-       DropBoxConnector['createFolder'](userData['username']).then(resp => console.log(resp),err => console.log(err))
-      //  dbx.filesCreateFolder({ path: '/'+userData['username'], autorename: true }).then(resp => console.log(resp),err => console.log(err))
+       DropBoxConnector['createFolder'](userData['username']).then().catch()
     })
   }
 
