@@ -6,6 +6,7 @@ import { CreateGarageComponent } from './create-garage/create-garage.component';
 const furnitureRoutes: Routes = [
     { path: 'my', component: MyGarageComponent },
     { path: 'create', component: CreateGarageComponent },
+    { path: 'details/:id', component: CreateGarageComponent },
     // { path: 'details/:id', component: FurnitureDetailsComponent },
     // { path: 'create', component: CreateFurnitureComponent },
     // { path: 'edit/:id', component: EditFurnitureComponent },

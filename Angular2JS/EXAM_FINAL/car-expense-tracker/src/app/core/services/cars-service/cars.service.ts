@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { CarModel } from '../../models/cars/car.model';
+import { Observable } from 'rxjs';
 
 
 const appKey = "kid_SkGn5VhSm" // APP KEY HERE;
@@ -16,8 +17,11 @@ export class CarsService {
 
     createCar(car: CarModel) {
         let data = JSON.stringify(car);
-
         return this.http.post<CarModel>(collectionUrl, data)
+    }
+    getAllCarsByUserID(userID: string) : Observable<Array<CarModel>>{
+        const url = collectionUrl+`?query={"_acl.creator":"${userID}"}`
+        return this.http.get<Array<CarModel>>(url)
     }
    
 

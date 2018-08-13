@@ -33,23 +33,26 @@
                 <h6 class="card-subtitle text-muted" *ngIf="{{f.isPublic}}">The garage is visible to everyone.</h6> 
                       <h6 class="card-subtitle text-muted" *ngIf="!{{f.isPublic}}">The garage is private.</h6>  
               </div> -->
-          <img style="height: 300px; width: 3000%; display: block;" src="https://www.slashfilm.com/wp/wp-content/images/fastandfurious-cars-sunlight.jpg"
+          <img class="center" src="https://www.slashfilm.com/wp/wp-content/images/fastandfurious-cars-sunlight.jpg"
             alt="Card image">
           <div class="card-body">
             <p class="card-text">{{f.garageDescription}}</p>
           </div>
-
-          <div class="card">
-            <div class="card-body">
-              <h2 class="card-title">Car name: Aston Martin</h2>
+          <button type="button" class="btn btn-primary" routerLink="/garage/details/{{f._id}}">Check it now</button>
+          <div class="card" *ngIf="cars">
+          <div class="card custom" *ngFor="let car of cars">
+            <div class="card-body" >
+              <h2 class="card-title">Car name: {{car.carName}}</h2>
+              <img class="center-car" src="https://images.unsplash.com/photo-1449130015084-2d48a345ae62?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bb29652e99f70314468e31f729b28f74&auto=format&fit=crop&w=500&q=60"
+            alt="Card image">
               <br>
-              <h4 class="card-subtitle mb-2 text-muted">Car Brand: Aston Martin</h4>
-              <br>
-              <h6 class="card-subtitle mb-2 text-muted">Car Model: RST 86</h6>
-              <p class="card-text">Card Description: This is my first car, and it is awesome</p>
-              <button type="button" class="btn btn-primary btn-sm">Check it now</button>
+              <h4 class="card-subtitle mb-2 text-muted">Car Brand: {{car.carBrand}}</h4>
+              <h6 class="card-subtitle mb-2 text-muted">Car Model: {{car.carModel}}</h6>
+              <p class="card-text">Card Description: {{car.carDescription}}</p>
+              <button type="button" class="btn btn-secondary" routerLink="/cars/details/{{car._id}}">Car Details</button>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>
