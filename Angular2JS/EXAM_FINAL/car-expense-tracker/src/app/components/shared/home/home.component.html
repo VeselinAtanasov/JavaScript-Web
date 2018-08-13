@@ -12,28 +12,64 @@
 
 <div class="container">
     <div class="row space-top">
-        <div class="col-md-12">
+        <div class="col-md-12" *ngIf="isAuth">
             <h1>Home Page</h1>
             <p>
-                <span>
-                    All Public garages:
-                </span>
+                <strong>
+                    App public garages:
+                </strong>
             </p>
         </div>
     </div>
-    <div class="row space-top">
 
-        <div class="col-md-4">
+    <div class="container" *ngIf="!isAuth">
+        <!--  <div class="card border-primary mb-6" style="max-width: 20rem;">
+            <div class="card-header">Car Expense Tracker</div>
+            <div class="card-body">
+                <h4 class="card-title">Hello to out application</h4>
+                <p class="card-text">If you want to check our application, please login.</p>
+                <p class="card-text">If you don't have an account, please register.</p>
+            </div>
+        </div> -->
+
+        <h2>Car Expense Tracker</h2>
+        <p>
+            Do you know how much money your car costs you? Do you know how much money you are spending on your car? If the answer of
+            all of these question is NO, then you are on the right place.
+        </p>
+        <p>
+            <br>
+            <strong>If you want to check our application,
+                <em>
+                    <a routerLink="/auth/login"> please login.</a>
+                </em>
+            </strong>
+
+            <br>
+            <br>
+            <strong>If you don't have an account,
+                <em>
+                    <a routerLink="/auth/register"> please register.</a>
+                </em>
+            </strong>
+        </p>
+
+    </div>
+
+    <div class="row space-top" *ngIf="allPublicGarages">
+
+        <div class="col-md-4" *ngFor="let garage of allPublicGarages">
             <div class="card text-white bg-primary">
                 <div class="card-body">
                     <blockquote class="card-blockquote">
                         <p>
-                            <font size="6">Garage Title</font>
+                            <font size="6">{{garage.garageName}}</font>
                         </p>
                         <img class="center" src="https://www.slashfilm.com/wp/wp-content/images/fastandfurious-cars-sunlight.jpg" />
-                        <p>Garage Description</p>
+                        <p>Garage Description:</p>
+                        <p>{{garage.garageDescription}}</p>
                         <footer>
-                            <cite title="Source Title"> This garage contains 3 cars</cite>
+                            <cite title="Source Title"> This garage contains {{garage.cars.length}} cars</cite>
                         </footer>
                         <div class="pull-right">
                             <a class="btn btn-info">Have a look? </a>
@@ -42,68 +78,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-md-4">
-            <div class="card text-white bg-primary">
-                <div class="card-body">
-                    <blockquote class="card-blockquote">
-                        <p>
-                            <font size="6">Garage Title</font>
-                        </p>
-                        <img class="center" src="https://www.slashfilm.com/wp/wp-content/images/fastandfurious-cars-sunlight.jpg" />
-                        <p>Garage Description</p>
-                        <footer>
-                            <cite title="Source Title"> This garage contains 3 cars</cite>
-                        </footer>
-                        <div class="pull-right">
-                            <a class="btn btn-info">Have a look? </a>
-                        </div>
-                    </blockquote>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card text-white bg-primary">
-                <div class="card-body">
-                    <blockquote class="card-blockquote">
-                        <p>
-                            <font size="6">Garage Title</font>
-                        </p>
-                        <img class="center" src="https://www.slashfilm.com/wp/wp-content/images/fastandfurious-cars-sunlight.jpg" />
-                        <p> This is my garage and contains all my cars. Feel free to check it out</p>
-                        <footer>
-                            <cite title="Source Title"> This garage contains 3 cars</cite>
-                        </footer>
-                        <div class="pull-right">
-                            <a class="btn btn-info">Have a look? </a>
-                        </div>
-                    </blockquote>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card text-white bg-primary">
-                <div class="card-body">
-                    <blockquote class="card-blockquote">
-                        <p>
-                            <font size="6">Garage Title</font>
-                        </p>
-                        <img class="center" src="https://www.slashfilm.com/wp/wp-content/images/fastandfurious-cars-sunlight.jpg" />
-                        <p>Garage Description</p>
-                        <footer>
-                            <cite title="Source Title"> This garage contains 3 cars</cite>
-                        </footer>
-                        <div class="pull-right">
-                            <a class="btn btn-info">Have a look? </a>
-                        </div>
-                    </blockquote>
-                </div>
-            </div>
-        </div>
-
-
     </div>
 
 

@@ -62,7 +62,10 @@ export class AuthService {
     }
     isAuthenticated() {
         // return this.sessionAuthToken || localStorage.getItem('currentUser') !== null
-        return this.sessionAuthToken || null
+        if (this.sessionAuthToken) {
+            return true
+        }
+        else return false
         //return localStorage.getItem('currentUser') !== null  
     }
 

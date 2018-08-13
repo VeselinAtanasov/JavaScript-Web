@@ -25,7 +25,7 @@ export class CreateGarageComponent implements OnInit {
         Validators.required
       ]),
       'garagePicture': new FormControl(''),
-      'isPublic': new FormControl('')
+      'isPublic': new FormControl(false)
     });
   }
   get garageName(): AbstractControl {

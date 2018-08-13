@@ -20,9 +20,9 @@ export class SuccessInterceptor implements HttpInterceptor {
 
     constructor(
         private toastr: ToastrService,
-         private router: Router,
-         private authService: AuthService
-        ) { }
+        private router: Router,
+        private authService: AuthService
+    ) { }
 
 
     private saveToken(data) {
@@ -32,7 +32,7 @@ export class SuccessInterceptor implements HttpInterceptor {
             lastName: data['lastName'],
             firstName: data['firstName'],
             email: data['email'],
-            userId:data['_id']
+            userId: data['_id']
         }))
         this.authService.importSessionData(localStorage.getItem('currentUser'))
     }
@@ -42,25 +42,25 @@ export class SuccessInterceptor implements HttpInterceptor {
             .handle(req)
             .pipe(tap((res: HttpEvent<any>) => {
 
-               console.log(res)
+                console.log(res)
                 if (res instanceof HttpResponse && res.ok && res.url.endsWith(appKey)) {
                     this.toastr.success("Successful registration! Please login", "Success: ")
                     this.router.navigate(['/auth/login'])
                 } else if (res instanceof HttpResponse && res.ok && res.url.endsWith('login')) {
-                    console.log(res)
+
                     this.saveToken(res['body']);
-                    this.toastr.success('Hello, '+this.authService.getUserName()+" and  Welcome to Car Expense Tracker", "Success:")
+                    this.toastr.success('Hello, ' + this.authService.getUserName() + " and  Welcome to Car Expense Tracker", "Success:")
                     this.router.navigate(['/home'])
                 } else if (res instanceof HttpResponse && res.ok && res.url.endsWith('logout')) {
-                    this.toastr.success('GoodBye, '+this.authService.getUserName()+"!", "Success:")
+                    this.toastr.success('GoodBye, ' + this.authService.getUserName() + "!", "Success:")
                     this.authService.eraseSessionData()
                     localStorage.clear();
-                    this.router.navigate(['/home'])
+                  //  this.router.navigate(['/'])
                 } else if (res instanceof HttpResponse && res.ok && req.url.endsWith('garage') && res['body'] && res['body']['garageName']) {
-                    this.toastr.success('You successfully created your own garage: '+res['body']['garageName']+"!", "Success:");
+                    this.toastr.success('You successfully created your own garage: ' + res['body']['garageName'] + "!", "Success:");
                     this.router.navigate(['/garage/my']);
-                } else if (res instanceof HttpResponse && res.ok && req.url.endsWith('cars') && res['statusText']==="Created" ) {
-                    this.toastr.success('You successfully created car: '+res['body']['carName']+"!", "Success:");
+                } else if (res instanceof HttpResponse && res.ok && req.url.endsWith('cars') && res['statusText'] === "Created") {
+                    this.toastr.success('You successfully created car: ' + res['body']['carName'] + "!", "Success:");
                     this.router.navigate(['/garage/my']);
                 } else if (res instanceof HttpResponse && req.url.indexOf('details') !== -1) {
                     if (res.body.message) {

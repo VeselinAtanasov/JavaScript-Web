@@ -28,7 +28,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        if (request.url.endsWith('login') || request.url.endsWith(appKey)) {
+        if (request.url.endsWith('login') || request.url.endsWith(appKey) || !this.authService.isAuthenticated()) {
             request = request.clone({
                 setHeaders: {
                     'Authorization': `Basic ${btoa(`${appKey}:${appSecret}`)}`,
@@ -36,7 +36,6 @@ export class TokenInterceptor implements HttpInterceptor {
                 }
             })
         } else {
-            console.log('....using Kinvey authentication')
             request = request.clone({
                 setHeaders: {
                     'Authorization': `Kinvey ${this.getAuthToken()}`,
