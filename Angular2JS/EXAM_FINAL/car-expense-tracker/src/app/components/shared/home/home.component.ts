@@ -10,8 +10,12 @@ import { AuthService } from '../../../core/services/authentication-service/auth.
 })
 export class HomeComponent implements OnInit {
 
-  public allPublicGarages : Array<GarageModel>;
-  public isAuth: boolean
+  public currentPage: number =1;
+  public pageSize: number = 3;
+
+  public allPublicGarages: Array<GarageModel>;
+  public isAuth: boolean;
+
   constructor(private garageService: GarageService, private authService: AuthService) { }
 
   ngOnInit() {
@@ -21,12 +25,11 @@ export class HomeComponent implements OnInit {
       this.garageService.getAllGarages('public').subscribe(data => {
         this.allPublicGarages = data
       })
-    } else {
-      // this.garageService.getAllGarages('public').subscribe(data => {
-      //   this.allPublicGarages = data
-
-      // })
     }
+  }
+
+  pageChange(page) {
+    this.currentPage = page
   }
 
 }

@@ -39,6 +39,11 @@
             <p class="card-text">{{f.garageDescription}}</p>
           </div>
           <button type="button" class="btn btn-primary" routerLink="/garage/details/{{f._id}}">Check it now</button>
+
+          <div class="card" *ngIf="!cars">
+              <strong> You don't have any cars registered in the garage.</strong>
+          </div>
+
           <div class="card" *ngIf="cars">
           <div class="card custom" *ngFor="let car of cars">
             <div class="card-body" >
@@ -53,6 +58,7 @@
             </div>
           </div>
         </div>
+
         </div>
       </div>
     </div>

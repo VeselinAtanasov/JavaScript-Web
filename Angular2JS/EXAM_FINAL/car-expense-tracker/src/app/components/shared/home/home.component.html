@@ -23,14 +23,6 @@
     </div>
 
     <div class="container" *ngIf="!isAuth">
-        <!--  <div class="card border-primary mb-6" style="max-width: 20rem;">
-            <div class="card-header">Car Expense Tracker</div>
-            <div class="card-body">
-                <h4 class="card-title">Hello to out application</h4>
-                <p class="card-text">If you want to check our application, please login.</p>
-                <p class="card-text">If you don't have an account, please register.</p>
-            </div>
-        </div> -->
 
         <h2>Car Expense Tracker</h2>
         <p>
@@ -44,7 +36,6 @@
                     <a routerLink="/auth/login"> please login.</a>
                 </em>
             </strong>
-
             <br>
             <br>
             <strong>If you don't have an account,
@@ -56,9 +47,14 @@
 
     </div>
 
+
     <div class="row space-top" *ngIf="allPublicGarages">
 
-        <div class="col-md-4" *ngFor="let garage of allPublicGarages">
+        <div class="col-md-4" *ngFor="let garage of allPublicGarages | paginate: {
+            id: 'allGarages',
+            itemsPerPage: pageSize,
+            currentPage: currentPage
+        }">
             <div class="card text-white bg-primary">
                 <div class="card-body">
                     <blockquote class="card-blockquote">
@@ -79,6 +75,6 @@
             </div>
         </div>
     </div>
-
-
+    <pagination-controls id="allGarages" (pageChange)="pageChange($event)" maxSize="9" directionLinks="true" autoHide="true"
+        previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You are on page"></pagination-controls>
 </div>

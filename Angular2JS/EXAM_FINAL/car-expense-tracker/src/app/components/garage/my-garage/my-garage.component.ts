@@ -31,7 +31,10 @@ export class MyGarageComponent implements OnInit {
       .subscribe(data => {
         this.garageData = data
         let allCars = this.garageData[0].cars;
-        this.carService.getAllCarsByUserID(this.userID).subscribe(data => this.cars=data)
+        if(allCars.length ===0){
+          return
+        }
+        this.carService.getAllCarsByUserID(this.userID).subscribe(data =>{ this.cars=data})
       })
   }
 
