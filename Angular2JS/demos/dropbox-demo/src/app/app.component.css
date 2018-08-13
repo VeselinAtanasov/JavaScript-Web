@@ -1,0 +1,22 @@
+.container{
+    padding-top: 10px
+}
+h2{
+    text-align: center
+}
+button{
+    margin:auto;
+    display:block;
+  }
+
+  footer{
+      padding-top: 30px;
+  }
+  .footer-copyright{
+      color:black
+  }
+
+  button{
+    margin-bottom: 20px;
+    
+  }

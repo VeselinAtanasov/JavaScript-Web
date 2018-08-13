@@ -12,8 +12,9 @@ import { tap, catchError } from 'rxjs/operators'
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/authentication-service/auth.service';
+import { dbDescription } from '../common/db-description';
 
-const appKey = "kid_SkGn5VhSm" // APP KEY HERE;
+const appKey = dbDescription['appKey'] // APP KEY HERE;
 
 @Injectable()
 export class SuccessInterceptor implements HttpInterceptor {

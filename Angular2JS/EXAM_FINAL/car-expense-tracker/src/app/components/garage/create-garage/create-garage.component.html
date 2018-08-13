@@ -23,7 +23,13 @@
     <br>
     <div class="form-group">
       <label for="exampleInputFile">Upload picture for your Garage</label>
-      <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" formControlName="garagePicture">
+      <input 
+      type="file" 
+      class="form-control-file" 
+      id="file-upload" 
+      formControlName="garagePicture"
+      (change)="fileChanged($event)"
+      >
     </div>
     <br>
     <button type="submit" class="btn btn-success" [disabled]="garageFrom.invalid">Create Garage</button>

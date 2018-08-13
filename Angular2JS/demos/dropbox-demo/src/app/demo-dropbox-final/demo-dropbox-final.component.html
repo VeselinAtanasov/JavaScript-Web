@@ -1,0 +1,23 @@
+<h3>Demo-DropBox Final</h3>
+
+<form #dropBox="ngForm" (ngSubmit)="handleSubmit(dropBox)">
+  Add picture
+  <input type="text" id="access-token" placeholder="Access token" 
+  name="name"
+  [(ngModel)]="name2" 
+  #name="ngModel" />
+  <br>
+  <br>
+  <input type="file" id="file-upload" 
+  name="file"
+  [(ngModel)]="file2"
+   #file="ngModel" 
+   (change)="fileChanged($event)"/>
+   <br>
+   <br>
+  <button type="submit">Submit</button>
+</form>
+
+<div *ngIf="img" >
+  <img  [src]='sanitizer.bypassSecurityTrustResourceUrl(img)' alt=""  /> 
+</div>

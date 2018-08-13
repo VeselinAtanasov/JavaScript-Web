@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { RegisterModel } from '../../../core/models/auth-models/register.model';
 import { passwordMatcher } from '../password-matcher.directive';
 import { AuthService } from '../../../core/services/authentication-service/auth.service';
+import { DropBoxConnector } from '../../../core/external-apis/dropbox-api';
+
 
 
 const usernameRegex: RegExp = /^[A-Za-z0-9]{2,10}$/;
@@ -55,7 +57,13 @@ export class RegisterComponent implements OnInit {
     let userData = this.registerForm.value;
     delete userData['confirmPassword']
     this.registerModel = Object.assign(userData)
-    this.authService.register(userData).subscribe()
+    this.authService
+    .register(userData)
+    .subscribe(data =>{
+      console.log(userData)
+       DropBoxConnector['createFolder'](userData['username']).then(resp => console.log(resp),err => console.log(err))
+      //  dbx.filesCreateFolder({ path: '/'+userData['username'], autorename: true }).then(resp => console.log(resp),err => console.log(err))
+    })
   }
 
   get username(): AbstractControl {

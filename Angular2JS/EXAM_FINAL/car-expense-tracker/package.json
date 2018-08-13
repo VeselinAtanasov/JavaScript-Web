@@ -24,7 +24,9 @@
     "ngx-pagination": "3.2.0",
     "ngx-toastr": "^8.10.0",
     "rxjs": "^6.0.0",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "dropbox": "4.0.9",
+    "isomorphic-fetch": "2.2.1"
   },
   "devDependencies": {
     "@angular/compiler-cli": "^6.0.3",

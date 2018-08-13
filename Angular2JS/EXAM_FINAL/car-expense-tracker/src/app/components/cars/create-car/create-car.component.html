@@ -302,7 +302,14 @@
     <br>
     <div class="form-group">
       <label for="exampleInputFile">Upload Picture Of Your Car</label>
-      <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" formControlName="carPicture">
+      <input 
+      type="file" 
+      class="form-control-file" 
+      id="exampleInputFile" 
+      aria-describedby="fileHelp" 
+      formControlName="carPicture"
+      (change)="fileChanged($event)"
+      >
     </div>
     <br>
     <button type="submit" class="btn btn-success" [disabled]="carForm.invalid">Create Car</button>

@@ -10,9 +10,10 @@ import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/authentication-service/auth.service';
+import { dbDescription } from '../common/db-description';
 
-const appKey = "kid_SkGn5VhSm" // APP KEY HERE;
-const appSecret = "1946192594dc4f1784bbef677ddb5c62" // APP SECRET HERE;
+const appKey = dbDescription['appKey']   // APP KEY HERE;
+const appSecret = dbDescription['appSecret']   // APP SECRET HERE;
 
 
 @Injectable()

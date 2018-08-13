@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
 
     if (this.isAuth) {
       this.garageService.getAllGarages('public').subscribe(data => {
+        
         this.allPublicGarages = data
       })
     }

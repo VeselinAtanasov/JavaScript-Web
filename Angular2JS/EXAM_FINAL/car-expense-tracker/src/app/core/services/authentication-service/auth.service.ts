@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { RegisterModel } from '../../models/auth-models/register.model';
 import { LoginModel } from '../../models/auth-models/login-model';
+import { dbDescription } from '../../common/db-description';
 
 
-const appKey = "kid_SkGn5VhSm" // APP KEY HERE;
-const appSecret = "1946192594dc4f1784bbef677ddb5c62" // APP SECRET HERE;
+const appKey = dbDescription['appKey']   // APP KEY HERE;
+const appSecret =dbDescription['appSecret'] // APP SECRET HERE;
 const registerUrl = `https://baas.kinvey.com/user/${appKey}`;
 const loginUrl = `https://baas.kinvey.com/user/${appKey}/login`;
 const logoutUrl = `https://baas.kinvey.com/user/${appKey}/_logout`;
