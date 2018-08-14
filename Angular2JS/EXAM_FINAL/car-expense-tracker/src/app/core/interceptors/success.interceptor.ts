@@ -35,9 +35,9 @@ export class SuccessInterceptor implements HttpInterceptor {
             email: data['email'],
             userId: data['_id']
         }))
+        localStorage.setItem('authToken',data['_kmd']['authtoken'])
         this.authService.importSessionData(localStorage.getItem('currentUser'))
     }
-
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next
             .handle(req)
@@ -48,7 +48,6 @@ export class SuccessInterceptor implements HttpInterceptor {
                     this.toastr.success("Successful registration! Please login", "Success: ")
                     this.router.navigate(['/auth/login'])
                 } else if (res instanceof HttpResponse && res.ok && res.url.endsWith('login')) {
-
                     this.saveToken(res['body']);
                     this.toastr.success('Hello, ' + this.authService.getUserName() + " and  Welcome to Car Expense Tracker", "Success:")
                     this.router.navigate(['/home'])

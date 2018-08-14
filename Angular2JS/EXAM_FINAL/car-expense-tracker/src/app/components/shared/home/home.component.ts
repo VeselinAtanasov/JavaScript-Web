@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   public pageSize: number = 3;
 
   public allPublicGarages: Array<GarageModel>;
-  public isAuth: boolean;
+  public isAuth: any;
 
   constructor(private garageService: GarageService, private authService: AuthService) { }
 
@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
 
   pageChange(page) {
     this.currentPage = page
+    
   }
 
 }

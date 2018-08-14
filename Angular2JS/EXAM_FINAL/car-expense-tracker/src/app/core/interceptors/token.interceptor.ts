@@ -39,7 +39,7 @@ export class TokenInterceptor implements HttpInterceptor {
         } else {
             request = request.clone({
                 setHeaders: {
-                    'Authorization': `Kinvey ${this.getAuthToken()}`,
+                    'Authorization': `Kinvey ${localStorage.getItem('authToken')}`,
                     'Content-Type': 'application/json'
                 }
             })

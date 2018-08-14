@@ -34,12 +34,12 @@ export class AuthService {
     }
     eraseSessionData() {
         this.sessionData = null;
-        this.authToken = null
+        this.sessionAuthToken = null
     }
 
     importSessionData(data: string) {
         let userData = JSON.parse(data);
-        this.authToken = userData['token']
+        this.sessionAuthToken = userData['token']
         this.sessionData = userData;
     }
 
@@ -53,8 +53,6 @@ export class AuthService {
         return '';
 
     }
-
-
     get authToken(): string {
         return this.sessionAuthToken;
     }
@@ -62,12 +60,14 @@ export class AuthService {
         this.sessionAuthToken = value
     }
     isAuthenticated() {
+        return localStorage.getItem('currentUser');
+        /*
         // return this.sessionAuthToken || localStorage.getItem('currentUser') !== null
         if (this.sessionAuthToken) {
             return true
         }
         else return false
-        //return localStorage.getItem('currentUser') !== null  
+        //return localStorage.getItem('currentUser') !== null   */
     }
 
 }

@@ -22,7 +22,7 @@ export class MyGarageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userID = this.authService.currentSessionData['userId']
+    this.userID = JSON.parse(localStorage.getItem('currentUser'))['userId']
     if (!this.userID){
       return
     }
