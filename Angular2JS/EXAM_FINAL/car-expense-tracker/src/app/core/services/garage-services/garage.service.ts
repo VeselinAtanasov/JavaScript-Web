@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { GarageModel } from '../../models/garage/garage.model';
 import { Observable } from 'rxjs';
-import { dbDescription } from '../../common/db-description';
+import { dbDescription } from '../../utils/db-config/db-configuration';
 
 
 const appKey = dbDescription['appKey']   // APP KEY HERE;
-const appSecret = dbDescription['appSecret'] // APP SECRET HERE;
+const appSecret = dbDescription['appSecret']   // APP SECRET HERE;
 const collectionUrl = `https://baas.kinvey.com/appdata/${appKey}/garage`;
 const getGarageByUserId = `https://baas.kinvey.com/appdata/${appKey}/garage`;
 
@@ -19,6 +19,7 @@ export class GarageService {
         let data = JSON.stringify(garageData);
         return this.http.post<GarageModel>(collectionUrl, data)
     }
+
     getMyGarage(userID: string) : Observable<Array<GarageModel>> {
         const url = collectionUrl + `?query={"_acl.creator":"${userID}"}`
         return this.http.get<Array<GarageModel>>(url)

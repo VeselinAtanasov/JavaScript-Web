@@ -4,7 +4,6 @@ import { AuthService } from '../../../core/services/authentication-service/auth.
 import { GarageModel } from '../../../core/models/garage/garage.model';
 import { CarsService } from '../../../core/services/cars-service/cars.service';
 import { CarModel } from '../../../core/models/cars/car.model';
-import { DropBoxConnector } from '../../../core/external-apis/dropbox-api';
 
 @Component({
   selector: 'app-my-garage',
@@ -14,52 +13,28 @@ import { DropBoxConnector } from '../../../core/external-apis/dropbox-api';
 export class MyGarageComponent implements OnInit {
 
   public userID: string;
-  public garageData: Array<GarageModel>;
-  public cars: Array<CarModel>
+  public garageData : Array<GarageModel>;
+  public cars : Array<CarModel>
   constructor(
-    private garageService: GarageService,
+    private garageService: GarageService, 
     private authService: AuthService,
-    private carService: CarsService
+    private carService :CarsService
   ) { }
 
   ngOnInit() {
     this.userID = this.authService.currentSessionData['userId']
-    if (!this.userID) {
+    if (!this.userID){
       return
     }
-    console.log('DropBox Was Invoked?')
-    DropBoxConnector
-      .filesListFolder(this.authService.getUserName())
-      .then(response => {
-        console.log('DropBox Was Invoked?22')
-        let promises = [];
-        for (let record of response.entries) {
-
-          promises.push(DropBoxConnector.filesGetThumbnail(record.path_display));
+    this.garageService
+      .getMyGarage(this.userID)
+      .subscribe(data => {
+        this.garageData = data
+        if (this.garageData.length === 0) {
+          return
         }
-        Promise.all(promises).then((values) => {
-
-          let storedPictures = {}
-          for (let currentUrl of values) {
-            let url = window.URL.createObjectURL(currentUrl.fileBlob);
-            storedPictures[currentUrl['name']] = url
-          }
-
-          this.garageService
-            .getMyGarage(this.userID)
-            .subscribe(data => {
-              //get all pictures of the user:
-
-              for (let records of data) {
-                records['garagePicture'] = storedPictures[records['garagePicture']]
-              }
-              this.garageData = data
-              if (this.garageData.length === 0) {
-                return
-              }
-              this.carService.getAllCarsByUserID(this.userID).subscribe(data => { this.cars = data })
-            })
-        })
-      }).catch()
+        this.carService.getAllCarsByUserID(this.userID).subscribe(data =>{ this.cars=data})
+      })
   }
+
 }

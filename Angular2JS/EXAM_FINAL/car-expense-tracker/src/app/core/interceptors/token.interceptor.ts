@@ -10,9 +10,9 @@ import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/authentication-service/auth.service';
-import { dbDescription } from '../common/db-description';
+import { dbDescription } from '../utils/db-config/db-configuration';
 
-const appKey = dbDescription['appKey']   // APP KEY HERE;
+const appKey = dbDescription['appKey']  // APP KEY HERE;
 const appSecret = dbDescription['appSecret']   // APP SECRET HERE;
 
 

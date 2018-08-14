@@ -5,7 +5,7 @@
     <div class="form-group">
       <label for="garageName">Garage Name</label>
       <input type="text" class="form-control" id="garageName" formControlName="garageName" />
-      <div *ngIf="garageName.invalid && (garageName.dirty || garageName.touched)" class="alert alert-dark">
+      <div *ngIf="garageName.invalid && (garageName.dirty || garageName.touched)" class="alert alert-danger">
         <div *ngIf="garageName.errors.required">
           Garage name is required
         </div>
@@ -14,6 +14,11 @@
     <div class="form-group">
       <label for="garageDescription">Enter Garage Description</label>
       <textarea class="form-control" id="garageDescription" rows="3" formControlName="garageDescription"></textarea>
+      <div *ngIf="garageDescription.invalid && (garageDescription.dirty || garageDescription.touched)" class="alert alert-danger">
+        <div *ngIf="garageDescription.errors.required">
+          Garage name is required
+        </div>
+      </div>
     </div>
     <div class="form-check">
       <label class="form-check-label">
@@ -22,14 +27,13 @@
     </div>
     <br>
     <div class="form-group">
-      <label for="exampleInputFile">Upload picture for your Garage</label>
-      <input 
-      type="file" 
-      class="form-control-file" 
-      id="file-upload" 
-      formControlName="garagePicture"
-      (change)="fileChanged($event)"
-      >
+      <label for="exampleInputFile">Add picture URL for your Garage</label>
+      <input type="text" class="form-control-file" id="exampleInputFile" formControlName="garagePicture">
+      <div *ngIf="garagePicture.invalid && (garagePicture.dirty || garagePicture.touched)" class="alert alert-danger">
+        <div *ngIf="garagePicture.errors.pattern">
+          Please check the URL
+        </div>
+      </div>
     </div>
     <br>
     <button type="submit" class="btn btn-success" [disabled]="garageFrom.invalid">Create Garage</button>

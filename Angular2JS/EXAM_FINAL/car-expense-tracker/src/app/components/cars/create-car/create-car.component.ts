@@ -3,8 +3,8 @@ import { FormControl, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { CarModel } from '../../../core/models/cars/car.model';
 import { CarsService } from '../../../core/services/cars-service/cars.service';
 import { GarageService } from '../../../core/services/garage-services/garage.service';
-import { DropBoxConnector } from '../../../core/external-apis/dropbox-api';
-import { AuthService } from '../../../core/services/authentication-service/auth.service';
+
+const urlValidator: RegExp = /^(ftp|http|https):\/\/[^ "]+$/;
 
 @Component({
   selector: 'app-create-car',
@@ -16,11 +16,7 @@ export class CreateCarComponent implements OnInit {
   public carForm: FormGroup;
   public currentCarModel: CarModel;
 
-  constructor(
-    private carService: CarsService,
-    private garageService: GarageService,
-    private authService: AuthService
-  ) { }
+  constructor(private carService: CarsService, private garageService: GarageService) { }
 
   ngOnInit() {
 
@@ -30,9 +26,15 @@ export class CreateCarComponent implements OnInit {
       ]),
       'carBrand': new FormControl(''),
       'carModel': new FormControl(''),
-      'carDescription': new FormControl(''),
-      'initialInvestment': new FormControl(''),
-      'carPicture': new FormControl(''),
+      'carDescription': new FormControl('', [
+        Validators.required
+      ]),
+      'initialInvestment': new FormControl('', [
+        Validators.required
+      ]),
+      'carPicture': new FormControl('', [
+        Validators.pattern(urlValidator)
+      ]),
     });
   }
   get carName(): AbstractControl {
@@ -54,63 +56,30 @@ export class CreateCarComponent implements OnInit {
     return this.carForm.get('carPicture');
   }
 
-  fileChanged(event) {
-    this.carForm['carPicture'] = event.target.files[0];
-    console.log(this.carForm['carPicture'])
-  }
-
   createCar() {
-    let fileName = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + '.jpg';
+    this.carService.createCar(this.carForm.value).subscribe(data => {
+      let carId = data['_id'];
+      let creatorId = data['_acl']['creator']
 
-    DropBoxConnector.filesUpload(this.authService.getUserName(), fileName, this.carForm['carPicture'])
-      .then(data => {
-        console.dir(data);
-        let dropboxData = {
-          dropBoxUserId: data.id, // "id:656fdfj7574" id: should be removed in case of DropBoxApi invocation
-          pictureName: data.name,
-          path_display: data.path_display,
-        };
+      this.garageService
+        .getMyGarage(creatorId)
+        .subscribe(resp => {
+          console.dir(resp)
+          let garage = resp[0]
+          let garageId = garage['_id']
+          let allCars = garage['cars'];
+          allCars.push(carId)
 
-        let currentCar = this.carForm.value;
-        currentCar['dropboxData'] = dropboxData;
-
-
-        let promise = DropBoxConnector.filesGetThumbnail(data.path_display)
-        Promise.resolve(promise).then((value) => {
-          let url = window.URL.createObjectURL(value.fileBlob);
-
-
-
-          currentCar['carPicture'] = url
-
-          this.carService.createCar(currentCar).subscribe(data => {
-            let carId = data['_id'];
-            let creatorId = data['_acl']['creator']
-            this.garageService
-              .getMyGarage(creatorId)
-              .subscribe(resp => {
-                console.dir(resp)
-                let garage = resp[0]
-                let garageId = garage['_id']
-                let allCars = garage['cars'];
-                allCars.push(carId)
-
-                let garageData = {
-                  garageDescription: garage['garageDescription'],
-                  garageName: garage['garageName'],
-                  garagePicture: garage['garagePicture'],
-                  isPublic: garage['isPublic'],
-                  cars: allCars,
-                  dropboxData: garage['dropboxData']
-                }
-                this.garageService
-                  .updateGarageById(garageId, garageData)
-                  .subscribe(data => console.log(data),
-                    err => console.log(err))
-              }, err => console.log(err))
-          }, err => console.log(err))
-        });
-      })
-      .catch(err => console.log(err))
+          let garageData = {
+            garageDescription: garage['garageDescription'],
+            garageName: garage['garageName'],
+            garagePicture: garage['garagePicture'],
+            isPublic: garage['isPublic'],
+            cars: allCars
+          }
+          this.garageService.updateGarageById(garageId, garageData).subscribe(data => console.log(data), err => console.log(err))
+        }, err => console.log(err))
+    }, err => console.log(err))
   }
+
 }

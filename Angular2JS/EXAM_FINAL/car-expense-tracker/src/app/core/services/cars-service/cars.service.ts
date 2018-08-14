@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { CarModel } from '../../models/cars/car.model';
 import { Observable } from 'rxjs';
-import { dbDescription } from '../../common/db-description';
+import { dbDescription } from '../../utils/db-config/db-configuration';
 
 
-const appKey = dbDescription['appKey']   // APP KEY HERE;
+const appKey =dbDescription['appKey']   // APP KEY HERE;
 const appSecret = dbDescription['appSecret'] // APP SECRET HERE;
 const collectionUrl = `https://baas.kinvey.com/appdata/${appKey}/cars`;
 const getGarageByUserId = `https://baas.kinvey.com/appdata/${appKey}/garage`;

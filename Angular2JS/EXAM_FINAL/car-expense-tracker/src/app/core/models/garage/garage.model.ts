@@ -7,7 +7,6 @@ export class GarageModel {
         public garageDescription : string,
         public isPublic : boolean,
         public createdBy: string,
-        public cars : Array<string>,
-        public dropboxData: Object
+        public cars : Array<string>
     ) { }
 }

@@ -29,31 +29,30 @@
       <div class="col-9" *ngFor="let f of garageData ">
         <div class="card mb-3">
           <h3 class="card-header">{{f.garageName}}</h3>
-
-          <img class="center" src="https://www.slashfilm.com/wp/wp-content/images/fastandfurious-cars-sunlight.jpg" alt="Card image">
+          <img class="center" src="{{f.garagePicture}}" alt="Card image">
           <div class="card-body">
             <p class="card-text">{{f.garageDescription}}</p>
           </div>
           <button type="button" class="btn btn-primary" routerLink="/garage/details/{{f._id}}">Check it now</button>
 
           <div class="card" *ngIf="!cars || cars?.length===0">
-            <strong> You don't have any cars registered in the garage.</strong>
+              <strong> You don't have any cars registered in the garage.</strong>
           </div>
 
           <div class="card" *ngIf="cars && cars?.length!==0">
-            <div class="card custom" *ngFor="let car of cars">
-              <div class="card-body">
-                <h2 class="card-title">Car name:{{car.carName}}</h2>
-                  <img class="center-car" src="https://images.unsplash.com/photo-1449130015084-2d48a345ae62?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bb29652e99f70314468e31f729b28f74&auto=format&fit=crop&w=500&q=60"
-                    alt="Card image">
-                  <br>
-                  <h4 class="card-subtitle mb-2 text-muted">Car Brand: {{car.carBrand}}</h4>
-                  <h6 class="card-subtitle mb-2 text-muted">Car Model: {{car.carModel}}</h6>
-                  <p class="card-text">Card Description: {{car.carDescription}}</p>
-                  <button type="button" class="btn btn-secondary" routerLink="/cars/details/{{car._id}}">Car Details</button>
-              </div>
+          <div class="card custom" *ngFor="let car of cars">
+            <div class="card-body" >
+              <h2 class="card-title">Car name: {{car.carName}}</h2>
+              <img class="center-car" src="{{car.carPicture}}"
+            alt="Card image">
+              <br>
+              <h4 class="card-subtitle mb-2 text-muted">Car Brand: {{car.carBrand}}</h4>
+              <h6 class="card-subtitle mb-2 text-muted">Car Model: {{car.carModel}}</h6>
+              <p class="card-text">Card Description: {{car.carDescription}}</p>
+              <button type="button" class="btn btn-secondary" routerLink="/cars/details/{{car._id}}">Car Details</button>
             </div>
           </div>
+        </div>
 
         </div>
       </div>

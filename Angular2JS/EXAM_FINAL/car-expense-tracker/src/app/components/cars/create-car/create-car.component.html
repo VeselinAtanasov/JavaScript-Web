@@ -5,7 +5,7 @@
     <div class="form-group">
       <label for="carName">Car Name:</label>
       <input type="text" class="form-control" id="carName" formControlName="carName" />
-      <div *ngIf="carName.invalid && (carName.dirty || carName.touched)" class="alert alert-dark">
+      <div *ngIf="carName.invalid && (carName.dirty || carName.touched)" class="alert alert-danger">
         <div *ngIf="carName.errors.required">
           Car name is required
         </div>
@@ -289,6 +289,11 @@
       <label for="carDescription">Enter Car Description:</label>
       <textarea class="form-control" id="carDescription" rows="3" formControlName="carDescription"></textarea>
     </div>
+    <div *ngIf="carDescription.invalid && (carDescription.dirty || carDescription.touched)" class="alert alert-danger">
+      <div *ngIf="carDescription.errors.required">
+        Car description name is required
+      </div>
+    </div>
     <div class="form-group">
       <label for="initialInvestment">Initial Investment</label>
       <input type="number" class="form-control" id="initialInvestment" formControlName="initialInvestment" formControlName="initialInvestment" />
@@ -298,18 +303,15 @@
         </div>
       </div>
     </div>
-
     <br>
     <div class="form-group">
       <label for="exampleInputFile">Upload Picture Of Your Car</label>
-      <input 
-      type="file" 
-      class="form-control-file" 
-      id="exampleInputFile" 
-      aria-describedby="fileHelp" 
-      formControlName="carPicture"
-      (change)="fileChanged($event)"
-      >
+      <input type="text" class="form-control-file" id="exampleInputFile"  formControlName="carPicture">
+      <div *ngIf="carPicture.invalid && (carPicture.dirty || carPicture.touched)" class="alert alert-danger">
+        <div *ngIf="carPicture.errors.pattern">
+          Please check the URL
+        </div>
+      </div>
     </div>
     <br>
     <button type="submit" class="btn btn-success" [disabled]="carForm.invalid">Create Car</button>

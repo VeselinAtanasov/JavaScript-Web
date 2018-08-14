@@ -56,7 +56,7 @@ export class DemoDropboxFinalComponent implements OnInit {
             console.dir(response);
             let promises = [];
             for (let record of response.entries) {
-              promises.push(dbx.filesGetThumbnail({ path: record.path_display, format: "jpeg" }));
+              promises.push(dbx.filesGetThumbnail({ path: record.path_display, format: "jpeg",size:"w2048h1536" }));
             }
             Promise.all(promises).then((values) => {
               console.log('All promises ws resolved')

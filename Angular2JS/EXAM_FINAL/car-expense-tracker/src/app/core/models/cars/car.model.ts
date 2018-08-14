@@ -7,7 +7,6 @@ export class CarModel {
         public carModel : string,
         public initialInvestment: number,
         public carPicture: string,
-        public createdBy: string,
-        public dropboxData : Object
+        public createdBy: string
     ) { }
 }
