@@ -68,13 +68,13 @@
                             <cite title="Source Title"> This garage contains {{garage.cars.length}} cars</cite>
                         </footer>
                         <div class="pull-right">
-                            <a class="btn btn-info">Have a look? </a>
+                            <a class="btn btn-info" routerLink="/garage/details/{{garage._id}}">Have a look? </a>
                         </div>
                     </blockquote>
                 </div>
             </div>
         </div>
     </div>
-    <pagination-controls id="allGarages" (pageChange)="pageChange($event)" maxSize="9" directionLinks="true" autoHide="true"
+    <pagination-controls class="center" id="allGarages" (pageChange)="pageChange($event)" maxSize="9" directionLinks="true" autoHide="true"
         previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You are on page"></pagination-controls>
 </div>

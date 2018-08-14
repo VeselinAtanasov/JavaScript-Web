@@ -11,7 +11,7 @@ import { AuthService } from '../../../core/services/authentication-service/auth.
 export class HomeComponent implements OnInit {
 
   public currentPage: number =1;
-  public pageSize: number = 3;
+  public pageSize: number = 6;
 
   public allPublicGarages: Array<GarageModel>;
   public isAuth: any;

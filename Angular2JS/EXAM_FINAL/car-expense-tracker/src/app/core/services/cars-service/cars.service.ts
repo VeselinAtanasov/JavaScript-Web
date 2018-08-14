@@ -8,7 +8,7 @@ import { dbDescription } from '../../utils/db-config/db-configuration';
 const appKey =dbDescription['appKey']   // APP KEY HERE;
 const appSecret = dbDescription['appSecret'] // APP SECRET HERE;
 const collectionUrl = `https://baas.kinvey.com/appdata/${appKey}/cars`;
-const getGarageByUserId = `https://baas.kinvey.com/appdata/${appKey}/garage`;
+
 
 
 @Injectable()
@@ -24,6 +24,9 @@ export class CarsService {
         const url = collectionUrl+`?query={"_acl.creator":"${userID}"}`
         return this.http.get<Array<CarModel>>(url)
     }
-   
+    deleteCar(id :string) :Observable<any> {
+        const url=collectionUrl+'/' +id;
+        return this.http.delete<Observable<any>>(url);
+    }
 
 }

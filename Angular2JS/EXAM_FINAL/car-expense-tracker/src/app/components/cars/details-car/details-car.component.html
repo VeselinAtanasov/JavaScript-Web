@@ -1,0 +1,63 @@
+<br>
+<br>
+<br>
+<br>
+<div class="row">
+    <div class="col-sm-2">
+        <div class="btn-group-vertical" data-toggle="buttons">
+            <button type="button" class="btn btn-primary">Button</button>
+            <button type="button" class="btn btn-primary active" aria-pressed="true">Button</button>
+            <button type="button" class="btn btn-primary">Button</button>
+            <button type="button" class="btn btn-primary">Button</button>
+            <button type="button" class="btn btn-primary">Button</button>
+            <button type="button" class="btn btn-primary">Button</button>
+          </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card custom" >
+            <div class="card-body" >
+              <h2 class="card-title">Car name: {{car.carName}}</h2>
+              <img class="center-car" src="{{car.carPicture}}"
+            alt="Card image">
+              <br>
+              <h4 class="card-subtitle mb-2 text-muted">Car Brand: {{car.carBrand}}</h4>
+              <h6 class="card-subtitle mb-2 text-muted">Car Model: {{car.carModel}}</h6>
+              <h6 class="card-subtitle mb-2 text-muted">Car Price: {{car.initialInvestment}} lv.</h6>
+              <p class="card-text">Card Description: {{car.carDescription}}</p>
+              <button type="button" class="btn btn-secondary" routerLink="/cars/details/{{car._id}}">Car Details</button>
+            </div>
+          </div>
+    </div>
+    <div class="col-sm-4">.col-sm-3</div>
+  </div>
+
+  
+
+<!-- 
+  <div class="row">
+      <div class="col-xs-6 col-sm-8 col-lg-10" style="background-color:lavenderblush;">        <div class="card custom" >
+          <div class="card-body" >
+            <h2 class="card-title">Car name: {{car.carName}}</h2>
+            <img class="center-car" src="{{car.carPicture}}"
+          alt="Card image">
+            <br>
+            <h4 class="card-subtitle mb-2 text-muted">Car Brand: {{car.carBrand}}</h4>
+            <h6 class="card-subtitle mb-2 text-muted">Car Model: {{car.carModel}}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">Car Price: {{car.initialInvestment}} lv.</h6>
+            <p class="card-text">Card Description: {{car.carDescription}}</p>
+            <button type="button" class="btn btn-secondary" routerLink="/cars/details/{{car._id}}">Car Details</button>
+          </div>
+        </div></div>
+      <div class="col-xs-6 col-sm-4 col-lg-2" style="background-color:lightgrey;">
+    <div class="col-sm-3">
+        <div class="btn-group-vertical" data-toggle="buttons">
+            <button type="button" class="btn btn-primary">Button</button>
+            <button type="button" class="btn btn-primary active" aria-pressed="true">Button</button>
+            <button type="button" class="btn btn-primary">Button</button>
+            <button type="button" class="btn btn-primary">Button</button>
+            <button type="button" class="btn btn-primary">Button</button>
+            <button type="button" class="btn btn-primary">Button</button>
+          </div>
+    </div>
+      </div>
+    </div> -->

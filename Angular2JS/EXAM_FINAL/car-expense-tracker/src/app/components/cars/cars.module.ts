@@ -11,13 +11,16 @@ import { CarsService } from '../../core/services/cars-service/cars.service';
 import { GarageModule } from '../garage/garage.module';
 
 
+
+
 //Services
 
 
 
 @NgModule({
     declarations: [
-        ...carComponents
+        ...carComponents,
+        
     ],
     imports: [
         CommonModule,

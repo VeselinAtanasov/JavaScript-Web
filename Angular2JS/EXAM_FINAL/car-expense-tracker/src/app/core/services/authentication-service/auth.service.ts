@@ -44,7 +44,7 @@ export class AuthService {
     }
 
     getUserName(): string {
-        return this.sessionData['username']
+        return JSON.parse(localStorage.getItem('currentUser'))['username']
     }
     get currentSessionData() {
         if (this.sessionData) {
@@ -61,13 +61,6 @@ export class AuthService {
     }
     isAuthenticated() {
         return localStorage.getItem('currentUser');
-        /*
-        // return this.sessionAuthToken || localStorage.getItem('currentUser') !== null
-        if (this.sessionAuthToken) {
-            return true
-        }
-        else return false
-        //return localStorage.getItem('currentUser') !== null   */
     }
 
 }

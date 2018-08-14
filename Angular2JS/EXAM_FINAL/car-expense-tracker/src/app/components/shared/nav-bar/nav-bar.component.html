@@ -24,6 +24,16 @@
       <li class="nav-item" *ngIf="authService.isAuthenticated()">
         <a class="nav-link" (click)="logout()">Logout</a>
       </li>
+      <li class="nav-item" *ngIf="authService.isAuthenticated()">
+          <a class="nav-link" >
+              <span>welcome, {{authService.getUserName()}}</span>
+            </a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isAuthenticated()">
+            <a class="nav-link" >
+                
+              </a>
+          </li>
     </ul>
   </div>
 </nav>

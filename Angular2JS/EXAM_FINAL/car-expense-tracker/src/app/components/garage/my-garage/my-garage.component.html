@@ -20,7 +20,7 @@
         <br>
         <p>Your navigation menu: From here you can modify your garage</p>
         <button type="button" class="btn btn-primary" routerLink="/cars/create">Add Car To Garage</button>
-        <button type="button" class="btn btn-primary">Delete Car From Garage</button>
+        <button type="button" class="btn btn-primary" routerLink="/cars/remove">Delete Car From Garage</button>
         <button type="button" class="btn btn-primary">Generate Overall Report</button>
         <button type="button" class="btn btn-primary">Generate Report By Car</button>
       </div>
@@ -48,6 +48,7 @@
               <br>
               <h4 class="card-subtitle mb-2 text-muted">Car Brand: {{car.carBrand}}</h4>
               <h6 class="card-subtitle mb-2 text-muted">Car Model: {{car.carModel}}</h6>
+              <h6 class="card-subtitle mb-2 text-muted">Car Price: {{car.initialInvestment}} lv.</h6>
               <p class="card-text">Card Description: {{car.carDescription}}</p>
               <button type="button" class="btn btn-secondary" routerLink="/cars/details/{{car._id}}">Car Details</button>
             </div>
