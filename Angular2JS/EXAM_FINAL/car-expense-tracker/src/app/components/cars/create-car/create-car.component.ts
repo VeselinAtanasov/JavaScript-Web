@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { CarModel } from '../../../core/models/cars/car.model';
 import { CarsService } from '../../../core/services/cars-service/cars.service';
 import { GarageService } from '../../../core/services/garage-services/garage.service';
+import { ExpenseService } from '../../../core/services/expense-service/expense.service';
+import { ExpensesModel } from '../../../core/models/expenses/expenses';
 
 const urlValidator: RegExp = /^(ftp|http|https):\/\/[^ "]+$/;
 
@@ -16,7 +18,11 @@ export class CreateCarComponent implements OnInit {
   public carForm: FormGroup;
   public currentCarModel: CarModel;
 
-  constructor(private carService: CarsService, private garageService: GarageService) { }
+  constructor(
+    private carService: CarsService,
+     private garageService: GarageService,
+     private expenseService : ExpenseService
+    ) { }
 
   ngOnInit() {
 
@@ -58,17 +64,35 @@ export class CreateCarComponent implements OnInit {
 
   createCar() {
     this.carService.createCar(this.carForm.value).subscribe(data => {
+      console.log(data)
       let carId = data['_id'];
       let creatorId = data['_acl']['creator']
+       let carInvestment=data['initialInvestment'];
 
       this.garageService
         .getMyGarage(creatorId)
         .subscribe(resp => {
-          console.dir(resp)
           let garage = resp[0]
           let garageId = garage['_id']
           let allCars = garage['cars'];
           allCars.push(carId)
+
+          //Create record for expenses:
+          const carExpense = new ExpensesModel(carId,garageId,Number(carInvestment),0,0,0,0,0,0,0)
+          this.expenseService.initExpenseForCarId(carExpense
+          //   {
+          //    carId: carId,
+          //    garageId:garageId,
+          //    initialInvestment: Number(carInvestment),
+          //    fuel : 0,
+          //    carRepair : 0,
+          //    consumables: 0,
+          //    accessories: 0,
+          //    cleaning: 0,
+          //    taxes: 0,
+          //    others: 0,
+          // }
+        ).subscribe(data=>console.log(data),err=> console.log(err))
 
           let garageData = {
             garageDescription: garage['garageDescription'],

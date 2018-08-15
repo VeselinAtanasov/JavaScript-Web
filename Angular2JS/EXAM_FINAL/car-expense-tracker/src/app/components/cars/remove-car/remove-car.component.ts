@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CarModel } from '../../../core/models/cars/car.model';
 import { CarsService } from '../../../core/services/cars-service/cars.service';
 import { GarageService } from '../../../core/services/garage-services/garage.service';
+import { AuthService } from '../../../core/services/authentication-service/auth.service';
 
 @Component({
   selector: 'app-remove-car',
@@ -14,7 +15,8 @@ export class RemoveCarComponent implements OnInit {
   public cars: Array<CarModel>
   constructor(
     private carService: CarsService,
-    private garageService: GarageService
+    private garageService: GarageService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {

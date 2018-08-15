@@ -1,55 +1,25 @@
-<!-- second part
-<div class="container-fluid" *ngIf="garageData && garageData?.length!==0">
-  <div class="row">
-    <div class="col-3">
 
-    </div>
-    <div class="container">
-      <div class="col-9" *ngFor="let f of garageData ">
-        <div class="card mb-3">
-          <h3 class="card-header">{{f.garageName}}</h3>
-          <img class="center" src="{{f.garagePicture}}" alt="Card image">
-          <div class="card-body">
-            <p class="card-text">{{f.garageDescription}}</p>
-          </div>
 
-          <div class="card" *ngIf="!cars || cars?.length===0">
-            <strong> You don't have any cars registered in the garage.</strong>
-          </div>
-
-          <div class="card" *ngIf="cars && cars?.length!==0">
-            <div class="card custom" *ngFor="let car of cars">
-              <div class="card-body">
-                <h2 class="card-title">Car name: {{car.carName}}</h2>
-                <img class="center-car" src="{{car.carPicture}}" alt="Card image">
-                <br>
-                <h4 class="card-subtitle mb-2 text-muted">Car Brand: {{car.carBrand}}</h4>
-                <h6 class="card-subtitle mb-2 text-muted">Car Model: {{car.carModel}}</h6>
-                <p class="card-text">Card Description: {{car.carDescription}}</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-<div class="container" *ngIf="garageData && garageData?.length!==0">
-  <div class="jumbotron" *ngFor="let f of garageData ">
-    <div *ngFor="let f of garageData ">
-      <h3 class="display-3">{{f.garageName}}</h3>
-      <img class="center" src="{{f.garagePicture}}" alt="Card image">
+<div class="container" *ngIf="garageData">
+  <div class="jumbotron">
+    <div >
+      <h3 class="display-3">{{garageData.garageName}}</h3>
+      <img class="center" src="{{garageData.garagePicture}}" alt="Card image">
       <br>
      
       <hr class="my-4">
-      <p class="lead"> <i>Garage Description:</i> {{f.garageDescription}}. The number of cars in the garage is: {{f.cars.length}}!</p>
+      <p class="lead"> <i>Garage Description:</i> {{garageData.garageDescription}}. The number of cars in the garage is: {{garageData.cars.length}}!</p>
     </div>
   </div>
-  <div class="card" *ngIf="!cars || cars?.length===0">
-    <strong> <i>There are no cars registered in the garage.</i>></strong>
+
+  <div *ngIf=" cars?.length===0">
+      <div class="alert alert-dismissible alert-primary" >
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>There are no cars registered in the garage.</strong>  
+        </div>
   </div>
+
+
 
   <div class="card" *ngIf="cars && cars?.length!==0">
     <div class="card custom" *ngFor="let car of cars">

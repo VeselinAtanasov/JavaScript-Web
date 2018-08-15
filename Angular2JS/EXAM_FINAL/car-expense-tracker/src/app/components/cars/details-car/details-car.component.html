@@ -1,27 +1,30 @@
-<!-- 
+<br>
+<br>
+<br>
 <div class="row">
   <div class="col-8">
 
-    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <div class="center" class="btn-group btn-group-toggle" data-toggle="buttons" *ngIf="car">
       <label class="btn btn-primary">
-        <input type="radio" name="options" id="option1" autocomplete="off" checked=""> Active
-      </label>
-      <label class="btn btn-primary active">
-        <input type="radio" name="options" id="option2" autocomplete="off"> Radio
+        <input type="radio" name="options" id="option1"> Generate Expense Report
       </label>
       <label class="btn btn-primary">
-        <input type="radio" name="options" id="option3" autocomplete="off"> Radio
+        <input type="radio" name="options" id="option3" routerLink="/cars/addExpense/{{car._id}}"> Add Expense
       </label>
     </div>
+    <br>
+    <br>
 
     <div class="row">
       <div class="col-3">
 
         <div class="card border-primary mb-3" style="max-width: 20rem;">
-          <div class="card-header">Header</div>
+          <div class="card-header">Initial Investment</div>
           <div class="card-body">
-            <h4 class="card-title">Primary card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <h4 class="card-title">Initial expense for the car: </h4>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">{{car.initialInvestment}} lv.</li>
+            </ol>
           </div>
         </div>
 
@@ -30,10 +33,12 @@
       <div class="col-3">
 
         <div class="card border-primary mb-3" style="max-width: 20rem;">
-          <div class="card-header">Header</div>
+          <div class="card-header">Fuel:</div>
           <div class="card-body">
-            <h4 class="card-title">Primary card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <h4 class="card-title">Expenses for fuel</h4>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">{{car.initialInvestment}} lv.</li>
+            </ol>
           </div>
         </div>
 
@@ -41,10 +46,12 @@
       <div class="col-3">
 
         <div class="card border-primary mb-3" style="max-width: 20rem;">
-          <div class="card-header">Header</div>
+          <div class="card-header">Car Repair</div>
           <div class="card-body">
-            <h4 class="card-title">Primary card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <h4 class="card-title">Expenses for car repair</h4>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">{{car.initialInvestment}} lv.</li>
+            </ol>
           </div>
         </div>
 
@@ -52,59 +59,80 @@
       <div class="col-3">
 
         <div class="card border-primary mb-3" style="max-width: 20rem;">
-          <div class="card-header">Header</div>
+          <div class="card-header">Consumables</div>
           <div class="card-body">
-            <h4 class="card-title">Primary card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <h4 class="card-title">Expenses for consumables:</h4>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">{{car.initialInvestment}} lv.</li>
+            </ol>
           </div>
         </div>
 
       </div>
+      <div class="col-3">
+
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+          <div class="card-header">Accessories</div>
+          <div class="card-body">
+            <h4 class="card-title">Expenses for Accessories:</h4>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">{{car.initialInvestment}} lv.</li>
+            </ol>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-3">
+
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+          <div class="card-header">Cleaning</div>
+          <div class="card-body">
+            <h4 class="card-title">Expenses for cleaning:</h4>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">{{car.initialInvestment}} lv.</li>
+            </ol>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-3">
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+          <div class="card-header">Taxes and Charges</div>
+          <div class="card-body">
+            <h4 class="card-title">Expenses for all charges:</h4>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">{{car.initialInvestment}} lv.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+          <div class="card border-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">Others</div>
+            <div class="card-body">
+              <h4 class="card-title">Expenses for other things:</h4>
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">{{car.initialInvestment}} lv.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
     </div>
   </div>
-   <div class="col-4">.col-4</div>
-</div> -->
-<div class="row-fluid">
-    <div class="span12">
+  <div class="col-4">
+
+    <div class="card mb-3" *ngIf="car">
+      <h3 class="custom"  >Car:{{car.carName}}</h3>
+      <h5 class="custom-2" >Car model:{{car.carBrand}} {{car.carModel}}</h5>
+      <img class="center" src="https://www.cars.com/cstatic-images/car-pictures/xl/CAB50POC011A0101.png" alt="Card image">
+      <div class="card-body">
+        <p class="card-text">Car description: {{car.carDescription}}</p>
+      </div>
+      <div class="card" *ngIf="!cars || cars?.length===0">
+        <strong> </strong>
+      </div>
+    </div>
     
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-primary">
-              <input type="radio" name="options" id="option1" autocomplete="off" checked=""> Active
-            </label>
-            <label class="btn btn-primary active">
-              <input type="radio" name="options" id="option2" autocomplete="off"> Radio
-            </label>
-            <label class="btn btn-primary">
-              <input type="radio" name="options" id="option3" autocomplete="off"> Radio
-            </label>
-          </div>
-
-      <div class="row-fluid">
-        <div class="span6">
-          Fluid 6
-          <div class="row-fluid">
-            <div class="span6">
-                <div class="card border-primary mb-3" style="max-width: 20rem;">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">
-                      <h4 class="card-title">Primary card title</h4>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                  </div>
-                  
-            </div>
-            <div class="span6">
-                <div class="card border-primary mb-3" style="max-width: 20rem;">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">
-                      <h4 class="card-title">Primary card title</h4>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                  </div>
-            </div>
-          </div>
-        </div>
-        <div class="span6">Fluid 6</div>
-      </div>
-    </div>
   </div>
+</div>

@@ -28,5 +28,9 @@ export class CarsService {
         const url=collectionUrl+'/' +id;
         return this.http.delete<Observable<any>>(url);
     }
+    getCarById(id :string) :Observable<CarModel>{
+        const url = collectionUrl+'/'+id
+        return this.http.get<CarModel>(url)
+    }
 
 }

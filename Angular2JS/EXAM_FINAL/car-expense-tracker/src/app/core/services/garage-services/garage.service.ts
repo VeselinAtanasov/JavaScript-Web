@@ -37,4 +37,8 @@ export class GarageService {
             return this.http.get<Array<GarageModel>>(url)
         }
     }
+    getGarageById(id:string) :Observable<GarageModel> {
+        const url = collectionUrl+'/'+id
+        return this.http.get<GarageModel>(url)
+    }
 }

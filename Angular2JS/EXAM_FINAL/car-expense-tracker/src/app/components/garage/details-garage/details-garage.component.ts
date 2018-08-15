@@ -3,6 +3,7 @@ import { GarageModel } from '../../../core/models/garage/garage.model';
 import { CarModel } from '../../../core/models/cars/car.model';
 import { GarageService } from '../../../core/services/garage-services/garage.service';
 import { CarsService } from '../../../core/services/cars-service/cars.service';
+import { ActivatedRoute } from '../../../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-details-garage',
@@ -12,26 +13,23 @@ import { CarsService } from '../../../core/services/cars-service/cars.service';
 export class DetailsGarageComponent implements OnInit {
 
   public userID: string;
-  public garageData : Array<GarageModel>;
-  public cars : Array<CarModel>
+  public garageID: string
+  public garageData: GarageModel;
+  public cars: Array<CarModel>
   constructor(
-    private garageService: GarageService, 
-    private carService :CarsService
+    private route: ActivatedRoute,
+    private garageService: GarageService,
+    private carService: CarsService
   ) { }
 
   ngOnInit() {
-    this.userID = JSON.parse(localStorage.getItem('currentUser'))['userId']
-    if (!this.userID){
-      return
-    }
+    this.garageID = this.route.snapshot.paramMap.get('id');
     this.garageService
-      .getMyGarage(this.userID)
+      .getGarageById(this.garageID)
       .subscribe(data => {
         this.garageData = data
-        if (this.garageData.length === 0) {
-          return
-        }
-        this.carService.getAllCarsByUserID(this.userID).subscribe(data =>{ this.cars=data})
+        this.userID = data['_acl']['creator'];
+        this.carService.getAllCarsByUserID(this.userID).subscribe(data => { this.cars = data })
       })
   }
 }
