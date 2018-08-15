@@ -1,63 +1,110 @@
-<br>
-<br>
-<br>
-<br>
+<!-- 
 <div class="row">
-    <div class="col-sm-2">
-        <div class="btn-group-vertical" data-toggle="buttons">
-            <button type="button" class="btn btn-primary">Button</button>
-            <button type="button" class="btn btn-primary active" aria-pressed="true">Button</button>
-            <button type="button" class="btn btn-primary">Button</button>
-            <button type="button" class="btn btn-primary">Button</button>
-            <button type="button" class="btn btn-primary">Button</button>
-            <button type="button" class="btn btn-primary">Button</button>
-          </div>
+  <div class="col-8">
+
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-primary">
+        <input type="radio" name="options" id="option1" autocomplete="off" checked=""> Active
+      </label>
+      <label class="btn btn-primary active">
+        <input type="radio" name="options" id="option2" autocomplete="off"> Radio
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="options" id="option3" autocomplete="off"> Radio
+      </label>
     </div>
-    <div class="col-sm-6">
-        <div class="card custom" >
-            <div class="card-body" >
-              <h2 class="card-title">Car name: {{car.carName}}</h2>
-              <img class="center-car" src="{{car.carPicture}}"
-            alt="Card image">
-              <br>
-              <h4 class="card-subtitle mb-2 text-muted">Car Brand: {{car.carBrand}}</h4>
-              <h6 class="card-subtitle mb-2 text-muted">Car Model: {{car.carModel}}</h6>
-              <h6 class="card-subtitle mb-2 text-muted">Car Price: {{car.initialInvestment}} lv.</h6>
-              <p class="card-text">Card Description: {{car.carDescription}}</p>
-              <button type="button" class="btn btn-secondary" routerLink="/cars/details/{{car._id}}">Car Details</button>
+
+    <div class="row">
+      <div class="col-3">
+
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <h4 class="card-title">Primary card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-3">
+
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <h4 class="card-title">Primary card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-3">
+
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <h4 class="card-title">Primary card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-3">
+
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <h4 class="card-title">Primary card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+   <div class="col-4">.col-4</div>
+</div> -->
+<div class="row-fluid">
+    <div class="span12">
+    
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-primary">
+              <input type="radio" name="options" id="option1" autocomplete="off" checked=""> Active
+            </label>
+            <label class="btn btn-primary active">
+              <input type="radio" name="options" id="option2" autocomplete="off"> Radio
+            </label>
+            <label class="btn btn-primary">
+              <input type="radio" name="options" id="option3" autocomplete="off"> Radio
+            </label>
+          </div>
+
+      <div class="row-fluid">
+        <div class="span6">
+          Fluid 6
+          <div class="row-fluid">
+            <div class="span6">
+                <div class="card border-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Header</div>
+                    <div class="card-body">
+                      <h4 class="card-title">Primary card title</h4>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+                  
+            </div>
+            <div class="span6">
+                <div class="card border-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Header</div>
+                    <div class="card-body">
+                      <h4 class="card-title">Primary card title</h4>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
             </div>
           </div>
-    </div>
-    <div class="col-sm-4">.col-sm-3</div>
-  </div>
-
-  
-
-<!-- 
-  <div class="row">
-      <div class="col-xs-6 col-sm-8 col-lg-10" style="background-color:lavenderblush;">        <div class="card custom" >
-          <div class="card-body" >
-            <h2 class="card-title">Car name: {{car.carName}}</h2>
-            <img class="center-car" src="{{car.carPicture}}"
-          alt="Card image">
-            <br>
-            <h4 class="card-subtitle mb-2 text-muted">Car Brand: {{car.carBrand}}</h4>
-            <h6 class="card-subtitle mb-2 text-muted">Car Model: {{car.carModel}}</h6>
-            <h6 class="card-subtitle mb-2 text-muted">Car Price: {{car.initialInvestment}} lv.</h6>
-            <p class="card-text">Card Description: {{car.carDescription}}</p>
-            <button type="button" class="btn btn-secondary" routerLink="/cars/details/{{car._id}}">Car Details</button>
-          </div>
-        </div></div>
-      <div class="col-xs-6 col-sm-4 col-lg-2" style="background-color:lightgrey;">
-    <div class="col-sm-3">
-        <div class="btn-group-vertical" data-toggle="buttons">
-            <button type="button" class="btn btn-primary">Button</button>
-            <button type="button" class="btn btn-primary active" aria-pressed="true">Button</button>
-            <button type="button" class="btn btn-primary">Button</button>
-            <button type="button" class="btn btn-primary">Button</button>
-            <button type="button" class="btn btn-primary">Button</button>
-            <button type="button" class="btn btn-primary">Button</button>
-          </div>
-    </div>
+        </div>
+        <div class="span6">Fluid 6</div>
       </div>
-    </div> -->
+    </div>
+  </div>
