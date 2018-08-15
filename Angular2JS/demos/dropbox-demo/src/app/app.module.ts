@@ -7,6 +7,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { DropboxComponent } from './dropbox/dropbox.component';
 import { HooksComponent } from './hooks/hooks.component';
 import { DemoDropboxFinalComponent } from './demo-dropbox-final/demo-dropbox-final.component';
+import { KinveyFilesComponent } from './kinvey-files/kinvey-files.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { DemoDropboxFinalComponent } from './demo-dropbox-final/demo-dropbox-fin
     NavigationComponent,
     DropboxComponent,
     HooksComponent,
-    DemoDropboxFinalComponent
+    DemoDropboxFinalComponent,
+    KinveyFilesComponent
   ],
   imports: [
     BrowserModule,
