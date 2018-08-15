@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';  //Always add CommonModule in cu
 import {  ReactiveFormsModule } from '@angular/forms';
 import { GarageRoutingModule } from './garage-routing.module';
 import { GarageService } from '../../core/services/garage-services/garage.service';
+import { CreateGarageGuard } from '../../core/guards/create-garage.guard';
 
 
 
@@ -25,7 +26,7 @@ import { GarageService } from '../../core/services/garage-services/garage.servic
         GarageRoutingModule,
     ],
     providers: [
-        GarageService
+        GarageService, CreateGarageGuard
     ],
     bootstrap: [
     ],
