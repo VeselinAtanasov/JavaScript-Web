@@ -4,6 +4,7 @@ import { HomeComponent } from './components/shared/home/home.component';
 import { GarageModule } from './components/garage/garage.module';
 import { AuthenticationModule } from './components/authentication/authentication.module';
 import { CarsModule } from './components/cars/cars.module';
+import { AuthGuard } from './core/guards/auth.guard';
 
 
 
@@ -11,8 +12,8 @@ const routes: Route[] = [
     { path: '', pathMatch: 'full', redirectTo: 'home' },
     { path: 'home', component: HomeComponent },
     { path: 'auth', loadChildren: () => AuthenticationModule },
-    { path: 'garage', loadChildren: () => GarageModule },
-    { path: 'cars', loadChildren: () => CarsModule },
+    { path: 'garage', loadChildren: () => GarageModule, canActivate: [AuthGuard]  },
+    { path: 'cars', loadChildren: () => CarsModule , canActivate: [AuthGuard] },
 ]
 
 @NgModule({

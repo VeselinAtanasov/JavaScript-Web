@@ -9,6 +9,7 @@ import {  ReactiveFormsModule } from '@angular/forms';
 import { CarsRoutingModule } from './cars-routing.module';
 import { CarsService } from '../../core/services/cars-service/cars.service';
 import { GarageModule } from '../garage/garage.module';
+import { AuthGuard } from '../../core/guards/auth.guard';
 
 
 
@@ -29,7 +30,7 @@ import { GarageModule } from '../garage/garage.module';
         GarageModule
     ],
     providers: [  
-    CarsService
+    CarsService,AuthGuard
     ],
     bootstrap: [
     ],

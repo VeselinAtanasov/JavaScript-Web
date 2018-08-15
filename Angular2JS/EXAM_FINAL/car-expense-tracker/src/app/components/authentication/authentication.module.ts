@@ -7,6 +7,7 @@ import {authenticationComponents} from '.';
 import { PasswordMatcherDirective } from './password-matcher.directive'
 import { AuthService } from "../../core/services/authentication-service/auth.service";
 import { AuthenticationRoutingModule } from "./authentication-routing.module";
+import { AuthGuard } from "../../core/guards/auth.guard";
 
 
 
@@ -23,7 +24,7 @@ import { AuthenticationRoutingModule } from "./authentication-routing.module";
         ReactiveFormsModule
         
       ],
-      providers: [AuthService],
+      providers: [AuthService,AuthGuard],
       exports: [
         ...authenticationComponents
       ]
