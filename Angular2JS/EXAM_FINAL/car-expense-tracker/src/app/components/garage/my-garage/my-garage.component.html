@@ -15,16 +15,19 @@
 <!-- second part -->
 <div class="container-fluid" *ngIf="garageData && garageData?.length!==0">
   <div class="row">
+
     <div class="col-3">
       <div class="btn-group-vertical" data-toggle="buttons">
         <br>
-        <p>Your navigation menu: From here you can modify your garage</p>
+        <h3 class="card-header">Navigation menu for managing</h3>
         <button type="button" class="btn btn-primary" routerLink="/cars/create">Add Car To Garage</button>
         <button type="button" class="btn btn-primary" routerLink="/cars/remove">Delete Car From Garage</button>
         <button type="button" class="btn btn-primary">Generate Overall Report</button>
-        <button type="button" class="btn btn-primary">Generate Report By Car</button>
       </div>
     </div>
+
+
+
     <div class="container">
       <div class="col-9" *ngFor="let f of garageData ">
         <div class="card mb-3">
