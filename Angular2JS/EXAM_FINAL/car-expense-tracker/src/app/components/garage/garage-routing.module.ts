@@ -6,13 +6,13 @@ import { DetailsGarageComponent } from './details-garage/details-garage.componen
 import { CreateGarageGuard } from '../../core/guards/create-garage.guard';
 
 const furnitureRoutes: Routes = [
-    { path: 'my', component: MyGarageComponent },
-    { path: 'create', component: CreateGarageComponent  },
-    { path: 'details/:id', component: DetailsGarageComponent }
-  ]
-  
-  @NgModule({
-    imports: [RouterModule.forChild(furnitureRoutes)],
-    exports: [RouterModule]
-  })
-  export class GarageRoutingModule { }
+  { path: 'my', component: MyGarageComponent },
+  { path: 'create', component: CreateGarageComponent, canActivate: [CreateGarageGuard] },
+  { path: 'details/:id', component: DetailsGarageComponent }
+]
+
+@NgModule({
+  imports: [RouterModule.forChild(furnitureRoutes)],
+  exports: [RouterModule]
+})
+export class GarageRoutingModule { }

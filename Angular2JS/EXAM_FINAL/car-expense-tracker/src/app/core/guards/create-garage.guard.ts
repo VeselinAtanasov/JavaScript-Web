@@ -8,6 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { GarageService } from '../services/garage-services/garage.service';
 import { AuthService } from '../services/authentication-service/auth.service';
+import { runInThisContext } from 'vm';
 
 
 
@@ -26,14 +27,16 @@ export class CreateGarageGuard implements CanActivate {
 
     check(): boolean {
         let currentUserID = JSON.parse(localStorage.getItem('currentUser'))['userId']
-        this.garageService.getMyGarage(currentUserID).subscribe(data => {
-            if(data.length===0){
-                return true;
-            }
-            this.router.navigate(['/garage/my'])
-            return false
-        })
+        return Observable.create(observer => {
 
-        return false
+            this.garageService.getMyGarage(currentUserID).subscribe(data => {
+                if(data.length===0){
+                    observer.next(data.length === 0)
+                }else{
+                    this.router.navigate(['/garage/my'])
+                    observer.next(data.length !== 0)
+                }
+            })
+        })
     }
 }
