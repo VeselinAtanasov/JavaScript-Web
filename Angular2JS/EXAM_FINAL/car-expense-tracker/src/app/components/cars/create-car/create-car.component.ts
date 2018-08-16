@@ -97,7 +97,7 @@ export class CreateCarComponent implements OnInit {
             //    taxes: 0,
             //    others: 0,
             // }
-          ).subscribe(data => console.log(data), err => console.log(err))
+          ).subscribe()
 
           let garageData = {
             garageDescription: garage['garageDescription'],
@@ -106,7 +106,7 @@ export class CreateCarComponent implements OnInit {
             isPublic: garage['isPublic'],
             cars: allCars
           }
-          this.garageService.updateGarageById(garageId, garageData).subscribe(data => console.log(data), err => console.log(err))
+          this.garageService.updateGarageById(garageId, garageData).subscribe()
         }, err => console.log(err))
     }, err => console.log(err))
   }
