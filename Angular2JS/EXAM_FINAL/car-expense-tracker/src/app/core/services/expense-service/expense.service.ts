@@ -22,12 +22,15 @@ export class ExpenseService {
     }
     getExpensesByCarId(id:string) : Observable<ExpensesModel>{
         //`?query={"_acl.creator":"${userID}"}`
-        console.log(id)
         const url = collectionUrl+ `?query={"carId":"${id}"}`
         return this.http.get<ExpensesModel>(url)
     }
     updateExpenseById(id: string, data: ExpensesModel) : Observable<ExpensesModel>{
         const url = collectionUrl+'/'+id
         return this.http.put<ExpensesModel>(url, JSON.stringify(data))
+    }
+    removeExpenseById(id: string) :any{
+        const url = collectionUrl+'/'+id;
+        return this.http.delete<any>(url);
     }
 }

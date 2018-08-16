@@ -31,7 +31,7 @@ export class AddExpenseComponent implements OnInit {
 
   initExpenseForm() {
     this.expenseForm = new FormGroup({
-      'initialInvestment': new FormControl({value: '', disabled: true}, [
+      'initialInvestment': new FormControl({ value: '', disabled: true }, [
         Validators.pattern(priceRegex)
       ]),
       'fuel': new FormControl(0, [
@@ -62,9 +62,9 @@ export class AddExpenseComponent implements OnInit {
     this.carId = this.route.snapshot.paramMap.get('id');
     console.log(this.carId)
     this.initExpenseForm();
-     this.expenseService.getExpensesByCarId(this.carId)
-       .subscribe(expenses => {
-         this.expenseForm.patchValue({initialInvestment : expenses[0]['initialInvestment'] })
+    this.expenseService.getExpensesByCarId(this.carId)
+      .subscribe(expenses => {
+        this.expenseForm.patchValue({ initialInvestment: expenses[0]['initialInvestment'] })
       })
 
     this.carService.getCarById(this.carId).subscribe(data => {
@@ -85,11 +85,20 @@ export class AddExpenseComponent implements OnInit {
     this.expenseForm.value['carId'] = this.carId;
     this.expenseForm.value['garageId'] = this.car['garageId'];
     let currentExpense = Object.assign(this.expenseForm.value);
-    console.log(currentExpense)
 
     this.expenseService.getExpensesByCarId(this.carId).subscribe(expenses => {
       console.log('by expenseID')
       let expense = expenses[0];
+   
+      //TODO... to add method modification:
+      // this.objectModifier(currentExpense,expense)
+      // currentExpense['initialInvestment'] = expense['initialInvestment']
+      console.log('CURRENTEXPENSE');
+      console.log(currentExpense);
+      console.log(expense)
+      console.log('CURRENTEXPENSE');
+
+      //To remove this
       currentExpense['accessories'] += expense['accessories']
       currentExpense['carRepair'] += expense['carRepair']
       currentExpense['cleaning'] += expense['cleaning']
@@ -99,11 +108,24 @@ export class AddExpenseComponent implements OnInit {
       currentExpense['others'] += expense['others']
       currentExpense['taxes'] += expense['taxes']
 
-      this.expenseService.updateExpenseById(expense['_id'],currentExpense).subscribe(response => {
+      this.expenseService.updateExpenseById(expense['_id'], currentExpense).subscribe(response => {
+        console.log(response)
         this.toastr.success('You just add an expense', "Success:");
-        this.router.navigate(['/cars/details/'+this.carId])
-      },err => console.log(err))
+        this.router.navigate(['/cars/details/' + this.carId])
+      }, err => console.log(err))
     })
+  }
+
+  objectModifier(currentExpense, expense) {
+    for (let e in currentExpense) {
+      if (expense.hasOwnProperty(e)) {
+        if (e !== 'initialInvestment') {
+          currentExpense[e] += expense[e]
+        } else {
+          currentExpense[e] = expense[e]
+        }
+      }
+    }
   }
 
   get initialInvestment(): AbstractControl {

@@ -10,8 +10,9 @@ import { CarsRoutingModule } from './cars-routing.module';
 import { CarsService } from '../../core/services/cars-service/cars.service';
 import { GarageModule } from '../garage/garage.module';
 import { AuthGuard } from '../../core/guards/auth.guard';
-import { AddExpenseComponent } from './add-expense/add-expense.component';
 import { ExpenseService } from '../../core/services/expense-service/expense.service';
+import { ChartsModule } from 'ng2-charts';
+
 
 
 
@@ -22,13 +23,14 @@ import { ExpenseService } from '../../core/services/expense-service/expense.serv
 
 @NgModule({
     declarations: [
-        ...carComponents     
+        ...carComponents    
     ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         CarsRoutingModule,
-        GarageModule
+        GarageModule,
+        ChartsModule
     ],
     providers: [  
     CarsService,AuthGuard,ExpenseService

@@ -64,7 +64,7 @@ export class SuccessInterceptor implements HttpInterceptor {
                     this.router.navigate(['/garage/my']);
                 }else if (res instanceof HttpResponse && res.body && res.body['count'] && res.body['count']===1 && req.url.indexOf('cars') !== -1) {
                     this.toastr.success('Successfully deleted!', "Success:");
-                    this.router.navigate(['/garage/remove']);
+                    this.router.navigate(['/cars/remove']);
                 } else if (res instanceof HttpResponse && req.url.indexOf('details') !== -1) {
                     if (res.body.message) {
                         this.toastr.error(res.body.message);

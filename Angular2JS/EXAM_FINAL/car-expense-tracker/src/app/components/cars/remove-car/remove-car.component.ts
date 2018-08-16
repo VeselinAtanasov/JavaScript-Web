@@ -3,6 +3,7 @@ import { CarModel } from '../../../core/models/cars/car.model';
 import { CarsService } from '../../../core/services/cars-service/cars.service';
 import { GarageService } from '../../../core/services/garage-services/garage.service';
 import { AuthService } from '../../../core/services/authentication-service/auth.service';
+import { ExpenseService } from '../../../core/services/expense-service/expense.service';
 
 @Component({
   selector: 'app-remove-car',
@@ -16,6 +17,7 @@ export class RemoveCarComponent implements OnInit {
   constructor(
     private carService: CarsService,
     private garageService: GarageService,
+    private expenseService: ExpenseService,
     private authService: AuthService
   ) { }
 
@@ -33,18 +35,21 @@ export class RemoveCarComponent implements OnInit {
 
   deleteCar(id: string) {
 
-     this.carService.deleteCar(id).subscribe(data => console.log(data),err => console.log(err))
+    this.carService.deleteCar(id).subscribe(data => console.log(data), err => console.log(err))
     this.garageService.getMyGarage(this.userID).subscribe(resp => {
-      let customCars = []
-      let allCars = []
-      for (let car of this.cars) {
-        if (id !== car['_id']) {
-          customCars.push(car)
-          allCars.push(car['_id'])
-        }
-      }
-      // this.cars.filter(car => car['_id']!==id)
-      this.cars = customCars;
+      // let customCars = []
+      // let allCars = []
+      // for (let car of this.cars) {
+      //   if (id !== car['_id']) {
+      //     customCars.push(car)
+      //     allCars.push(car['_id'])
+      //   }
+      // }
+      this.cars = this.cars.filter(car => car['_id'] !== id)
+      let custom = this.cars.map(car => car['_id'])
+      // console.log("custom")
+      // console.log(custom)
+      // this.cars = customCars;
       let myGarage = resp[0];
 
       let garageData = {
@@ -52,9 +57,12 @@ export class RemoveCarComponent implements OnInit {
         garageName: myGarage['garageName'],
         garagePicture: myGarage['garagePicture'],
         isPublic: myGarage['isPublic'],
-        cars: allCars
+        cars: custom
       }
-        this.garageService.updateGarageById(myGarage['_id'], garageData).subscribe(data => console.log(data), err => console.log(err))
+      this.garageService.updateGarageById(myGarage['_id'], garageData).subscribe()
+      this.expenseService.getExpensesByCarId(id).subscribe(data => {
+        this.expenseService.removeExpenseById(data[0]['_id']).subscribe()
+      })
 
     })
   }

@@ -6,7 +6,7 @@
 
     <div class="center" class="btn-group btn-group-toggle" data-toggle="buttons" *ngIf="car">
       <label class="btn btn-primary">
-        <input type="radio" name="options" id="option1"> Generate Expense Report
+        <input type="radio" name="options" id="option1" routerLink="/cars/report/{{car._id}}"> Generate Expense Report
       </label>
       <label class="btn btn-primary">
         <input type="radio" name="options" id="option3" routerLink="/cars/addExpense/{{car._id}}"> Add Expense
