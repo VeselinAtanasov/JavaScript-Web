@@ -15,15 +15,15 @@
     <br>
     <br>
 
-    <div class="row">
+    <div class="row" >
       <div class="col-3">
 
         <div class="card border-primary mb-3" style="max-width: 20rem;">
           <div class="card-header">Initial Investment</div>
           <div class="card-body">
-            <h4 class="card-title">Initial expense for the car: </h4>
+            <h4 class="card-title">Initial expense for car: </h4>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item">{{car.initialInvestment}} lv.</li>
+              <li class="breadcrumb-item" *ngIf="expense">{{expense.initialInvestment}} lv.</li>
             </ol>
           </div>
         </div>
@@ -37,7 +37,7 @@
           <div class="card-body">
             <h4 class="card-title">Expenses for fuel</h4>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item">{{car.initialInvestment}} lv.</li>
+              <li class="breadcrumb-item" *ngIf="expense">{{expense.fuel}} lv.</li>
             </ol>
           </div>
         </div>
@@ -48,9 +48,9 @@
         <div class="card border-primary mb-3" style="max-width: 20rem;">
           <div class="card-header">Car Repair</div>
           <div class="card-body">
-            <h4 class="card-title">Expenses for car repair</h4>
+            <h4 class="card-title">Expenses for repairing</h4>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item">{{car.initialInvestment}} lv.</li>
+              <li class="breadcrumb-item" *ngIf="expense">{{expense.carRepair}} lv.</li>
             </ol>
           </div>
         </div>
@@ -63,7 +63,7 @@
           <div class="card-body">
             <h4 class="card-title">Expenses for consumables:</h4>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item">{{car.initialInvestment}} lv.</li>
+              <li class="breadcrumb-item" *ngIf="expense">{{expense.consumables}} lv.</li>
             </ol>
           </div>
         </div>
@@ -76,7 +76,7 @@
           <div class="card-body">
             <h4 class="card-title">Expenses for Accessories:</h4>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item">{{car.initialInvestment}} lv.</li>
+              <li class="breadcrumb-item" *ngIf="expense">{{expense.accessories}} lv.</li>
             </ol>
           </div>
         </div>
@@ -89,7 +89,7 @@
           <div class="card-body">
             <h4 class="card-title">Expenses for cleaning:</h4>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item">{{car.initialInvestment}} lv.</li>
+              <li class="breadcrumb-item" *ngIf="expense">{{expense.cleaning}} lv.</li>
             </ol>
           </div>
         </div>
@@ -101,7 +101,7 @@
           <div class="card-body">
             <h4 class="card-title">Expenses for all charges:</h4>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item">{{car.initialInvestment}} lv.</li>
+              <li class="breadcrumb-item" *ngIf="expense">{{expense.taxes}} lv.</li>
             </ol>
           </div>
         </div>
@@ -112,7 +112,7 @@
             <div class="card-body">
               <h4 class="card-title">Expenses for other things:</h4>
               <ol class="breadcrumb">
-                <li class="breadcrumb-item">{{car.initialInvestment}} lv.</li>
+                <li class="breadcrumb-item" *ngIf="expense">{{expense.others}} lv.</li>
               </ol>
             </div>
           </div>
@@ -125,7 +125,7 @@
     <div class="card mb-3" *ngIf="car">
       <h3 class="custom"  >Car:{{car.carName}}</h3>
       <h5 class="custom-2" >Car model:{{car.carBrand}} {{car.carModel}}</h5>
-      <img class="center" src="https://www.cars.com/cstatic-images/car-pictures/xl/CAB50POC011A0101.png" alt="Card image">
+      <img class="center" src="{{car.carPicture}}" alt="Card image">
       <div class="card-body">
         <p class="card-text">Car description: {{car.carDescription}}</p>
       </div>

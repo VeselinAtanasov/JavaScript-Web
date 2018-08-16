@@ -4,6 +4,7 @@ import { ActivatedRoute } from '../../../../../node_modules/@angular/router';
 import { CarModel } from '../../../core/models/cars/car.model';
 import { CarsService } from '../../../core/services/cars-service/cars.service';
 import { ExpenseService } from '../../../core/services/expense-service/expense.service';
+import { ExpensesModel } from '../../../core/models/expenses/expenses';
 
 const priceRegex: RegExp = /^(\+?(0|[1-9]\d*))(\.(0|[1-9]\d*))?$/;
 
@@ -16,7 +17,8 @@ export class AddExpenseComponent implements OnInit {
 
   public carId: string;
   public car: CarModel;
-  public expenseForm
+  public expenseForm :FormGroup;
+ 
   constructor(
     private route: ActivatedRoute,
     private carService: CarsService,
@@ -60,9 +62,8 @@ export class AddExpenseComponent implements OnInit {
     this.expenseService.getExpensesByCarId(this.carId)
       .subscribe(expenses => {
         console.log(expenses)
-        
+          
         // this.expenseForm.patchValue({ ...expenses[0] })
-
       })
 
     this.carService.getCarById(this.carId).subscribe(data => {
