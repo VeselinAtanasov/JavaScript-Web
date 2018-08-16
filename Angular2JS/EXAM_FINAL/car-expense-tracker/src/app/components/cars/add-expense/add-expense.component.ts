@@ -60,7 +60,6 @@ export class AddExpenseComponent implements OnInit {
 
   ngOnInit() {
     this.carId = this.route.snapshot.paramMap.get('id');
-    console.log(this.carId)
     this.initExpenseForm();
     this.expenseService.getExpensesByCarId(this.carId)
       .subscribe(expenses => {
@@ -68,7 +67,6 @@ export class AddExpenseComponent implements OnInit {
       })
 
     this.carService.getCarById(this.carId).subscribe(data => {
-      console.log(data)
       this.car = data
     })
   }
@@ -87,29 +85,11 @@ export class AddExpenseComponent implements OnInit {
     let currentExpense = Object.assign(this.expenseForm.value);
 
     this.expenseService.getExpensesByCarId(this.carId).subscribe(expenses => {
-      console.log('by expenseID')
       let expense = expenses[0];
-   
-      //TODO... to add method modification:
-      // this.objectModifier(currentExpense,expense)
-      // currentExpense['initialInvestment'] = expense['initialInvestment']
-      console.log('CURRENTEXPENSE');
-      console.log(currentExpense);
-      console.log(expense)
-      console.log('CURRENTEXPENSE');
-
-      //To remove this
-      currentExpense['accessories'] += expense['accessories']
-      currentExpense['carRepair'] += expense['carRepair']
-      currentExpense['cleaning'] += expense['cleaning']
-      currentExpense['consumables'] += expense['consumables']
-      currentExpense['fuel'] += expense['fuel']
+      this.objectModifier(currentExpense, expense)
       currentExpense['initialInvestment'] = expense['initialInvestment']
-      currentExpense['others'] += expense['others']
-      currentExpense['taxes'] += expense['taxes']
 
       this.expenseService.updateExpenseById(expense['_id'], currentExpense).subscribe(response => {
-        console.log(response)
         this.toastr.success('You just add an expense', "Success:");
         this.router.navigate(['/cars/details/' + this.carId])
       }, err => console.log(err))
@@ -118,7 +98,7 @@ export class AddExpenseComponent implements OnInit {
 
   objectModifier(currentExpense, expense) {
     for (let e in currentExpense) {
-      if (expense.hasOwnProperty(e)) {
+      if (expense.hasOwnProperty(e) && e !== 'carId' && e !== 'garageId') {
         if (e !== 'initialInvestment') {
           currentExpense[e] += expense[e]
         } else {
