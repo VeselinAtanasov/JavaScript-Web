@@ -43,7 +43,7 @@ export class SuccessInterceptor implements HttpInterceptor {
             .handle(req)
             .pipe(tap((res: HttpEvent<any>) => {
 
-               // console.log(res)
+              // console.log(res)
                 if (res instanceof HttpResponse && res.ok && res.url.endsWith(appKey)) {
                     this.toastr.success("Successful registration! Please login", "Success: ")
                     this.router.navigate(['/auth/login'])

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
-import { ActivatedRoute } from '../../../../../node_modules/@angular/router';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '../../../../../node_modules/@angular/router';
 import { CarModel } from '../../../core/models/cars/car.model';
 import { CarsService } from '../../../core/services/cars-service/cars.service';
 import { ExpenseService } from '../../../core/services/expense-service/expense.service';
 import { ExpensesModel } from '../../../core/models/expenses/expenses';
+import { ToastrService } from '../../../../../node_modules/ngx-toastr';
 
-const priceRegex: RegExp = /^(\+?(0|[1-9]\d*))(\.(0|[1-9]\d*))?$/;
+const priceRegex: RegExp = /^(\+?(0|[1-9]\d*))(\.(0|[0-9]\d*))?$/;
 
 @Component({
   selector: 'app-add-expense',
@@ -17,18 +18,20 @@ export class AddExpenseComponent implements OnInit {
 
   public carId: string;
   public car: CarModel;
-  public expenseForm :FormGroup;
- 
+  public expenseForm: FormGroup;
+
   constructor(
     private route: ActivatedRoute,
     private carService: CarsService,
-    private expenseService: ExpenseService
+    private expenseService: ExpenseService,
+    private toastr: ToastrService,
+    private router: Router,
   ) { }
 
 
   initExpenseForm() {
     this.expenseForm = new FormGroup({
-      'initialInvestment': new FormControl(0, [
+      'initialInvestment': new FormControl({value: '', disabled: true}, [
         Validators.pattern(priceRegex)
       ]),
       'fuel': new FormControl(0, [
@@ -59,11 +62,9 @@ export class AddExpenseComponent implements OnInit {
     this.carId = this.route.snapshot.paramMap.get('id');
     console.log(this.carId)
     this.initExpenseForm();
-    this.expenseService.getExpensesByCarId(this.carId)
-      .subscribe(expenses => {
-        console.log(expenses)
-          
-        // this.expenseForm.patchValue({ ...expenses[0] })
+     this.expenseService.getExpensesByCarId(this.carId)
+       .subscribe(expenses => {
+         this.expenseForm.patchValue({initialInvestment : expenses[0]['initialInvestment'] })
       })
 
     this.carService.getCarById(this.carId).subscribe(data => {
@@ -71,12 +72,38 @@ export class AddExpenseComponent implements OnInit {
       this.car = data
     })
   }
-  updateCarExpenses() {
-
+  dataNormalization(input: Object) {
+    for (let prop in input) {
+      if (input[prop] === null) {
+        input[prop] = 0;
+      }
+      input[prop] = Math.round(input[prop] * 100) / 100;
+    }
   }
+  updateCarExpenses() {
+    this.dataNormalization(this.expenseForm.value);
+    this.expenseForm.value['carId'] = this.carId;
+    this.expenseForm.value['garageId'] = this.car['garageId'];
+    let currentExpense = Object.assign(this.expenseForm.value);
+    console.log(currentExpense)
 
-  checker(){
-    console.log(this.expenseForm)
+    this.expenseService.getExpensesByCarId(this.carId).subscribe(expenses => {
+      console.log('by expenseID')
+      let expense = expenses[0];
+      currentExpense['accessories'] += expense['accessories']
+      currentExpense['carRepair'] += expense['carRepair']
+      currentExpense['cleaning'] += expense['cleaning']
+      currentExpense['consumables'] += expense['consumables']
+      currentExpense['fuel'] += expense['fuel']
+      currentExpense['initialInvestment'] = expense['initialInvestment']
+      currentExpense['others'] += expense['others']
+      currentExpense['taxes'] += expense['taxes']
+
+      this.expenseService.updateExpenseById(expense['_id'],currentExpense).subscribe(response => {
+        this.toastr.success('You just add an expense', "Success:");
+        this.router.navigate(['/cars/details/'+this.carId])
+      },err => console.log(err))
+    })
   }
 
   get initialInvestment(): AbstractControl {
@@ -103,6 +130,4 @@ export class AddExpenseComponent implements OnInit {
   get taxes(): AbstractControl {
     return this.expenseForm.get('taxes');
   }
-
-
 }

@@ -297,10 +297,13 @@
     <div class="form-group">
       <label for="initialInvestment">Initial Investment</label>
       <input type="number" class="form-control" id="initialInvestment" formControlName="initialInvestment" formControlName="initialInvestment" />
-      <div *ngIf="initialInvestment.invalid && (initialInvestment.dirty || initialInvestment.touched)" class="alert alert-dark">
+      <div *ngIf="initialInvestment.invalid && (initialInvestment.dirty || initialInvestment.touched)" class="alert alert-danger">
         <div *ngIf="initialInvestment.errors.required">
-          Initial Investment should be positive number
+          Initial Investment is required
         </div>
+        <div *ngIf="initialInvestment.errors.pattern">
+            Initial Investment  must be positive number
+          </div>
       </div>
     </div>
     <br>

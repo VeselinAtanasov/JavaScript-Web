@@ -23,17 +23,13 @@ export class DetailsCarComponent implements OnInit {
 
   ngOnInit() {
     this.carId = this.route.snapshot.paramMap.get('id');
-    console.log(this.carId)
 
     this.carService.getCarById(this.carId).subscribe(data => {
-      console.log(data)
       this.car = data
     })
 
     this.expenseService.getExpensesByCarId(this.carId).subscribe(expenses => {
-      console.log(this.carId)
       this.expense = expenses[0]
-      console.log(this.expense)
     })
   }
 

@@ -32,5 +32,9 @@ export class CarsService {
         const url = collectionUrl+'/'+id
         return this.http.get<CarModel>(url)
     }
+    updateCarById(id: string, data) : Observable<CarModel>{
+        const url = collectionUrl+'/'+id;
+        return this.http.put<CarModel>(url,JSON.stringify(data));
+    }
 
 }
