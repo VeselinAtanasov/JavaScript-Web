@@ -6,7 +6,8 @@ import { CarsService } from '../../../core/services/cars-service/cars.service';
 import { ExpenseService } from '../../../core/services/expense-service/expense.service';
 import { CarModel } from '../../../core/models/cars/car.model';
 import { ExpensesModel } from '../../../core/models/expenses/expenses';
-import {ReportCalculator} from '../../../core/utils/report-calculation/report-calculator'
+import { ReportCalculator } from '../../../core/utils/report-calculation/report-calculator';
+import { label } from '../../../core/utils/chart-config/chart-configuration';
 
 @Component({
   selector: 'app-garage-report',
@@ -26,10 +27,14 @@ export class GarageReportComponent implements OnInit {
 
   public isDataCollected: boolean = false;
 
+  public pieChartType: string = 'pie';
   public pieChartLabelsByCar: Array<string>;
   public pieChartDataByCar: Array<number>;
   public pieChartDataByCarPercentage: Array<number>;
-  public pieChartType: string = 'pie';
+  public pieChartLabelsByCategory: Array<string>;
+  public pieChartDataByCategory: Array<number>;
+  public pieChartDataByCategoryPercentage: Array<number>;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -62,19 +67,21 @@ export class GarageReportComponent implements OnInit {
     this.collectData()
   }
 
-  collectData() {
+  private collectData() {
     if (this.garage && this.cars && this.expenses) {
       this.prepareReportByCar();
       this.prepareReportByCarPercentage();
+      this.loadChartDataByCategory()
       this.isDataCollected = true;
     }
   }
 
-  prepareReportByCarPercentage(){
-    let sum = this.pieChartDataByCar.reduce((a,b) => a+b);
+  private prepareReportByCarPercentage() {
+    let sum = this.pieChartDataByCar.reduce((a, b) => a + b);
     this.pieChartDataByCarPercentage = this.pieChartDataByCar.map(e => Number(((e / sum) * 100).toFixed(2)))
   }
-  prepareReportByCar() {
+
+  private prepareReportByCar() {
     let allCarLabels = this.cars.map(car => {
       let id = car['_id'];
       let carName = `${car['carName']} - ${car['carBrand']} / ${car['carModel']}`
@@ -83,5 +90,13 @@ export class GarageReportComponent implements OnInit {
     let allCarValues = ReportCalculator.getCarValues(this.expenses).sort((a, b) => a['id'].localeCompare(b['id'])).map(e => e['value'])
     this.pieChartLabelsByCar = allCarLabels;
     this.pieChartDataByCar = allCarValues;
+  }
+
+
+  private loadChartDataByCategory(): void {
+    this.pieChartLabelsByCategory = Object.values(Object.keys(label).sort((a, b) => a.localeCompare(b)));
+    let concatData = ReportCalculator.reportByCategory(this.expenses)
+    this.pieChartDataByCategory = ReportCalculator.fillChartData(concatData, this.pieChartLabelsByCategory);
+    this.pieChartDataByCategoryPercentage = ReportCalculator.fillPercentageChartData(concatData, this.pieChartLabelsByCategory);
   }
 }

@@ -11,7 +11,7 @@
 
           <div class="custom-chart" class="col-sm-6" >
               <span>
-                  <h5>Distribution by car, lv</h5>
+                  <h5>Overall distribution by car, lv</h5>
                 </span>
                 <div style="display: block">
                   <canvas baseChart [data]="pieChartDataByCar" [labels]="pieChartLabelsByCar"  [chartType]="pieChartType" (chartHover)="chartHovered($event)"
@@ -21,10 +21,31 @@
 
           <div class="custom-chart" class="col-sm-6" >
               <span>
-                  <h5>Percentage Distribution by car, lv</h5>
+                  <h5>Overall percentage distribution by car, lv</h5>
                 </span>
                 <div style="display: block">
                   <canvas baseChart [data]="pieChartDataByCarPercentage" [labels]="pieChartLabelsByCar"  [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)"></canvas>
+                </div>
+          </div>
+
+
+          <div class="custom-chart" class="col-sm-6" >
+              <span>
+                  <h5>Overall distribution by category, lv</h5>
+                </span>
+                <div style="display: block">
+                  <canvas baseChart [data]="pieChartDataByCategory" [labels]="pieChartLabelsByCategory"  [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)"></canvas>
+                </div>
+          </div>
+
+          <div class="custom-chart" class="col-sm-6" >
+              <span>
+                  <h5>Overall percentage distribution by category, lv</h5>
+                </span>
+                <div style="display: block">
+                  <canvas baseChart [data]="pieChartDataByCategoryPercentage" [labels]="pieChartLabelsByCategory"  [chartType]="pieChartType" (chartHover)="chartHovered($event)"
                   (chartClick)="chartClicked($event)"></canvas>
                 </div>
           </div>
