@@ -4,7 +4,8 @@ import { CarModel } from '../../../core/models/cars/car.model';
 import { ExpensesModel } from '../../../core/models/expenses/expenses';
 import { CarsService } from '../../../core/services/cars-service/cars.service';
 import { ExpenseService } from '../../../core/services/expense-service/expense.service';
-import { label } from '../../../core/utils/chart-config/chart-configuration'
+import { label } from '../../../core/utils/chart-config/chart-configuration';
+import {ReportCalculator} from '../../../core/utils/report-calculation/report-calculator'
 
 @Component({
   selector: 'app-report-car',
@@ -40,32 +41,12 @@ export class ReportCarComponent implements OnInit {
     })
 
   }
+
   loadChartData(expense): void {
     this.pieChartLabels = Object.values(Object.keys(label).sort((a, b) => a.localeCompare(b)));
-    this.pieChartData = this.fillChartData(expense, this.pieChartLabels);
-    this.pieChartDataPercentage = this.fillPercentageChartData(expense, this.pieChartLabels)
+    this.pieChartData = ReportCalculator.fillChartData(expense, this.pieChartLabels);
+    this.pieChartDataPercentage = ReportCalculator.fillPercentageChartData(expense, this.pieChartLabels)
   }
-  fillChartData(expense, modifiedLabels): Array<number> {
-    let arr: Array<number> = [];
-    for (let l of modifiedLabels) {
-      if (expense.hasOwnProperty(l)) {
-        arr.push(expense[l]);
-      }
-    }
-    return arr;
-  }
-  fillPercentageChartData(expense, modifiedLabels) {
-    let arr: Array<number> = [];
-    for (let l of modifiedLabels) {
-      if (expense.hasOwnProperty(l)) {
-        arr.push(expense[l]);
-      }
-    }
-    let sum = arr.reduce((a, b) => a + b);
-    let result = arr.map(e => Number(((e / sum) * 100).toFixed(2)))
-    return result;
-  }
-
 
   public chartClicked(e: any): void {
     let index = e['active'][0]['_index']

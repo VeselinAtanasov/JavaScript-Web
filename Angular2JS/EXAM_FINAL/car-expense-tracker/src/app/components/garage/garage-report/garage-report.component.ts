@@ -6,6 +6,7 @@ import { CarsService } from '../../../core/services/cars-service/cars.service';
 import { ExpenseService } from '../../../core/services/expense-service/expense.service';
 import { CarModel } from '../../../core/models/cars/car.model';
 import { ExpensesModel } from '../../../core/models/expenses/expenses';
+import {ReportCalculator} from '../../../core/utils/report-calculation/report-calculator'
 
 @Component({
   selector: 'app-garage-report',
@@ -79,21 +80,8 @@ export class GarageReportComponent implements OnInit {
       let carName = `${car['carName']} - ${car['carBrand']} / ${car['carModel']}`
       return { id, carName }
     }).sort((a, b) => a['id'].localeCompare(b['id'])).map(e => e['carName'])
-    let allCarValues = this.getCarValues(this.expenses).sort((a, b) => a['id'].localeCompare(b['id'])).map(e => e['value'])
+    let allCarValues = ReportCalculator.getCarValues(this.expenses).sort((a, b) => a['id'].localeCompare(b['id'])).map(e => e['value'])
     this.pieChartLabelsByCar = allCarLabels;
     this.pieChartDataByCar = allCarValues;
-
   }
-  getCarValues(allExpenses) {
-    let arr = ['initialInvestment', 'taxes', 'fuel', 'carRepair', 'consumables', 'accessories', 'cleaning', 'others']
-    let result = [];
-    for (let e of allExpenses) {
-      result.push({
-        id: e['carId'],
-        value: e['initialInvestment'] + e['taxes'] + e['fuel'] + e['carRepair'] + e['consumables'] + e['accessories'] + e['cleaning'] + e['others']
-      })
-    }
-    return result;
-  }
-
 }
