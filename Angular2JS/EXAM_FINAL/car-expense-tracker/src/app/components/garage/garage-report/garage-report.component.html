@@ -3,7 +3,8 @@
   <div class="container-fluid">
     <h1>Overall Garage Report</h1>
     <p>Current Expense Statistics:</p>
-    <div class="row">
+    <div *ngIf="isGarageEmpty"> <strong>You do not have cars, so no report could be generated!</strong> </div>
+    <div class="row" *ngIf="!isGarageEmpty">
       <div class="col-sm-8" >
             <br>
             <br>

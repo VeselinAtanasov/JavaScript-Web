@@ -26,6 +26,7 @@ export class GarageReportComponent implements OnInit {
   public expenses: Array<ExpensesModel>;
 
   public isDataCollected: boolean = false;
+  public isGarageEmpty: boolean =false;
 
   public pieChartType: string = 'pie';
   public pieChartLabelsByCar: Array<string>;
@@ -56,12 +57,18 @@ export class GarageReportComponent implements OnInit {
       .getAllCarsByGarageId(this.garageID)
       .subscribe(cars => {
         this.cars = cars.sort((a, b) => a['_id'].localeCompare(b['_id']));
+        if(this.cars.length===0){
+          this.isGarageEmpty = true;
+        }
         this.collectData()
       });
     this.expenseService
       .getExpensesByGarageId(this.garageID)
       .subscribe(expenses => {
         this.expenses = expenses;
+        if(this.expenses.length===0){
+          this.isGarageEmpty = true;
+        }
         this.collectData()
       })
     this.collectData()
@@ -69,10 +76,14 @@ export class GarageReportComponent implements OnInit {
 
   private collectData() {
     if (this.garage && this.cars && this.expenses) {
+      if(this.isGarageEmpty){
+        return;
+      }
       this.prepareReportByCar();
       this.prepareReportByCarPercentage();
       this.loadChartDataByCategory()
       this.isDataCollected = true;
+
     }
   }
 
