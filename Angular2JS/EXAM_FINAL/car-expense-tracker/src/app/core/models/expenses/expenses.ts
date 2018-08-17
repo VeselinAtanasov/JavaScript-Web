@@ -1,6 +1,8 @@
 
 
+
 export class ExpensesModel {
+ 
     constructor(
       //  public _id: string,
         public carId: string,
@@ -12,8 +14,6 @@ export class ExpensesModel {
         public accessories: number,
         public cleaning: number,
         public taxes: number,
-        public others: number,
-      //  public creator: string
-
+        public others: number
     ) { }
 }

@@ -12,6 +12,7 @@ import { CarModel } from '../../../core/models/cars/car.model';
 })
 export class MyGarageComponent implements OnInit {
 
+  public garageId: string;
   public userID: string;
   public garageData : Array<GarageModel>;
   public cars : Array<CarModel>
@@ -29,10 +30,12 @@ export class MyGarageComponent implements OnInit {
     this.garageService
       .getMyGarage(this.userID)
       .subscribe(data => {
+        
         this.garageData = data
         if (this.garageData.length === 0) {
           return
         }
+        this.garageId=data[0]['_id']
         this.carService.getAllCarsByUserID(this.userID).subscribe(data =>{ this.cars=data})
       })
   }

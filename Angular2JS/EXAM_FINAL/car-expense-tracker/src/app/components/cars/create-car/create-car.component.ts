@@ -83,21 +83,8 @@ export class CreateCarComponent implements OnInit {
           this.carService.updateCarById(carId, this.currentCarModel).subscribe();
 
           //Create record for expenses:
-          const carExpense = new ExpensesModel(carId, garageId, Number(carInvestment), 0, 0, 0, 0, 0, 0, 0)
-          this.expenseService.initExpenseForCarId(carExpense
-            //   {
-            //    carId: carId,
-            //    garageId:garageId,
-            //    initialInvestment: Number(carInvestment),
-            //    fuel : 0,
-            //    carRepair : 0,
-            //    consumables: 0,
-            //    accessories: 0,
-            //    cleaning: 0,
-            //    taxes: 0,
-            //    others: 0,
-            // }
-          ).subscribe()
+          const carExpense = new ExpensesModel(carId, garageId, Number(carInvestment), 0, 0, 0, 0, 0, 0,0)
+          this.expenseService.initExpenseForCarId(carExpense).subscribe()
 
           let garageData = {
             garageDescription: garage['garageDescription'],

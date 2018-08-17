@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core'
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { dbDescription } from '../../utils/db-config/db-configuration';
 import { ExpensesModel } from '../../models/expenses/expenses';
+
 
 
 const appKey = dbDescription['appKey']   // APP KEY HERE;
@@ -33,4 +34,9 @@ export class ExpenseService {
         const url = collectionUrl+'/'+id;
         return this.http.delete<any>(url);
     }
+    getExpensesByGarageId( garageID: string) :Observable<Array<ExpensesModel>>{
+        const url = collectionUrl+ `?query={"garageId":"${garageID}"}`
+        return this.http.get<Array<ExpensesModel>>(url)
+    }
+
 }

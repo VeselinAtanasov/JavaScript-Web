@@ -24,6 +24,10 @@ export class CarsService {
         const url = collectionUrl+`?query={"_acl.creator":"${userID}"}`
         return this.http.get<Array<CarModel>>(url)
     }
+    getAllCarsByGarageId(garageId :string): Observable<Array<CarModel>>{
+        const url = collectionUrl+`?query={"garageId":"${garageId}"}`
+        return this.http.get<Array<CarModel>>(url)
+    }
     deleteCar(id :string) :Observable<any> {
         const url=collectionUrl+'/' +id;
         return this.http.delete<Observable<any>>(url);

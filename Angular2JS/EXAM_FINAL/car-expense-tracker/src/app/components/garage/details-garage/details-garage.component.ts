@@ -29,7 +29,7 @@ export class DetailsGarageComponent implements OnInit {
       .subscribe(data => {
         this.garageData = data
         this.userID = data['_acl']['creator'];
-        this.carService.getAllCarsByUserID(this.userID).subscribe(data => { this.cars = data })
+        this.carService.getAllCarsByUserID(this.userID).subscribe(cars => { console.log(cars);  this.cars = cars })
       })
   }
 }

@@ -17,7 +17,7 @@
                     <h5>Distribution by money, lv</h5>
                   </span>
                   <div style="display: block">
-                    <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+                    <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels"  [chartType]="pieChartType" (chartHover)="chartHovered($event)"
                     (chartClick)="chartClicked($event)"></canvas>
                   </div>
 
@@ -33,6 +33,7 @@
                   </div>
 
             </div>
+
           </div>
         </div>
         <div class="col-sm-4" *ngIf="car">
