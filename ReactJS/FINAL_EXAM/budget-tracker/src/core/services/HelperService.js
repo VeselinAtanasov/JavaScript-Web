@@ -384,6 +384,7 @@ function getFlag(country) {
 }
 
 function notify(type, message, errors) {
+    console.log('From Notify...')
     if (type === 'success') {
         toastr.success(message);
     }

@@ -21,10 +21,7 @@ class RequestorService {
 
     post (module, endpoint, auth, data) {
         const url = baseUrl + module + '/' + appKey +endpoint;
-        console.log(`url: ${url}`)
         return fetch(url, this.makeRequest('POST', auth,data)).then((res) => {
-            console.log('from post');
-            console.log(res);
             return res.json();
         }).then((res) => {
             return Promise.resolve(res);
@@ -42,10 +39,6 @@ class RequestorService {
         if(data){
             obj['body']=JSON.stringify(data);
         }
-        console.log('from make request');
-        console.log(obj);
-        console.log('from make request');
-
         return obj;
     }
     makeAuth(type) {

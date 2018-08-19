@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AuthService from './../../core/services/AuthService';
+import HelperService from '../../core/services/HelperService';
 
 const authService = new AuthService();
 export default class LoginTest extends Component {
@@ -25,7 +26,11 @@ export default class LoginTest extends Component {
         console.log(this.state);
         let data = this.state;
         delete data['repeatPass']
-        authService.login(data).then(resp => console.log(resp)).catch(err => console.log(err))
+        authService.login(data).then(resp => console.log(resp)).catch(err => {
+            HelperService.notify('error', 'ERRRRRRRR!');
+            console.log('ERRRR')
+            console.log(err)
+        })
         // requester
         //     .post('user', '', 'basic', this.state)
         //     .then(resp => {

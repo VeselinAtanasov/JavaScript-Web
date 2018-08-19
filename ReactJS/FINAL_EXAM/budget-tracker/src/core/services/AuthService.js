@@ -1,5 +1,6 @@
 
 import RequestorService from './RequestorService';
+import helperService from './HelperService';
 
 let Requestor = new RequestorService();
 
@@ -14,23 +15,23 @@ class AuthService {
     }
 
     register(data) {
-        console.log(data)
         return Requestor.post('user','','basic', data).then((res) => {
-            console.log(res);
             this.setToken(res['_kmd']['authtoken']);
             return Promise.resolve(res);
         });
     }
 
     login(data) {
+
         return Requestor.post('user','/login','basic', data).then((res) => {
             this.setToken(res['_kmd']['authtoken']);
+            helperService.notify('success', 'Login successful!');
             return Promise.resolve(res);
         });
     }
 
     logout() {
-        // helperService.notify('success', 'Logout successful!');
+        helperService.notify('success', 'Logout successful!');
         localStorage.removeItem('token');
     }
 
