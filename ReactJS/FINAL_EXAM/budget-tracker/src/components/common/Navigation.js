@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { Link,NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import observer from '../../core/observer/observer';
 
 export default class Navigation extends Component{
@@ -29,6 +29,9 @@ export default class Navigation extends Component{
         let loggedInSection;
         if(this.state.username!==''){
             loggedInSection =  (<ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                    <NavLink activeClassName="selected" className="nav-link" to="/mtracker">My Money Tracker </NavLink>
+                </li>
                 <li className="nav-item">
                     <NavLink activeClassName="selected" className="nav-link" to="/logout">Logout </NavLink>
                 </li>

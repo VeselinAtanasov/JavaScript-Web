@@ -41,12 +41,10 @@ export default {
             return  req;
         },
         success: function(res) {
-            console.log('.....');
             const username = localStorage.getItem('username');
-            observer.trigger(observer.events.logoutUser);   
-            helperService.notify('success',`Goodbye, ${username}`);
+            helperService.notify('success',`Goodbye, ${username}`);  
+            observer.trigger(observer.events.logoutUser);
             localStorage.clear();
-            this.props.history.push('/register');
         },
         fail: function(err) {
             helperService.notify('error',err.responseJSON.description);
