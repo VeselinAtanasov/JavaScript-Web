@@ -5,10 +5,13 @@ import LoginForm from './components/forms/LoginForm';
 import Logout from './components/forms/Logout';
 import MoneyTracker from './components/mtracker/MoneyTracker';
 import CreateTrackerForm from './components/forms/CreateTrackerForm';
+import Home from './components/common/Home';
 
 const AppRouter  = () => (
     <div>
         <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path='/home'  component={Home} />
             <Route path='/register'  component={RegisterForm} />
             <Route path='/login'  component={LoginForm} />
             <Route path='/logout'  component={Logout} />

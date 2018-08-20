@@ -28,7 +28,7 @@ export default class Navigation extends Component{
 
         let loggedInSection;
         let user = this.state.username!=='' || localStorage.getItem('username')
-       // if(this.state.username!==''){
+      //if(this.state.username!==''){
         if(user){
             loggedInSection =  (<ul className="navbar-nav ml-auto">
                 <li className="nav-item">

@@ -26,6 +26,7 @@ export default {
         success: function(res) {
             localStorage.setItem('authtoken', res._kmd.authtoken);
             localStorage.setItem('username', res['username']);
+            localStorage.setItem('userId',res['_acl']['creator']);
             helperService.notify('success',`Welcome, ${res.username}`);
             observer.trigger(observer.events.loginUser, res.username);
             this.props.history.push('/');
@@ -54,7 +55,10 @@ export default {
         return localStorage.getItem('authtoken');
     },
     getUserName : function(){
-        return localStorage.getItem('UserName');
+        return localStorage.getItem('username');
+    },
+    getUserData : function(){
+        return localStorage;
     }
 };
 

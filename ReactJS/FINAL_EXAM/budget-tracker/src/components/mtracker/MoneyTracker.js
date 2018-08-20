@@ -1,39 +1,71 @@
 import React, { Component } from 'react';
 import MoneyTrackerNavigator from './MoneyTrackerNavigator';
 import CreateMoneyTracker from './CreateMoneyTracker';
+import trackerService from '../../core/services/TrackerService';
+import helperService from '../../core/services/HelperService';
+import TrackerInfo from './TrackerInfo';
 
-export default class MoneyTracker extends Component{
-    
-    constructor(props){
+
+export default class MoneyTracker extends Component {
+
+    constructor(props) {
         super(props);
-        this.state={
-            menu:''
+        this.state = {
+            menu: null
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         let userId = localStorage.getItem('userId');
         console.log(`User id is: ${userId}`);
-        //check if subscriber has Own Menu -if not render an option to create one, if it has then render his own menu
-    }
+        if (userId) {
+            trackerService
+                .getTrackerByCreatorId
+                .send(userId)
+                .then(res => {
+                    console.log(res);
+                    if (res.length !== 0) {
+                        // helperService.notify('success', "Please check your Budget Tracker!");
+                        this.setState({
+                            menu: {
+                                trackerDescription: res[0]['trackerDescription'],
+                                trackerName: res[0]['trackerName'],
+                                trackerUrl: res[0]['trackerUrl'],
+                                trackerId: res[0]['_id']
+                            }
+                        });
+                    }else{
+                        this.setState({
+                            menu:''
+                        })
+                    }
 
-    render(){
-        if(this.state.menu ===''){
-            return (<CreateMoneyTracker />);
+                })
+                .catch(err => helperService.notify('error', "Database request failed.Please try again later!!"));
         }
-        return (<div className="container-fluid">
-            <h1>Your Money Tracker:</h1>
-            <p>This is your own Tracker Menu</p>
-            <div className="row">
-                <div className="col-sm-8" >
-                    <MoneyTrackerNavigator />
+
+    }
+    render() {
+        if (this.state.menu === null ) {
+            return null;
+        } else if (this.state.menu === '') {
+            return (<CreateMoneyTracker />);
+        } else {
+            return (
+                <div className="container-fluid">
                     <div className="row">
-                        <div className="col-sm-6" >.col-sm-6</div>
-                        <div className="col-sm-6" >.col-sm-6</div>
+                        <div className="col-3">
+                            <MoneyTrackerNavigator />
+                        </div>
+                        <TrackerInfo data ={this.state.menu} />
+
                     </div>
                 </div>
-                <div className="col-sm-4" >.col-sm-4</div>
-            </div>
-        </div>);
+
+            );
+        }
+
     }
-}
+
+
+} 
