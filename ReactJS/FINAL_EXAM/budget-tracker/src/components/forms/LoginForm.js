@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import withFormHandlerAndValidator from '../hoc/withFormHandlerAndValidator';
-import registerModel from '../../core/models/RegisterModel';
+import loginModel from '../../core/models/LoginModel';
 import authService from '../../core/services/AuthService';
 
 
-class RegisterForm extends Component {
+class LoginForm extends Component {
 
     render() {
         return (
@@ -35,38 +35,11 @@ class RegisterForm extends Component {
                             value={this.props.password}
                         />
                     </div>
-                    <div className="form-group">
-                        <div className="form-group">
-                            <label htmlFor="exampleInputRepPassword1">Repeat Password</label>
-                            <input
-                                type="password" 
-                                className="form-control"
-                                id="exampleInputRepPassword1" 
-                                placeholder="Password" 
-                                name="repeatPassword"
-                                onChange={this.props.handleChange}
-                                value={this.props.repeatPassword}
-                            />
-                        </div>
-                        <label htmlFor="exampleInputEmail1">Email address</label>
-                        <input
-                            type="email" 
-                            className="form-control"
-                            id="exampleInputEmail1" 
-                            aria-describedby="emailHelp" 
-                            placeholder="Enter email"
-                            name="email"
-                            onChange={this.props.handleChange}
-                            value={this.props.email}
-                        />
-                        <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-                    </div>
-
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>);
     }
 }
 
-RegisterForm = withFormHandlerAndValidator(RegisterForm,registerModel,authService.register)
-export default RegisterForm;
+LoginForm = withFormHandlerAndValidator(LoginForm,loginModel,authService.login);
+export default LoginForm;

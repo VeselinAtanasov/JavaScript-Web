@@ -1,89 +1,62 @@
 
-import RequestorService from './RequestorService';
+import requestor from './requester';
 import helperService from './HelperService';
+import observer from '../../core/observer/observer';
 
-let Requestor = new RequestorService();
-
-class AuthService {
-    constructor() {
-        this.register = this.register.bind(this);
-        this.login = this.login.bind(this);
-        this.logout = this.logout.bind(this);
-        // this.getUserProfile = this.getUserProfile.bind(this);
-        // this.isLoggedIn = this.isLoggedIn.bind(this);
-        // this.isAdmin = this.isAdmin.bind(this);
-    }
-
-    register(data) {
-        return Requestor.post('user','','basic', data).then((res) => {
-            this.setToken(res['_kmd']['authtoken']);
-            return Promise.resolve(res);
-        });
-    }
-
-    login(data) {
-
-        return Requestor.post('user','/login','basic', data).then((res) => {
-            this.setToken(res['_kmd']['authtoken']);
-            helperService.notify('success', 'Login successful!');
-            return Promise.resolve(res);
-        });
-    }
-
-    logout() {
-        helperService.notify('success', 'Logout successful!');
-        localStorage.removeItem('token');
-    }
-
-    // getUserProfile() {
-    //     try {
-    //         const decoded = decode(this._getToken());
-
-    //         return decoded.sub;
-    //     } catch (err) {
-    //         return undefined;
-    //     }
-    // }
-
-    // isLoggedIn() {
-    //     try {
-    //         const decoded = decode(this._getToken());
-
-    //         if (decoded.exp > Date.now() / 1000) {
-    //             return true;
-    //         }
-
-    //         return false;
-    //     } catch (err) {
-    //         return false;
-    //     }
-    // }
-
-    // isAdmin() {
-    //     try {
-    //         const decoded = decode(this._getToken());
-
-    //         if (decoded.exp < Date.now() / 1000) {
-    //             return false;
-    //         }
-
-    //         if (!decoded.sub.isAdmin) {
-    //             return false;
-    //         }
-
-    //         return true;
-    //     } catch (err) {
-    //         return false;
-    //     }
-    // }
-
-    setToken(token) {
-        localStorage.setItem('authtoken', token);
-    }
-
-    getToken() {
+export default {
+    register: {
+        send: function(data){
+            return requestor.post('user', '', 'basic', data);
+        },
+        success: function(res) {
+            //  localStorage.setItem('authtoken', res._kmd.authtoken);
+            //   localStorage.setItem('username', res['username']);
+            //   helperService.notify('success',`Welcome, ${res.username}`);
+            this.props.history.push('/login');
+        },
+        fail: function(err) {
+            helperService.notify('error',err.responseJSON.description);
+            this.props.history.push('/login');
+        },
+    },
+    login: {
+        send: function(data){
+            return requestor.post('user', 'login', 'basic', data);
+        },
+        success: function(res) {
+            localStorage.setItem('authtoken', res._kmd.authtoken);
+            localStorage.setItem('username', res['username']);
+            helperService.notify('success',`Welcome, ${res.username}`);
+            observer.trigger(observer.events.loginUser, res.username);
+            this.props.history.push('/');
+        },
+        fail: function(err) {
+            helperService.notify('error',err.responseJSON.description);
+            //this.props.history.push('/register');
+        },
+    },
+    logout:{
+        send: function(){
+            let req = requestor.post('user', '_logout', 'kinvey');
+            return  req;
+        },
+        success: function(res) {
+            console.log('.....');
+            const username = localStorage.getItem('username');
+            observer.trigger(observer.events.logoutUser);   
+            helperService.notify('success',`Goodbye, ${username}`);
+            localStorage.clear();
+            this.props.history.push('/register');
+        },
+        fail: function(err) {
+            helperService.notify('error',err.responseJSON.description);
+        },
+    },
+    isLoggedIn : function(){
         return localStorage.getItem('authtoken');
+    },
+    getUserName : function(){
+        return localStorage.getItem('UserName');
     }
-}
+};
 
-export default AuthService;
