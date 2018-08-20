@@ -12,6 +12,8 @@ export default class MoneyTracker extends Component{
     }
 
     componentDidMount(){
+        let userId = localStorage.getItem('userId');
+        console.log(`User id is: ${userId}`);
         //check if subscriber has Own Menu -if not render an option to create one, if it has then render his own menu
     }
 

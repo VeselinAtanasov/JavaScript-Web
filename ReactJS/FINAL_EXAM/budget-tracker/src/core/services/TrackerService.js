@@ -5,55 +5,53 @@ import observer from '../../core/observer/observer';
 
 export default {
     create: {
-        send: function(data){
+        send: function (data) {
             return requestor.post('appdata', 'trackers', 'kinvey', data);
         },
-        success: function(res) {
-            //  localStorage.setItem('authtoken', res._kmd.authtoken);
-            //   localStorage.setItem('username', res['username']);
-            //   helperService.notify('success',`Welcome, ${res.username}`);
-            this.props.history.push('/login');
+        success: function (res) {
+            helperService.notify('success', `You just created your own Budget Tracker!`);
+            localStorage.setItem('userId',res['_id'])
+            this.props.history.push('/mtracker');
         },
-        fail: function(err) {
-            helperService.notify('error',err.responseJSON.description);
-            this.props.history.push('/login');
+        fail: function (err) {
+            helperService.notify('error', err.responseJSON.description);
         },
     },
-    login: {
-        send: function(data){
+    getTrackerByCreator: {
+        send: function (data) {
             return requestor.post('user', 'login', 'basic', data);
         },
-        success: function(res) {
+        success: function (res) {
             localStorage.setItem('authtoken', res._kmd.authtoken);
             localStorage.setItem('username', res['username']);
-            helperService.notify('success',`Welcome, ${res.username}`);
+            helperService.notify('success', `Welcome, ${res.username}`);
             observer.trigger(observer.events.loginUser, res.username);
             this.props.history.push('/');
         },
-        fail: function(err) {
-            helperService.notify('error',err.responseJSON.description);
+        fail: function (err) {
+            helperService.notify('error', err.responseJSON.description);
             //this.props.history.push('/register');
         },
     },
-    logout:{
-        send: function(){
+    logout: {
+        send: function () {
             let req = requestor.post('user', '_logout', 'kinvey');
-            return  req;
+            return req;
         },
-        success: function(res) {
+        success: function (res) {
             const username = localStorage.getItem('username');
-            helperService.notify('success',`Goodbye, ${username}`);  
+            helperService.notify('success', `Goodbye, ${username}`);
             observer.trigger(observer.events.logoutUser);
             localStorage.clear();
         },
-        fail: function(err) {
-            helperService.notify('error',err.responseJSON.description);
+        fail: function (err) {
+            helperService.notify('error', err.responseJSON.description);
         },
     },
-    isLoggedIn : function(){
+    isLoggedIn: function () {
         return localStorage.getItem('authtoken');
     },
-    getUserName : function(){
+    getUserName: function () {
         return localStorage.getItem('UserName');
     }
 };
