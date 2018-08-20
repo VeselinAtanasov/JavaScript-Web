@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import withFormHandlerAndValidator from '../hoc/withFormHandlerAndValidator';
-import loginModel from '../../core/models/LoginModel';
-import authService from '../../core/services/AuthService';
+import trackerModel from '../../core/models/TrackerModel';
+import tracerService from '../../core/services/TrackerService';
 
 
 class CreateTrackerForm extends Component {
@@ -11,28 +11,36 @@ class CreateTrackerForm extends Component {
             <div className="container">
                 <form onSubmit={this.props.handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="exampleTrackerName">Tracker Name</label>
+                        <label htmlFor="exampleTrackerName">Tracker Name:</label>
                         <input
                             type="text"
                             className="form-control"
                             id="exampleTrackerName"
                             aria-describedby="emailHelp"
-                            placeholder="Enter username"
-                            name="username"
+                            placeholder="Enter Tracker Name"
+                            name="trackerName"
                             onChange={this.props.handleChange}
-                            value={this.props.username}
+                            value={this.props.trackerName}
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="exampleInputPassword1">Password</label>
+                        <label htmlFor="exampleTextarea">Tracker Description:</label>
+                        <textarea className="form-control" id="exampleTextarea" rows="3"
+                            name="trackerDescription"
+                            onChange={this.props.handleChange}
+                            value={this.props.trackerDescription}
+                        ></textarea>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="exampleInputPassword1">Tracker Picture url:</label>
                         <input
-                            type="password" 
+                            type="text" 
                             className="form-control"
                             id="exampleInputPassword1" 
-                            placeholder="Password"
-                            name="password"
+                            placeholder="https://"
+                            name="trackerUrl"
                             onChange={this.props.handleChange}
-                            value={this.props.password}
+                            value={this.props.trackerUrl}
                         />
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
@@ -41,5 +49,5 @@ class CreateTrackerForm extends Component {
     }
 }
 
-CreateTrackerForm = withFormHandlerAndValidator(CreateTrackerForm,loginModel,authService.login);
+CreateTrackerForm = withFormHandlerAndValidator(CreateTrackerForm,trackerModel,tracerService.create);
 export default CreateTrackerForm;
