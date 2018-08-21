@@ -9,6 +9,7 @@ import Home from './components/common/Home';
 import CreateExpenseForm from './components/forms/CreateExpenseForm';
 import WalletForm from './components/forms/WalletForm';
 import TrackerDetails from './components/mtracker/TrackerDetails';
+import TrackerReport from './components/mtracker/TrackerReport';
 
 const AppRouter  = () => (
     <div>
@@ -23,6 +24,7 @@ const AppRouter  = () => (
             <Route path='/addExpense/:id'  render={(props) => <CreateExpenseForm forUpdate="true" {...props} /> } />
             <Route path='/fillWallet/:id'  render={(props) => <WalletForm forUpdate="true" {...props} /> } />
             <Route path='/trackDetails/:id'  component={TrackerDetails} />
+            <Route path='/report/:id'  component={TrackerReport} />
             {/* <Route path='/all/:foodId/:category?'  component={AllCatFood} />
             <Redirect to='/add' />
             <Route component={Home} />  */}

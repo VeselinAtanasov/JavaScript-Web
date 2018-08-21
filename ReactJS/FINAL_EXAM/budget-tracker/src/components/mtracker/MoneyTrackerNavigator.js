@@ -10,7 +10,7 @@ export default class MoneyTrackerNavigator extends Component{
                 <h3 className="card-header">Navigation menu :</h3>
                 <Link to={`/addExpense/${this.props.data.trackerId}`} type="button" className="btn btn-primary"> Add Expense to BudgetTracker</Link>
                 <Link to={`/fillWallet/${this.props.data.trackerId}`} type="button" className="btn btn-primary"> Add Money to Your Wallet</Link>
-                <Link to={`/trackDetails/${this.props.data.trackerId}`} type="button" className="btn btn-primary" >Generate Report</Link>
+                <Link to={`/report/${this.props.data.trackerId}`} type="button" className="btn btn-primary" >Generate Report</Link>
             </div>);
     }
 }
