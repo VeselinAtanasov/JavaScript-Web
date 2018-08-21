@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import withFormHandlerAndValidator from '../hoc/withFormHandlerAndValidator';
 import trackerModel from '../../core/models/TrackerModel';
-import tracerService from '../../core/services/TrackerService';
+import trackerService from '../../core/services/TrackerService';
 
 
 class CreateTrackerForm extends Component {
@@ -37,7 +37,7 @@ class CreateTrackerForm extends Component {
                             type="text" 
                             className="form-control"
                             id="exampleInputPassword1" 
-                            placeholder="https://"
+                            placeholder="http://media.theindependent.sg/wp-content/uploads/2016/03/budget_jigsaw_25270630large.png"
                             name="trackerUrl"
                             onChange={this.props.handleChange}
                             value={this.props.trackerUrl}
@@ -49,5 +49,5 @@ class CreateTrackerForm extends Component {
     }
 }
 
-CreateTrackerForm = withFormHandlerAndValidator(CreateTrackerForm,trackerModel,tracerService.create);
+CreateTrackerForm = withFormHandlerAndValidator(CreateTrackerForm,trackerModel,trackerService.create);
 export default CreateTrackerForm;

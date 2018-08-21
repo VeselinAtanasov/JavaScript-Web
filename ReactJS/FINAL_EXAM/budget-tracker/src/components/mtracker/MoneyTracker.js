@@ -34,19 +34,17 @@ export default class MoneyTracker extends Component {
                                 trackerId: res[0]['_id']
                             }
                         });
-                    }else{
+                    } else {
                         this.setState({
-                            menu:''
-                        })
+                            menu: ''
+                        });
                     }
-
                 })
                 .catch(err => helperService.notify('error', "Database request failed.Please try again later!!"));
         }
-
     }
     render() {
-        if (this.state.menu === null ) {
+        if (this.state.menu === null) {
             return null;
         } else if (this.state.menu === '') {
             return (<CreateMoneyTracker />);
@@ -55,9 +53,9 @@ export default class MoneyTracker extends Component {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-3">
-                            <MoneyTrackerNavigator />
+                            <MoneyTrackerNavigator data={this.state.menu} />
                         </div>
-                        <TrackerInfo data ={this.state.menu} />
+                        <TrackerInfo data={this.state.menu} />
 
                     </div>
                 </div>

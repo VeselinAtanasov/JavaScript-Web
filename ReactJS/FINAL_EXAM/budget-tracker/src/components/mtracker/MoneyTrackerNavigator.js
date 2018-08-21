@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class MoneyTrackerNavigator extends Component{
 
@@ -7,9 +8,10 @@ export default class MoneyTrackerNavigator extends Component{
             <div className="btn-group-vertical" data-toggle="buttons">
                 <br/>
                 <h3 className="card-header">Navigation menu :</h3>
-                <button type="button" className="btn btn-primary"> Add Expense to BudgetTracker</button>
-                <button type="button" className="btn btn-primary" >Delete Expense from BudgetTracker </button>
-                <button type="button" className="btn btn-primary" >Generate Overall Report</button>
+                <Link to={`/addExpense/${this.props.data.trackerId}`} type="button" className="btn btn-primary"> Add Expense to BudgetTracker</Link>
+                <Link to={`/trackDetails/${this.props.data.trackerId}`} type="button" className="btn btn-primary" >Delete Expense from BudgetTracker </Link>
+                <Link to={`/trackDetails/${this.props.data.trackerId}`} type="button" className="btn btn-primary" >Generate Overall Report</Link>
             </div>);
     }
 }
+
