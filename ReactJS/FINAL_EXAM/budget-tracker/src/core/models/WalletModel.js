@@ -1,4 +1,3 @@
-import validator from 'validator';
 
 export default {
     initialState: {

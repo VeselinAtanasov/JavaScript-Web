@@ -18,21 +18,21 @@ export default class Home extends Component {
     componentDidMount(){
         if(authService.isLoggedIn()){
             trackerService.getAllTrackers.send().then(res => {
-                console.log(res);
+              
                 this.setState({
                     trackers: res,
                     dataArrived: true
                 });
             })
                 .catch(err => {
-                    console.log(err);
+                  
                 });
         }
     }
 
     render(){
         let dataForRendering;
-        if(!this.state.dataArrived && this.state.trackers.length!==0){
+        if(!this.state.dataArrived || this.state.trackers.length!==0){
             dataForRendering =(    <div className="container" >
                 <h2>Budget Tracker</h2>
                 <p>

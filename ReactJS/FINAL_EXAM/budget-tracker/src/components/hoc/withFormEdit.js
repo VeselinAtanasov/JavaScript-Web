@@ -27,12 +27,10 @@ export default function withFormEdit(WrappedComponent, model, serviceFunction) {
         handleSubmit(event) {
             event.preventDefault();
             let id = this.props.match.params.id;
-            console.log(id);
             if (model.validate) {
                 let validated = model.validate(this.state);  // { success: "true"/"false", message: "Successcul", errors: {} }
                 if (validated.success) {
                     serviceFunction.send(id).then(res => {
-                        console.log(res);
                         let elementId;
                         let element;
                         if(Array.isArray(res)){

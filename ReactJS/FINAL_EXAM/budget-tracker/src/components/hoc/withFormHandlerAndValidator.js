@@ -21,8 +21,8 @@ export default function withFormHandlerAndValidator(WrappedComponent, model, ser
         }
 
         componentDidMount(){
-            console.log('All received props');
-            console.log(this.props);
+            // console.log('All received props');
+            // console.log(this.props);
         }
 
         handleSubmit(event) {

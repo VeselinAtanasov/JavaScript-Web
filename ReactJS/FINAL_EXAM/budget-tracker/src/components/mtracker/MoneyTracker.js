@@ -17,13 +17,11 @@ export default class MoneyTracker extends Component {
 
     componentDidMount() {
         let userId = localStorage.getItem('userId');
-        console.log(`User id is: ${userId}`);
         if (userId) {
             trackerService
                 .getTrackerByCreatorId
                 .send(userId)
                 .then(res => {
-                    console.log(res);
                     if (res.length !== 0) {
                         // helperService.notify('success', "Please check your Budget Tracker!");
                         this.setState({

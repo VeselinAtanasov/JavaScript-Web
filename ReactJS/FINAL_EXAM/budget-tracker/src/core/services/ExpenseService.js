@@ -25,7 +25,7 @@ export default {
             let obj = {};
             for (let s in state) {
                 if (dbResponse.hasOwnProperty(s) && s !== 'trackerId') {
-                    obj[s] = Math.round((Number(state[s]) + Number(dbResponse[s]))*100)/100; 
+                    obj[s] = Math.round((Number(state[s]) + Number(dbResponse[s])) * 100) / 100;
                 } else if (s === 'trackerId') {
                     obj[s] = dbResponse[s];
                 }
@@ -35,6 +35,12 @@ export default {
         updateById: function (id, data) {
             const endpoint = 'expenses/' + id;
             return requestor.update('appdata', endpoint, 'kinvey', data);
+        }
+    },
+    getExpenseByTrackerId: {
+        send: function (id) {
+            const query = `expenses?query={"trackerId":"${id}"}`;
+            return requestor.get('appdata', query, 'kinvey');
         }
     },
     getAllExpenses: {

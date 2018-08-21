@@ -15,7 +15,7 @@ export default {
             let trackerId = res['_id'];
             let initialExpense = expenseModel.initialState;
             initialExpense['trackerId']=trackerId;
-            expenseService.create.send(initialExpense).then(data => console.log(data)).catch(err => console.log(err));
+            expenseService.create.send(initialExpense).then().catch(err =>helperService.notify('error',"Internal database error!"));
             
         },
         fail: function (err) {
@@ -43,7 +43,7 @@ export default {
                     obj[s] = dbResponse[s];
                 }
             }
-            obj['trackerName']=dbResponse['trackerName'],
+            obj['trackerName']=dbResponse['trackerName'];
             obj['trackerDescription'] = dbResponse['trackerDescription'];
             obj['trackerUrl'] = dbResponse['trackerUrl'];
             return obj;
@@ -56,6 +56,12 @@ export default {
     getTrackerByCreatorId: {
         send: function (userID) {
             const query = `trackers?query={"_acl.creator":"${userID}"}`;
+            return requestor.get('appdata', query, 'kinvey');
+        },
+    },
+    getTrackerById: {
+        send: function (Id) {
+            const query = `trackers/`+Id;
             return requestor.get('appdata', query, 'kinvey');
         },
     },
