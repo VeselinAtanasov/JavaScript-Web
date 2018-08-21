@@ -26,16 +26,25 @@ export default function withFormEdit(WrappedComponent, model, serviceFunction) {
 
         handleSubmit(event) {
             event.preventDefault();
-            console.log('FROM EDIT HANDLER:');
             let id = this.props.match.params.id;
-            let data = model.getDataForRequest(this.state);
-
+            console.log(id);
             if (model.validate) {
                 let validated = model.validate(this.state);  // { success: "true"/"false", message: "Successcul", errors: {} }
                 if (validated.success) {
                     serviceFunction.send(id).then(res => {
-                        let elementId = res[0]['_id'];
-                        let preparedData = serviceFunction.dataPreparation(res[0], this.state);
+                        console.log(res);
+                        let elementId;
+                        let element;
+                        if(Array.isArray(res)){
+                            elementId = res[0]['_id'];
+                            element = res[0];
+                        }else{
+                            elementId = res['_id'];
+                            element=res;
+                        }
+                          
+                        let preparedData = serviceFunction.dataPreparation(element, this.state);
+    
                         serviceFunction.updateById(elementId, preparedData).then(this.success).catch(this.fail);
                     }).catch(this.fail);
                 } else {

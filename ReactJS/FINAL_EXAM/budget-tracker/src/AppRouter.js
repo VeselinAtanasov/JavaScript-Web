@@ -7,6 +7,7 @@ import MoneyTracker from './components/mtracker/MoneyTracker';
 import CreateTrackerForm from './components/forms/CreateTrackerForm';
 import Home from './components/common/Home';
 import CreateExpenseForm from './components/forms/CreateExpenseForm';
+import WalletForm from './components/forms/WalletForm';
 
 const AppRouter  = () => (
     <div>
@@ -19,6 +20,7 @@ const AppRouter  = () => (
             <Route path='/mtracker'  component={MoneyTracker} />
             <Route path='/createTracker'  component={CreateTrackerForm} />
             <Route path='/addExpense/:id'  render={(props) => <CreateExpenseForm forUpdate="true" {...props} /> } />
+            <Route path='/fillWallet/:id'  render={(props) => <WalletForm forUpdate="true" {...props} /> } />
             {/* <Route path='/all/:foodId/:category?'  component={AllCatFood} />
             <Redirect to='/add' />
             <Route component={Home} />  */}

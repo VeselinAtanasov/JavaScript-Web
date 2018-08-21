@@ -25,7 +25,7 @@ export default {
             let obj = {};
             for (let s in state) {
                 if (dbResponse.hasOwnProperty(s) && s !== 'trackerId') {
-                    obj[s] = Number(state[s]) + Number(dbResponse[s]);
+                    obj[s] = Math.round((Number(state[s]) + Number(dbResponse[s]))*100)/100; 
                 } else if (s === 'trackerId') {
                     obj[s] = dbResponse[s];
                 }
