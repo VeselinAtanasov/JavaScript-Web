@@ -1,4 +1,5 @@
 import React ,{Component} from 'react';
+import { Link } from 'react-router-dom';
 
 export default class User extends Component{
     constructor(props){
@@ -52,7 +53,7 @@ export default class User extends Component{
                         </p>
                     </div>
                     <div className="modal-footer">
-                        <span className="badge badge-warning">Edit this user</span>
+                        <Link to={`/admin/editUser/${this.props['_id']}`}  className="badge badge-warning">Edit this user</Link>
                         <span className="badge badge-success" onClick={this.makeUserAdmin} >Make this user an Admin</span>
                         <span className="badge badge-danger" onClick={this.removeFromAdmin} >Remove Admin role for the user</span>                        
                     </div>
