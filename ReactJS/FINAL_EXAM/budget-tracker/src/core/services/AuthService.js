@@ -24,11 +24,11 @@ export default {
         send: function(data){
             return requestor.post('user', 'login', 'basic', data);
         },
-        success: function(res) {
-            sessionStorage.setItem('authtoken', res._kmd.authtoken);
-            sessionStorage.setItem('username', res['username']);
-            sessionStorage.setItem('userId',res['_acl']['creator']);
-            helperService.notify('success',`Welcome, ${res.username}`);
+        success: function(data) {
+            sessionStorage.setItem('authtoken', data._kmd.authtoken);
+            sessionStorage.setItem('username', data['username']);
+            sessionStorage.setItem('userId',data['_acl']['creator']);
+            helperService.notify('success',`Welcome, ${data.username}`);
             // observer.trigger(observer.events.loginUser, res.username);  
 
             //Check if user is Admin:
@@ -38,13 +38,13 @@ export default {
                     if(res && res.length!==0 && res[0] && res[0].roleId && res[0].roleId === AdminService.adminId){
                         helperService.notify('success',`Hey, you are an Admin - you can modify site content!`);
                         sessionStorage.setItem('isAdmin',res[0].roleId);
-                        observer.trigger(observer.events.loginUser, res.username, 'admin');
+                        observer.trigger(observer.events.loginUser, data.username);
                     }
                 }else{
-                    observer.trigger(observer.events.loginUser, res.username, 'admin');
+                    observer.trigger(observer.events.loginUser, data.username);
                 }
             }).catch(err =>   {
-                observer.trigger(observer.events.loginUser, res.username, 'admin');
+                observer.trigger(observer.events.loginUser, data.username);
                 sessionStorage.setItem('isAdmin',sessionStorage.setItem('isAdmin',AdminService.fakeAdminId));
             });
 

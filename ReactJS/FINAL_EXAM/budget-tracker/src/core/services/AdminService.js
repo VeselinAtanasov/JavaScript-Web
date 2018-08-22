@@ -8,6 +8,7 @@ export default {
             return false;
         }
         let response = await requestor.get('user',`${currentUserID}/roles`,'master');
+        
         return response;
     },
     adminId:"6b78e236-1962-451a-9673-4f877a5df08f",

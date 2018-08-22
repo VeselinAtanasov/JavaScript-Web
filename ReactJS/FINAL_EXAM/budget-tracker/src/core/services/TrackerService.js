@@ -11,14 +11,17 @@ export default {
         },
         success: function (res) {
             helperService.notify('success', `You just created your own Budget Tracker!`);
-            this.props.history.push('/mtracker');
+
             let trackerId = res['_id'];
             let initialExpense = expenseModel.initialState;
             initialExpense['trackerId']=trackerId;
+            console.log(initialExpense);
             expenseService.create.send(initialExpense).then().catch(err =>helperService.notify('error',"Internal database error!"));
+            this.props.history.push('/mtracker');
             
         },
         fail: function (err) {
+            console.log(err);
             helperService.notify('error', err.responseJSON.description);
         },
     },

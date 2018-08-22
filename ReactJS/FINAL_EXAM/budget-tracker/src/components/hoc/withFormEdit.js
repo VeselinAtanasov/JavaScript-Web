@@ -31,6 +31,7 @@ export default function withFormEdit(WrappedComponent, model, serviceFunction) {
                 let validated = model.validate(this.state);  // { success: "true"/"false", message: "Successcul", errors: {} }
                 if (validated.success) {
                     serviceFunction.send(id).then(res => {
+                        console.log(res)
                         let elementId;
                         let element;
                         if(Array.isArray(res)){
@@ -58,7 +59,7 @@ export default function withFormEdit(WrappedComponent, model, serviceFunction) {
             return (<WrappedComponent
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
-                {...this.state} />);
+                {...this.state} {...this.props} />);
         }
     };
 }

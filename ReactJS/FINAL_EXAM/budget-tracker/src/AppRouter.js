@@ -26,12 +26,12 @@ const AppRouter = () => (
             <Route path='/login' component={LoginForm} />
             <Route path='/logout' component={Logout} />
 
-            <Route path='/mtracker'  render={() => !isLoggedIn ? <Redirect to="/" /> : <MoneyTracker />}  />
-            <Route path='/createTracker' render={() => !isLoggedIn ? <Redirect to="/" /> : <CreateTrackerForm />}  />
+            <Route path='/mtracker'  render={(props) => !isLoggedIn ? <Redirect to="/" /> : <MoneyTracker {...props} />}  />
+            <Route path='/createTracker' render={(props) => !isLoggedIn ? <Redirect to="/" /> : <CreateTrackerForm {...props}/>}  />
             <Route path='/addExpense/:id' render={(props) =>  !isLoggedIn ? <Redirect to="/" /> : <CreateExpenseForm forUpdate="true" {...props} />} />
             <Route path='/fillWallet/:id' render={(props) =>  !isLoggedIn ? <Redirect to="/" /> : <WalletForm forUpdate="true" {...props} />} />
-            <Route path='/trackDetails/:id' render={() => !isLoggedIn ? <Redirect to="/" /> : <TrackerDetails />}  />
-            <Route path='/report/:id' render={() => !isLoggedIn ? <Redirect to="/" /> : <TrackerReport />}  />
+            <Route path='/trackDetails/:id' render={(props) => !isLoggedIn ? <Redirect to="/" /> : <TrackerDetails {...props} />}  />
+            <Route path='/report/:id' render={(props) => !isLoggedIn ? <Redirect to="/" /> : <TrackerReport {...props} />}  />
 
             <Route exact path="/admin" render={() => !isAdmin ? <Redirect to="/" /> : <AdminPanel />} />
             <Route path="/admin/allUsers" render={() => !isAdmin ? <Redirect to="/" /> : <AdminPanel />} />

@@ -17,10 +17,10 @@ export default class Navigation extends Component{
     }
 
     userLogout(){
-        this.setState({ username: '',role:'' });
+        this.setState({ username: '' });
     }
-    userLoggedIn(username,role){
-        this.setState({ username,role });
+    userLoggedIn(username){
+        this.setState({ username:username });
     }
 
     render(){
