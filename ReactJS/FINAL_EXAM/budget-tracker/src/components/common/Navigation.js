@@ -26,7 +26,7 @@ export default class Navigation extends Component{
     render(){
         let admin = AuthService.isAdmin();
         let loggedInSection;
-        //   let user = this.state.username!=='' //|| sessionStorage.getItem('username');
+        //  let user = this.state.username!==''; //|| sessionStorage.getItem('username');
         if(this.state.username!==''){
             // if(user){
             loggedInSection =  (<ul className="navbar-nav ml-auto">
@@ -37,7 +37,7 @@ export default class Navigation extends Component{
                     <NavLink activeClassName="selected" className="nav-link" to="/logout">Logout </NavLink>
                 </li>
                 <li className='nav-item'>
-                    <NavLink to='/' className="nav-link"><strong>Hello, {sessionStorage.getItem('username')}!</strong> | </NavLink>
+                    <NavLink to='/' className="nav-link"><strong>Hello, {this.state.username}!</strong> | </NavLink>
                 </li>
             </ul>);
         } else {
@@ -53,7 +53,6 @@ export default class Navigation extends Component{
 
         let isAdmin;
         if( this.state.username!=='' && admin){
-            console.log('User is :'+AuthService.isAdmin() );
             isAdmin =(  <ul className="navbar-nav ml-auto">        
                 <li className="nav-item">
                     <NavLink activeClassName="selected" className="nav-link" to="/admin">Admin Panel</NavLink>

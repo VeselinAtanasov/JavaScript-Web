@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch,Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import RegisterForm from './components/forms/RegisterForm';
 import LoginForm from './components/forms/LoginForm';
 import Logout from './components/forms/Logout';
@@ -15,6 +15,8 @@ import AdminPanel from './components/admin/AdminPanel';
 import AuthService from './core/services/AuthService';
 
 const isAdmin = AuthService.isAdmin();
+const isLoggedIn = AuthService.isLoggedIn();
+console.log(isAdmin);
 const AppRouter = () => (
     <div>
         <Switch>
@@ -23,14 +25,17 @@ const AppRouter = () => (
             <Route path='/register' component={RegisterForm} />
             <Route path='/login' component={LoginForm} />
             <Route path='/logout' component={Logout} />
-            <Route path='/mtracker' component={MoneyTracker} />
-            <Route path='/createTracker' component={CreateTrackerForm} />
-            <Route path='/addExpense/:id' render={(props) => <CreateExpenseForm forUpdate="true" {...props} />} />
-            <Route path='/fillWallet/:id' render={(props) => <WalletForm forUpdate="true" {...props} />} />
-            <Route path='/trackDetails/:id' component={TrackerDetails} />
-            <Route path='/report/:id' component={TrackerReport} />
-            <Route path="/admin" render={() => !isAdmin ? <Redirect to="/" /> :
-                <AdminPanel />} />
+
+            <Route path='/mtracker'  render={() => !isLoggedIn ? <Redirect to="/" /> : <MoneyTracker />}  />
+            <Route path='/createTracker' render={() => !isLoggedIn ? <Redirect to="/" /> : <CreateTrackerForm />}  />
+            <Route path='/addExpense/:id' render={(props) =>  !isLoggedIn ? <Redirect to="/" /> : <CreateExpenseForm forUpdate="true" {...props} />} />
+            <Route path='/fillWallet/:id' render={(props) =>  !isLoggedIn ? <Redirect to="/" /> : <WalletForm forUpdate="true" {...props} />} />
+            <Route path='/trackDetails/:id' render={() => !isLoggedIn ? <Redirect to="/" /> : <TrackerDetails />}  />
+            <Route path='/report/:id' render={() => !isLoggedIn ? <Redirect to="/" /> : <TrackerReport />}  />
+
+            <Route exact path="/admin" render={() => !isAdmin ? <Redirect to="/" /> : <AdminPanel />} />
+            <Route path="/admin/allUsers" render={() => !isAdmin ? <Redirect to="/" /> : <AdminPanel />} />
+            <Route path="/admin/allTrackers" render={() => !isAdmin ? <Redirect to="/" /> : <AdminPanel />} />
 
             <Route component={NotFound} />  }
         </Switch>
