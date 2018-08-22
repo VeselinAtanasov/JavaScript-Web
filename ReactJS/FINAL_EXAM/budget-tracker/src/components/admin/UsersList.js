@@ -105,7 +105,7 @@ export default class UsersList extends Component {
         return (
             <div className="container-fluid">
                 <h1>List of registered users:</h1>
-                <Link to="/register" type="button" className="btn btn-success">Create New User</Link>
+                <Link to="/admin/register" type="button" className="btn btn-success">Create New User</Link>
                 {this.state.users.map(e => <User
                     key={e._id}
                     {...e}

@@ -37,6 +37,7 @@ const AppRouter = () => (
             <Route exact path="/admin" render={(props) => !isAdmin ? <Redirect to="/" /> : <AdminPanel  {...props} />} />
             <Route path="/admin/allUsers" render={(props) => !isAdmin ? <Redirect to="/" /> : <UsersList  {...props} />} />
             <Route path="/admin/allTrackers" render={(props) => !isAdmin ? <Redirect to="/" /> : <AdminPanel   {...props}/>} />
+            <Route path="/admin/register" render={(props) => !isAdmin ? <Redirect to="/" /> : <RegisterForm  admin={AuthService.adminRegister} {...props}/>} />
 
             <Route component={NotFound} />  }
         </Switch>

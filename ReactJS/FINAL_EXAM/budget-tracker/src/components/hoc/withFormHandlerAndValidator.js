@@ -20,30 +20,30 @@ export default function withFormHandlerAndValidator(WrappedComponent, model, ser
             this.setState({ [fieldName]: fieldValue });
         }
 
-        componentDidMount(){
-            // console.log('All received props');
-            // console.log(this.props);
+        componentDidMount() {
         }
 
         handleSubmit(event) {
             event.preventDefault();
+  
             let data = model.getDataForRequest(this.state);
             if (model.validate) {
                 let validated = model.validate(this.state);  // { success: "true"/"false", message: "Successcul", errors: {} }
                 if (validated.success) {
-                    serviceFunction.send(data).then(this.success).catch(this.fail);
-                }else {
+                    if(this.props.admin){
+                        let successor = this.props.admin.success.bind(this);
+                        let failure = this.props.admin.fail.bind(this);
+                        this.props.admin.send(data).then(successor).catch(failure);
+                    }else{
+                        serviceFunction.send(data).then(this.success).catch(this.fail);
+                    }    
+                } else {
                     helperService.notify('error', validated.message, validated.errors);
                 }
-            }else{
-                // helperService.notify({...validated})
             }
         }
 
-
-
         render() {
-    
             return (<WrappedComponent
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}

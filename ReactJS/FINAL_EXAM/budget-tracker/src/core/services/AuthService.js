@@ -20,6 +20,24 @@ export default {
             this.props.history.push('/login');
         },
     },
+    adminRegister: {
+        send: function(data){
+            return requestor.post('user', '', 'basic', data);
+        },
+        success: function(res) {
+            //  sessionStorage.setItem('authtoken', res._kmd.authtoken);
+            //   sessionStorage.setItem('username', res['username']);
+            //   helperService.notify('success',`Welcome, ${res.username}`);
+                console.log('Success Invoked')
+                helperService.notify('success',"Admin, you just register a new user");
+            this.props.history.push('/admin/allUsers');
+        },
+        fail: function(err) {
+            helperService.notify('error',err.responseJSON.description);
+            console.log('Faile')
+            this.props.history.push('/admin/allUsers');
+        },
+    },
     login: {
         send: function(data){
             return requestor.post('user', 'login', 'basic', data);
