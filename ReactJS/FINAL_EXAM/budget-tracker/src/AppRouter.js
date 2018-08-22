@@ -13,6 +13,7 @@ import TrackerReport from './components/mtracker/TrackerReport';
 import NotFound from './components/common/NotFound';
 import AdminPanel from './components/admin/AdminPanel';
 import AuthService from './core/services/AuthService';
+import UsersList from './components/admin/UsersList';
 
 const isAdmin = AuthService.isAdmin();
 const isLoggedIn = AuthService.isLoggedIn();
@@ -33,9 +34,9 @@ const AppRouter = () => (
             <Route path='/trackDetails/:id' render={(props) => !isLoggedIn ? <Redirect to="/" /> : <TrackerDetails {...props} />}  />
             <Route path='/report/:id' render={(props) => !isLoggedIn ? <Redirect to="/" /> : <TrackerReport {...props} />}  />
 
-            <Route exact path="/admin" render={() => !isAdmin ? <Redirect to="/" /> : <AdminPanel />} />
-            <Route path="/admin/allUsers" render={() => !isAdmin ? <Redirect to="/" /> : <AdminPanel />} />
-            <Route path="/admin/allTrackers" render={() => !isAdmin ? <Redirect to="/" /> : <AdminPanel />} />
+            <Route exact path="/admin" render={(props) => !isAdmin ? <Redirect to="/" /> : <AdminPanel  {...props} />} />
+            <Route path="/admin/allUsers" render={(props) => !isAdmin ? <Redirect to="/" /> : <UsersList  {...props} />} />
+            <Route path="/admin/allTrackers" render={(props) => !isAdmin ? <Redirect to="/" /> : <AdminPanel   {...props}/>} />
 
             <Route component={NotFound} />  }
         </Switch>

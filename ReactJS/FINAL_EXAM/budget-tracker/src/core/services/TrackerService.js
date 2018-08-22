@@ -72,6 +72,11 @@ export default {
         send: function(){
             return requestor.get('appdata', 'trackers', 'kinvey');
         }
+    },
+    deleteTrackerById: {
+        send: function(id){
+            return requestor.remove('trackers',id,'master');
+        }
     }
 };
 

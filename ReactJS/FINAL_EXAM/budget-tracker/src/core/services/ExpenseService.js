@@ -43,9 +43,20 @@ export default {
             return requestor.get('appdata', query, 'kinvey');
         }
     },
+    getExpenseByCreatorId: {
+        send: function (id) {
+            const query = `expenses?query={"_acl.creator":"${id}"}`;
+            return requestor.get('appdata', query, 'kinvey');
+        }
+    },
     getAllExpenses: {
         send: function () {
             return requestor.get('appdata', 'expenses', 'kinvey');
+        }
+    },
+    deleteExpenseById: {
+        send: function(id){
+            return requestor.remove('expenses',id,'master');
         }
     }
 };
