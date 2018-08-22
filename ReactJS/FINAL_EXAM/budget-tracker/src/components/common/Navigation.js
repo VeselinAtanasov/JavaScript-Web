@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import { NavLink } from 'react-router-dom';
 import observer from '../../core/observer/observer';
+import AuthService from '../../core/services/AuthService';
 
 export default class Navigation extends Component{
 
@@ -16,9 +17,7 @@ export default class Navigation extends Component{
     }
 
     userLogout(){
-        console.log('Invoked');
         this.setState({ username: '' });
-        console.log(this.state);
     }
     userLoggedIn(username){
         this.setState({ username });
@@ -27,8 +26,8 @@ export default class Navigation extends Component{
     render(){
 
         let loggedInSection;
-        let user = this.state.username!==''|| localStorage.getItem('username')
-      //if(this.state.username!==''){
+        let user = this.state.username!==''|| localStorage.getItem('username');
+        //if(this.state.username!==''){
         if(user){
             loggedInSection =  (<ul className="navbar-nav ml-auto">
                 <li className="nav-item">
@@ -38,7 +37,7 @@ export default class Navigation extends Component{
                     <NavLink activeClassName="selected" className="nav-link" to="/logout">Logout </NavLink>
                 </li>
                 <li className='nav-item'>
-                    <NavLink to='/' className="nav-link"><strong>Hello, {this.state.username}!</strong> | </NavLink>
+                    <NavLink to='/' className="nav-link"><strong>Hello, {localStorage.getItem('username')}!</strong> | </NavLink>
                 </li>
             </ul>);
         } else {
@@ -52,7 +51,17 @@ export default class Navigation extends Component{
             </ul>);
         }
 
+        let isAdmin;
+        if(user && AuthService.isAdmin()){
+            console.log('User is :'+AuthService.isAdmin() )
+            isAdmin =(  <ul className="navbar-nav ml-auto">        
+                <li className="nav-item">
+                    <NavLink activeClassName="selected" className="nav-link" to="/admin">Admin Panel</NavLink>
+                </li>
+            </ul>);
+        }
 
+      
 
         return(
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -62,8 +71,8 @@ export default class Navigation extends Component{
                         <li className="nav-item">
                             <NavLink activeClassName="selected" className="nav-link" to="/">Home </NavLink>
                         </li>
+                        {isAdmin}
                         {loggedInSection}
-
                     </ul>
                 </div>
             </nav>
