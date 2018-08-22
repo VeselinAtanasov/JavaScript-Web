@@ -12,7 +12,7 @@ function makeAuth(type) {
     }else if(type === 'master'){
         return `Basic ${btoa(`${kinveyAppKey}:${masterSecret}`)}`;
     }else{
-        return  'Kinvey ' + localStorage.getItem('authtoken');
+        return  'Kinvey ' + sessionStorage.getItem('authtoken');
     }
 }
 

@@ -17,18 +17,18 @@ export default class Navigation extends Component{
     }
 
     userLogout(){
-        this.setState({ username: '' });
+        this.setState({ username: '',role:'' });
     }
-    userLoggedIn(username){
-        this.setState({ username });
+    userLoggedIn(username,role){
+        this.setState({ username,role });
     }
 
     render(){
-
+        let admin = AuthService.isAdmin();
         let loggedInSection;
-        let user = this.state.username!==''|| localStorage.getItem('username');
-        //if(this.state.username!==''){
-        if(user){
+        //   let user = this.state.username!=='' //|| sessionStorage.getItem('username');
+        if(this.state.username!==''){
+            // if(user){
             loggedInSection =  (<ul className="navbar-nav ml-auto">
                 <li className="nav-item">
                     <NavLink activeClassName="selected" className="nav-link" to="/mtracker">My Money Tracker </NavLink>
@@ -37,7 +37,7 @@ export default class Navigation extends Component{
                     <NavLink activeClassName="selected" className="nav-link" to="/logout">Logout </NavLink>
                 </li>
                 <li className='nav-item'>
-                    <NavLink to='/' className="nav-link"><strong>Hello, {localStorage.getItem('username')}!</strong> | </NavLink>
+                    <NavLink to='/' className="nav-link"><strong>Hello, {sessionStorage.getItem('username')}!</strong> | </NavLink>
                 </li>
             </ul>);
         } else {
@@ -52,8 +52,8 @@ export default class Navigation extends Component{
         }
 
         let isAdmin;
-        if(user && AuthService.isAdmin()){
-            console.log('User is :'+AuthService.isAdmin() )
+        if( this.state.username!=='' && admin){
+            console.log('User is :'+AuthService.isAdmin() );
             isAdmin =(  <ul className="navbar-nav ml-auto">        
                 <li className="nav-item">
                     <NavLink activeClassName="selected" className="nav-link" to="/admin">Admin Panel</NavLink>

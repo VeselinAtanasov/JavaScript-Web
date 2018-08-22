@@ -16,7 +16,7 @@ export default class MoneyTracker extends Component {
     }
 
     componentDidMount() {
-        let userId = localStorage.getItem('userId');
+        let userId = sessionStorage.getItem('userId');
         if (userId) {
             trackerService
                 .getTrackerByCreatorId

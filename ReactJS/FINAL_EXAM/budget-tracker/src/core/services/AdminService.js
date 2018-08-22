@@ -3,7 +3,7 @@ import requestor from '../services/requester';
 
 export default {
     isAdmin: async function() {
-        let currentUserID = localStorage.getItem('userId');
+        let currentUserID = sessionStorage.getItem('userId');
         if(!currentUserID){
             return false;
         }

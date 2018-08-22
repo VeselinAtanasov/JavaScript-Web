@@ -10,8 +10,8 @@ export default {
             return requestor.post('user', '', 'basic', data);
         },
         success: function(res) {
-            //  localStorage.setItem('authtoken', res._kmd.authtoken);
-            //   localStorage.setItem('username', res['username']);
+            //  sessionStorage.setItem('authtoken', res._kmd.authtoken);
+            //   sessionStorage.setItem('username', res['username']);
             //   helperService.notify('success',`Welcome, ${res.username}`);
             this.props.history.push('/login');
         },
@@ -25,22 +25,28 @@ export default {
             return requestor.post('user', 'login', 'basic', data);
         },
         success: function(res) {
-            localStorage.setItem('authtoken', res._kmd.authtoken);
-            localStorage.setItem('username', res['username']);
-            localStorage.setItem('userId',res['_acl']['creator']);
+            sessionStorage.setItem('authtoken', res._kmd.authtoken);
+            sessionStorage.setItem('username', res['username']);
+            sessionStorage.setItem('userId',res['_acl']['creator']);
             helperService.notify('success',`Welcome, ${res.username}`);
-            observer.trigger(observer.events.loginUser, res.username);
+            // observer.trigger(observer.events.loginUser, res.username);  
 
             //Check if user is Admin:
             AdminService.isAdmin().then(res =>{
-                localStorage.setItem('isAdmin',AdminService.fakeAdminId);
+                sessionStorage.setItem('isAdmin',AdminService.fakeAdminId);
                 if(res.length!==0){
                     if(res && res.length!==0 && res[0] && res[0].roleId && res[0].roleId === AdminService.adminId){
                         helperService.notify('success',`Hey, you are an Admin - you can modify site content!`);
-                        localStorage.setItem('isAdmin',res[0].roleId);
+                        sessionStorage.setItem('isAdmin',res[0].roleId);
+                        observer.trigger(observer.events.loginUser, res.username, 'admin');
                     }
+                }else{
+                    observer.trigger(observer.events.loginUser, res.username, 'admin');
                 }
-            }).catch(err =>   localStorage.setItem('isAdmin',localStorage.setItem('isAdmin',AdminService.fakeAdminId)));
+            }).catch(err =>   {
+                observer.trigger(observer.events.loginUser, res.username, 'admin');
+                sessionStorage.setItem('isAdmin',sessionStorage.setItem('isAdmin',AdminService.fakeAdminId));
+            });
 
 
             this.props.history.push('/');
@@ -56,26 +62,26 @@ export default {
             return  req;
         },
         success: function(res) {
-            const username = localStorage.getItem('username');
+            const username = sessionStorage.getItem('username');
             helperService.notify('success',`Goodbye, ${username}`);  
             observer.trigger(observer.events.logoutUser);
-            localStorage.clear();
+            sessionStorage.clear();
         },
         fail: function(err) {
             helperService.notify('error',err.responseJSON.description);
         },
     },
     isAdmin : function(){
-        return AdminService.adminId === localStorage.getItem('isAdmin');
+        return AdminService.adminId === sessionStorage.getItem('isAdmin');
     },
     isLoggedIn : function(){
-        return localStorage.getItem('authtoken');
+        return sessionStorage.getItem('authtoken');
     },
     getUserName : function(){
-        return localStorage.getItem('username');
+        return sessionStorage.getItem('username');
     },
     getUserData : function(){
-        return localStorage;
+        return sessionStorage;
     }
 };
 

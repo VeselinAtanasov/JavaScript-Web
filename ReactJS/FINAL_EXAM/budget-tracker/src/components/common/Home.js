@@ -32,7 +32,7 @@ export default class Home extends Component {
 
     render() {
         let dataForRendering;
-        if (!localStorage.getItem('authtoken')) {
+        if (!sessionStorage.getItem('authtoken')) {
             dataForRendering = (<div className="container" >
                 <h2>Budget Tracker</h2>
                 <p>
