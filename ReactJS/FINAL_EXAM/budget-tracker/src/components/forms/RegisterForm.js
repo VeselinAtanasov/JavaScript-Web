@@ -68,5 +68,5 @@ class RegisterForm extends Component {
     }
 }
 
-RegisterForm = withFormHandlerAndValidator(RegisterForm,registerModel,authService.register)
+RegisterForm = withFormHandlerAndValidator(RegisterForm,registerModel,authService.register);
 export default RegisterForm;

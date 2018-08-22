@@ -7,13 +7,23 @@ export default class User extends Component{
             user:''
         };
         this.removeElement = this.removeElement.bind(this);
+        this.makeUserAdmin = this.makeUserAdmin.bind(this);
+        this.removeFromAdmin = this.removeFromAdmin.bind(this);
+
     }
 
 
     removeElement(){
-        console.log(this.props)
         let id = this.props['_id'];
         this.props.removeElement(id);
+    }
+    makeUserAdmin(){
+        let id = this.props['_id'];
+        this.props.makeUserAdmin(id);
+    }
+    removeFromAdmin(){
+        let id = this.props['_id'];
+        this.props.removeFromAdmin(id);
     }
 
     render(){
@@ -38,13 +48,13 @@ export default class User extends Component{
                             UserEmail: <strong> {this.props['email']}</strong>
                         </p>
                         <p>
-                            Is Admin: <strong>{this.props['_kmd']['roles'] ? "YES" : "NO"} </strong>
+                            Is Admin: <strong>{this.props['_kmd']['roles'] && this.props['_kmd']['roles'].length!==0 ? "YES" : "NO"} </strong>
                         </p>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-primary">Edit User</button>
-                        <button type="button" className="btn btn-primary">Make It Admin</button>
-                        <button type="button" className="btn btn-primary">Budget Tracker</button>
+                        <span className="badge badge-warning">Edit this user</span>
+                        <span className="badge badge-success" onClick={this.makeUserAdmin} >Make this user an Admin</span>
+                        <span className="badge badge-danger" onClick={this.removeFromAdmin} >Remove Admin role for the user</span>                        
                     </div>
                 </div>
             </div>

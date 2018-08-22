@@ -1,8 +1,6 @@
 
 import requestor from '../services/requester';
-import trackerService from '../services/TrackerService';
-import expenseService from '../services/ExpenseService';
-import authService from '../services/AuthService';
+
 
 export default {
     isAdmin: async function () {
@@ -27,6 +25,24 @@ export default {
             return requestor.remove('user', id, 'master');
         }
     },
+    getRoleByUserId:{
+        send: function (userId) {
+            let url = userId+'/roles';
+            return requestor.get('user',url,'master');
+        }
+    },
+    assignRoleToUser:{
+        send: function (userId,roleId) {
+            let url = userId+'/roles/'+roleId;
+            return requestor.update('user',url,'master');
+        }
+    },
+    deleteRoleFromUser:{
+        send: function (userId,roleId) {
+            let url = userId+'/roles/'+roleId;
+            return requestor.remove('user',url,'master');
+        }
+    }
     // deleteExpenseByUserId: {
     //     send: function (userId) {
     //         //delete expenses:
@@ -61,9 +77,7 @@ export default {
     //             let deletePromiseTracker = trackerService.deleteTrackerById.send(trackerId);
     //             let deletePromiseExpense = expenseService.deleteExpenseId.send(expenseId);
     //             return Promise.all([deletePromiseTracker,deletePromiseExpense]);
-    //         });
-
-             
+    //         });  
     //     }
     // }
 };
