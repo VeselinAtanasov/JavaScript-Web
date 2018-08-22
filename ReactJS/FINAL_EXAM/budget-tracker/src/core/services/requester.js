@@ -26,6 +26,7 @@ function makeRequest(method, module, endpoint, auth, query) {
     return {
         method,
         url: url,
+        'Content-Type':'application/json',
         headers: {
             'Authorization': makeAuth(auth),
         }

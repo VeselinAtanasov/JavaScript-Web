@@ -4,6 +4,7 @@ import '../../resource/styles/ListUsers.css';
 import adminService from '../../core/services/AdminService';
 import expenseService from '../../core/services/ExpenseService';
 import trackerService from '../../core/services/TrackerService';
+import helperService from '../../core/services/HelperService';
 import User from './User';
 
 export default class UsersList extends Component {
@@ -20,31 +21,40 @@ export default class UsersList extends Component {
             .getAllUsers
             .send()
             .then(users => {
-                console.log(users);
                 let filteredUsers = users.filter(e => !e['_kmd']['status']);
-                console.log(filteredUsers);
                 this.setState({
                     users:filteredUsers
                 });
-            }).catch(err => console.log(err)); 
+            }).catch(err => helperService.notify('error',"Error during retrieval of all users !")); 
     }
 
     removeElement(userId){
         expenseService.getExpenseByCreatorId.send(userId).then(expense =>{
-            console.log(expense);
+
+            if(expense.length==0){
+                console.log('Here');
+                adminService.deleteUser.send(userId).then(deletedUser => console.log(deletedUser)).catch(err => helperService.notify('error',"Error during deleting a user"));
+                helperService.notify('success',"You just removed a user from the app!");
+                let reducedUsers = this.state.users.filter(u => u['_id']!==userId);
+                this.setState({
+                    users: reducedUsers
+                });
+                return;
+            }
             let tracker_id = expense[0]['trackerId'];
             let expenseId = expense[0]['_id'];
+
             expenseService.deleteExpenseById.send(expenseId).then(deletedExpense =>{
-                console.log(deletedExpense);
-                trackerService.deleteTrackerById(tracker_id).then(deletedTrackerId =>{
-                    console.log(deletedTrackerId);
+                trackerService.deleteTrackerById.send(tracker_id).then(deletedTrackerId =>{
+                    adminService.deleteUser.send(userId).then(deletedUser => console.log(deletedUser)).catch(err => helperService.notify('error',"Error during deleting a user"));
+                    helperService.notify('success',"You just removed a user from the app!");
                     let reducedUsers = this.state.users.filter(u => u['_id']!==userId);
                     this.setState({
                         users: reducedUsers
                     });
-                });
-            });
-        });
+                }).catch(err => helperService.notify('error',"Error during deleting tracker"));
+            }).catch(err => helperService.notify('error',"Error during deleting expense"));
+        }).catch(err => helperService.notify('error',"Error during retrieval of user expenses"));
     }
 
     render(){

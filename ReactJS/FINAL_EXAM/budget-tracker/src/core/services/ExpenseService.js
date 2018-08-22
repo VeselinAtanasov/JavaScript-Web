@@ -56,7 +56,8 @@ export default {
     },
     deleteExpenseById: {
         send: function(id){
-            return requestor.remove('expenses',id,'master');
+            const url = 'expenses/'+id;
+            return requestor.remove('appdata',url,'master');
         }
     }
 };

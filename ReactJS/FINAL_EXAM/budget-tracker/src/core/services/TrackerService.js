@@ -75,7 +75,8 @@ export default {
     },
     deleteTrackerById: {
         send: function(id){
-            return requestor.remove('trackers',id,'master');
+            const url ='trackers/'+id;
+            return requestor.remove('appdata',url,'master');
         }
     }
 };

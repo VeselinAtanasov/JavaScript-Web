@@ -43,7 +43,8 @@ export default class User extends Component{
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-primary">Edit User</button>
-                        <button type="button" className="btn btn-primary">Make this User Admin</button>
+                        <button type="button" className="btn btn-primary">Make It Admin</button>
+                        <button type="button" className="btn btn-primary">Budget Tracker</button>
                     </div>
                 </div>
             </div>
