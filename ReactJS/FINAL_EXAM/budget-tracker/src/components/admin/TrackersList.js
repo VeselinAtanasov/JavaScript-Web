@@ -27,19 +27,37 @@ export default class TrackersList extends Component {
 
     render(){
         return (
-            <div className="container">
+
+
+            <div className="container-fluid">
                 <h1>List of registered users:</h1>
-                <div className="col-sm-4">
-                    {this.state.trackers.map(e => <SingleTracker
+                <div className="row">
+                {this.state.trackers.map(e => <SingleTracker
                         key={e._id}
                         {...e}
                         removeElement={this.removeElement}
                         makeUserAdmin={this.makeUserAdmin}
                         removeFromAdmin={this.removeFromAdmin}
                     />)} 
-                </div>
+                   
 
-            </div>        
+                </div>
+            </div>
+
+
+            // <div className="container">
+            //     <h1>List of registered users:</h1>
+            //     <div className="col-sm-4">
+            //         {this.state.trackers.map(e => <SingleTracker
+            //             key={e._id}
+            //             {...e}
+            //             removeElement={this.removeElement}
+            //             makeUserAdmin={this.makeUserAdmin}
+            //             removeFromAdmin={this.removeFromAdmin}
+            //         />)} 
+            //     </div>
+
+            // </div>        
         );
     }
 }
