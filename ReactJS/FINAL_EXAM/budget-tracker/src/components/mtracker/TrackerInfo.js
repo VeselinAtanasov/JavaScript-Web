@@ -7,7 +7,7 @@ export default class TrackerInfo extends Component {
 
     render() {
 
-        return (<div className="container">
+        return (
             <div className="col-8" >
                 <div className="card mb-3">
                     <h3 className="card-header"><strong></strong>{this.props.data.trackerName}</h3>
@@ -24,6 +24,6 @@ export default class TrackerInfo extends Component {
 
                 </div>
             </div>
-        </div>);
+        );
     }
 }

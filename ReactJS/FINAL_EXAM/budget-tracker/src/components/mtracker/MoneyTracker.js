@@ -53,8 +53,9 @@ export default class MoneyTracker extends Component {
                         <div className="col-3">
                             <MoneyTrackerNavigator data={this.state.menu} />
                         </div>
-                        <TrackerInfo data={this.state.menu} />
-
+                        <div className="container">
+                            <TrackerInfo data={this.state.menu} />
+                        </div>
                     </div>
                 </div>
 

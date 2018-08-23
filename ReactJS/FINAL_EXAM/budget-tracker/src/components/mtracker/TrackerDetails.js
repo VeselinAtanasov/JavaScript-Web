@@ -16,8 +16,7 @@ export default class TrackerDetails extends Component {
             data: '',
             displayButton:true,
             leftMoney:'',
-            tips:[],
-            statistic:''
+            tips:[]
         };
     }
 
@@ -27,22 +26,18 @@ export default class TrackerDetails extends Component {
             .getTrackerById
             .send(id)
             .then(res => {
-                this.setState({
-                    data: res
-                });
+                let currentTracker = res;
                 expenseService.getExpenseByTrackerId.send(id).then(data => {
-                    let expenses = helperService.calculateRemainingAmount(this.state.data,data[0]) ;
-                    let tips = helperService.getUsefulTips(this.state.data,data[0]) ;
-                    
+                    let expenses = helperService.calculateRemainingAmount(currentTracker,data[0]) ;
+                    let tips = helperService.getUsefulTips(currentTracker,data[0]) ;
+                    currentTracker['statistic']=data[0];
                     this.setState({
                         leftMoney:expenses,
                         tips:tips,
-                        statistic:data[0]
+                        statistic:data[0],
+                        data:currentTracker
                     });
                 }).catch(err => helperService.notify('error', 'Something got wrong with the server!'));
-
-
-
             }).catch(err => helperService.notify('error', 'Something got wrong with the server!'));
     }
 
@@ -59,31 +54,29 @@ export default class TrackerDetails extends Component {
                 <BudgetStatusSuccess leftMoney={this.state.leftMoney} />
             ); 
         }
+
+        console.log(this.state.leftMoney)
+        console.log(card)
         return (
             <div className="container-fluid">
                 <h1>Details about your current financial status:</h1>
                 <p>All calculations are based on your overall incomes and expenses till now.</p>
                 <p></p>
-                
+                <div className="col-sm-12" >
+                    {<TableReport data={this.state.data.statistic} />}
+                </div>
                 <div className="row">
-                    <div className="col-sm-6" >
+                    <div className="col-sm-4" >
                         {<TrackerInfo data={this.state.data} displayButton={this.state.displayButton}/>}
-                        <div className="col-sm-12" >
-                            {<TableReport data={this.state.statistic} />}
-                        </div>
+                        
                     </div>
-                    <div className="col-sm-6" >
+                    <div className="col-sm-8" >
                         {card}
                         {this.state.leftMoney !==0 ? <h4>Here are some useful tips for you:</h4> : null }
                         {this.state.leftMoney !==0 ? this.state.tips.map((e,i) => <Tip key={i}  value={e} index={i}  />) : null }  
                     
                     </div>
-                    <div className="col-sm-12" >
-                       
-
-
-                    </div>
-                    
+                   
                 </div>
             </div>
         );

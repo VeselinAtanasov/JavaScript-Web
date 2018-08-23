@@ -1,7 +1,7 @@
 import React from 'react';
 
 const BudgetStatusDanger = (props) =>(
-    <div className="col-sm-12"  >
+    <div className="col-sm-8"  >
         <div className="card text-white bg-danger mb-3" >
             <div className="card-header"><strong>Statistics:</strong></div>
             <div className="card-body">
