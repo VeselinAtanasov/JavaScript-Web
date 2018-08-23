@@ -59,6 +59,13 @@ export default {
             const url = 'expenses/'+id;
             return requestor.remove('appdata',url,'master');
         }
+    },
+    deleteExpenseByTrackerId:{
+        send: function(trackerId){
+            const url = `expenses?query={"trackerId":"${trackerId}"}`;
+            return requestor.remove('appdata',url,'master');
+        }
+    
     }
 };
 

@@ -6,10 +6,16 @@ export default class SingleTracker extends Component{
     constructor(props){
         super(props);
 
+        this.removeElement = this.removeElement.bind(this);
+
+    }
+
+    removeElement(){
+        let trackerId = this.props['_id'];
+        this.props.removeElement(trackerId);
     }
 
     render(){
-        
         return(
             <div className="col-md-3" >
                 <div className="modal-dialog" role="document">
@@ -28,12 +34,19 @@ export default class SingleTracker extends Component{
                          Description:  <strong>{this.props.trackerDescription}</strong>
                             </p>
                             <p>
+                        Virtual Wallet Status:
+                                <li>Main incomes: {this.props.walletIncomes}</li>
+                                <li>Other incomes {this.props.walletOthers}</li>
+                            </p>
+                            <p>
                         UserId: <strong> {this.props['_acl']['creator']}</strong>
                             </p>
                         </div>
                         <div className="modal-footer">
-                            <Link to={`/admin/editUser/${this.props['_id']}`}  className="badge badge-warning">Edit Tracker</Link>
-                            <Link to={`/trackDetails/${this.props['_id']}`} className="badge badge-success" onClick={this.makeUserAdmin} >Check Details</Link>                      
+                            <Link to={`/trackDetails/${this.props['_id']}`} className="badge badge-success"  >Check Details</Link>                      
+                            <Link to={`/trackDetails/${this.props['_id']}`} className="badge badge-danger"  >Modify Virtual Wallet</Link>  
+                            <Link to={`/admin/editTracker/${this.props['_id']}`}  className="badge badge-warning">Edit Tracker</Link>                    
+                            <Link to={`/trackDetails/${this.props['_id']}`} className="badge badge-danger"  >Modify Expenses</Link>                      
                         </div>
                     </div>
                 </div>
