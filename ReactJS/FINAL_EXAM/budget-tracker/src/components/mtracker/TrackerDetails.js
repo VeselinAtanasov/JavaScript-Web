@@ -57,6 +57,8 @@ export default class TrackerDetails extends Component {
                 <BudgetStatusSuccess leftMoney={this.state.leftMoney} />
             ); 
         }
+        console.log('...rendering...');
+        console.log(this.state);
         return (
             <div className="container-fluid">
                 <h1>Details about your current financial status:</h1>
@@ -66,12 +68,49 @@ export default class TrackerDetails extends Component {
                 <div className="row">
                     <div className="col-sm-6" >
                         {<TrackerInfo data={this.state.data} displayButton={this.state.displayButton}/>}
+                        <div className="col-sm-12" >
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">First</th>
+                                        <th scope="col">Last</th>
+                                        <th scope="col">Handle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>@fat</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Larry</td>
+                                        <td>the Bird</td>
+                                        <td>@twitter</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div className="col-sm-6" >
                         {card}
                         {this.state.leftMoney !==0 ? <h4>Here are some useful tips for you:</h4> : null }
                         {this.state.leftMoney !==0 ? this.state.tips.map((e,i) => <Tip key={i}  value={e} index={i}  />) : null }  
                     
+                    </div>
+                    <div className="col-sm-12" >
+                       
+
+
                     </div>
                     
                 </div>

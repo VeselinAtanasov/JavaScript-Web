@@ -73,6 +73,7 @@ export default class TrackerReport extends Component {
                     </div>
                     <div className="col-sm-4" >
                         {<TrackerInfo data={this.state.data} element={element} displayButton={this.state.displayButton} />}
+
                     </div>
                 </div>
                 
