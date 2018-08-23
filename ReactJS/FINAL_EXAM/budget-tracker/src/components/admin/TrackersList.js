@@ -9,16 +9,17 @@ import SingleTracker from './SingleTracker';
 
 
 export default class TrackersList extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state ={
-            trackers:[]
+        this.state = {
+            trackers: []
         };
         this.removeElement = this.removeElement.bind(this);
+        this.elementReRender = this.elementReRender.bind(this);
     }
 
-    componentDidMount(){
-        trackerService.getAllTrackers.send().then(trackers =>{
+    componentDidMount() {
+        trackerService.getAllTrackers.send().then(trackers => {
             console.log(trackers);
             this.setState({
                 trackers
@@ -26,20 +27,24 @@ export default class TrackersList extends Component {
         }).catch(err => helperService.notify('error', "Error during retrieval all Budget Trackers!"));
     }
 
-    removeElement(trackerId){
+    elementReRender() {
+        trackerService.getAllTrackers.send().then(trackers => {
+            this.setState({
+                trackers
+            });
+        }).catch(err => helperService.notify('error', "Error during retrieval all Budget Trackers!"));
+    }
+
+    removeElement(trackerId) {
         expenseService.deleteExpenseByTrackerId.send(trackerId).then(deletedExpense => {
-            trackerService.deleteTrackerById.send(trackerId).then(deletedTracker =>{
-                trackerService.getAllTrackers.send().then(trackers =>{
-                    this.setState({
-                        trackers
-                    });
-                    helperService.notify('success', "You successfully deleted a tracker!")
-                }).catch(err => helperService.notify('error', "Error during retrieval all Budget Trackers!"));
+            trackerService.deleteTrackerById.send(trackerId).then(deletedTracker => {
+                this.elementReRender();
+                helperService.notify('success', "You successfully deleted a tracker!");
             }).catch(err => helperService.notify('error', "Error during deleting tracker"));
         }).catch(err => helperService.notify('error', "Error during deleting expenses"));
     }
 
-    render(){
+    render() {
         return (
 
 
@@ -50,12 +55,12 @@ export default class TrackersList extends Component {
                         key={e._id}
                         {...e}
                         removeElement={this.removeElement}
-                    />)} 
-                   
+                    />)}
+
 
                 </div>
             </div>
-     
+
         );
     }
 }

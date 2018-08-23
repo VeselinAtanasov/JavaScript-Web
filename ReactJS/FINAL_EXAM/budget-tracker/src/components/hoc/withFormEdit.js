@@ -21,6 +21,13 @@ export default function withFormEdit(WrappedComponent, model, serviceFunction) {
         }
 
         componentDidMount() {
+            if (this.props.admin) {
+                let trackerId = this.props.match.params.id;
+                let filler = this.props.admin.fill.bind(this);
+                filler(trackerId).then(res => {
+                    this.setState(model.getDataForRequest(res));
+                }).catch(err => console.log(err));
+            }
 
         }
 
@@ -30,26 +37,48 @@ export default function withFormEdit(WrappedComponent, model, serviceFunction) {
             if (model.validate) {
                 let validated = model.validate(this.state);  // { success: "true"/"false", message: "Successcul", errors: {} }
                 if (validated.success) {
-                    serviceFunction.send(id).then(res => {
-                        console.log(res)
-                        let elementId;
-                        let element;
-                        if(Array.isArray(res)){
-                            elementId = res[0]['_id'];
-                            element = res[0];
-                        }else{
-                            elementId = res['_id'];
-                            element=res;
-                        }
-                          
-                        let preparedData = serviceFunction.dataPreparation(element, this.state);
+                    if(this.props.admin){
+                        console.log('Admin will  modify');
+                        console.log(this.props);
+                        let successor = this.props.admin.success.bind(this);
+                        let failure = this.props.admin.fail.bind(this);
+                        this.props.admin.send(id).then(res =>{
+                            console.log(res);
+                            let elementId;
+                            let element;
+                            if (Array.isArray(res)) {
+                                elementId = res[0]['_id'];
+                                element = res[0];
+                            } else {
+                                elementId = res['_id'];
+                                element = res;
+                            }
+                            let preparedData = this.props.admin.dataPreparation(element, this.state);
+                            this.props.admin.updateById(elementId, preparedData).then(successor).catch(failure);
+                        }).catch(err =>console.log(err));
+                      
+                    }else{
+                        serviceFunction.send(id).then(res => {
+                            console.log(res);
+                            let elementId;
+                            let element;
+                            if (Array.isArray(res)) {
+                                elementId = res[0]['_id'];
+                                element = res[0];
+                            } else {
+                                elementId = res['_id'];
+                                element = res;
+                            }
     
-                        serviceFunction.updateById(elementId, preparedData).then(this.success).catch(this.fail);
-                    }).catch(this.fail);
+                            let preparedData = serviceFunction.dataPreparation(element, this.state);
+    
+                            serviceFunction.updateById(elementId, preparedData).then(this.success).catch(this.fail);
+                        }).catch(this.fail);
+                    }
                 } else {
                     helperService.notify('error', validated.message, validated.errors);
                 }
-            } 
+            }
         }
 
 

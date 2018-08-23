@@ -45,7 +45,7 @@ export default {
     getDataForRequest: function(state){
         return {
             username: state.username,
-            password: state.password,
+            password: state.password? state.password : '',
             email: state.email,
         };
     }

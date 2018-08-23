@@ -44,7 +44,7 @@ export default class SingleTracker extends Component{
                         </div>
                         <div className="modal-footer">
                             <Link to={`/trackDetails/${this.props['_id']}`} className="badge badge-success"  >Check Details</Link>                      
-                            <Link to={`/trackDetails/${this.props['_id']}`} className="badge badge-danger"  >Modify Virtual Wallet</Link>  
+                            <Link to={`/admin/changeWallet/${this.props['_id']}`}  className="badge badge-danger"  >Modify Virtual Wallet</Link>  
                             <Link to={`/admin/editTracker/${this.props['_id']}`}  className="badge badge-warning">Edit Tracker</Link>                    
                             <Link to={`/trackDetails/${this.props['_id']}`} className="badge badge-danger"  >Modify Expenses</Link>                      
                         </div>

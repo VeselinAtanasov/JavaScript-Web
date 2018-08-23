@@ -57,23 +57,25 @@ export default class TrackerReport extends Component {
         return (
             <div className="container-fluid">
                 <h1>Overall Statistics:</h1>
+                 
                 <p>This is your detailed statistics.</p>
                 <div className="row">
                     <div className="col-sm-8" >
                         <strong>BudgetTracker expense separation for {this.state.data.trackerName}:</strong>
-                        <div className="row">
+                        {this.state.leftMoney!==0 ? (<div className="row">
                             <div className="col-sm-6" >
                                 <Report name="Overall distribution by category in leva, lv" data={this.state.dataByCategory} />
                             </div>
                             <div className="col-sm-6" >
                                 <Report name="Overall distribution by category in percentage, %" data={this.state.dataByCategoryPer} />
                             </div>
-                        </div>
+                        </div> ) : <h3>You balance is 0, so we cannot generate statistic for you!</h3> }
                     </div>
                     <div className="col-sm-4" >
                         {<TrackerInfo data={this.state.data} element={element} displayButton={this.state.displayButton} />}
                     </div>
                 </div>
+                
             </div>
         );
     }

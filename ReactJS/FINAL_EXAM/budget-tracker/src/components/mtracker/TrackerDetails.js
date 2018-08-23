@@ -32,7 +32,7 @@ export default class TrackerDetails extends Component {
                 expenseService.getExpenseByTrackerId.send(id).then(data => {
                     let expenses = helperService.calculateRemainingAmount(this.state.data,data[0]) ;
                     let tips = helperService.getUsefulTips(this.state.data,data[0]) ;
-                    console.log(tips)
+                    console.log(tips);
                     this.setState({
                         leftMoney:expenses,
                         tips:tips
@@ -49,9 +49,13 @@ export default class TrackerDetails extends Component {
         if (this.state.leftMoney === '') {
             return null;
         } else if (this.state.leftMoney < 0 && this.state.leftMoney !== '' ) {
-            card =  <BudgetStatusDanger leftMoney={this.state.leftMoney} />;
+            card = (
+                <BudgetStatusDanger leftMoney={this.state.leftMoney} />
+            );
         } else if (this.state.leftMoney >= 0 && this.state.leftMoney !== '') {
-            card = <BudgetStatusSuccess leftMoney={this.state.leftMoney} />;
+            card =(
+                <BudgetStatusSuccess leftMoney={this.state.leftMoney} />
+            ); 
         }
         return (
             <div className="container-fluid">
@@ -65,8 +69,8 @@ export default class TrackerDetails extends Component {
                     </div>
                     <div className="col-sm-6" >
                         {card}
-                        <h4>Here are some useful tips for you:</h4>
-                        {this.state.tips.map((e,i) => <Tip key={i}  value={e} index={i}  />)}   
+                        {this.state.leftMoney !==0 ? <h4>Here are some useful tips for you:</h4> : null }
+                        {this.state.leftMoney !==0 ? this.state.tips.map((e,i) => <Tip key={i}  value={e} index={i}  />) : null }  
                     
                     </div>
                     
