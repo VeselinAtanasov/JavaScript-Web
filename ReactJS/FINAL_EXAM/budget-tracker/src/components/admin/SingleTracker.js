@@ -39,6 +39,16 @@ export default class SingleTracker extends Component{
                                 <li>Other incomes {this.props.walletOthers}</li>
                             </p>
                             <p>
+                         Expenses Status:
+                                <li>Food: {this.props.expenses.foodExpense}</li>		
+                                <li>Bills: {this.props.expenses.billsExpense}</li>		
+                                <li>Medicine: {this.props.expenses.medicineExpense}</li>		
+                                <li>Transport: {this.props.expenses.transportExpense}</li>		
+                                <li>Clothing: {this.props.expenses.clothingExpense}</li>		
+                                <li>Fun: {this.props.expenses.funExpense}</li>		
+                                <li>Others: {this.props.expenses.otherExpense}</li>		
+                            </p>
+                            <p>
                         UserId: <strong> {this.props['_acl']['creator']}</strong>
                             </p>
                         </div>

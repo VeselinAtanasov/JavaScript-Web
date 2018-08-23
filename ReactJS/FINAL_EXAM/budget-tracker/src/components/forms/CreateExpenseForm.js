@@ -63,7 +63,7 @@ class CreateExpenseForm extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="exampleTrackerName">Clothing c:</label>
+                        <label htmlFor="exampleTrackerName">Clothing Category:</label>
                         <input
                             type="number"
                             className="form-control"
@@ -76,7 +76,7 @@ class CreateExpenseForm extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="exampleTrackerName">Fun Clothing:</label>
+                        <label htmlFor="exampleTrackerName">Fun Category:</label>
                         <input
                             type="number"
                             className="form-control"
@@ -89,7 +89,7 @@ class CreateExpenseForm extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="exampleTrackerName">Others Clothing:</label>
+                        <label htmlFor="exampleTrackerName">Others Category:</label>
                         <input
                             type="number"
                             className="form-control"

@@ -16,15 +16,29 @@ export default class TrackersList extends Component {
         };
         this.removeElement = this.removeElement.bind(this);
         this.elementReRender = this.elementReRender.bind(this);
+        this.populateData = this.populateData.bind(this);
     }
 
     componentDidMount() {
         trackerService.getAllTrackers.send().then(trackers => {
-            console.log(trackers);
-            this.setState({
-                trackers
-            });
+            expenseService.getAllExpenses.send().then(expenses =>{
+                this.populateData(trackers,expenses);
+                this.setState({
+                    trackers
+                });
+            }).catch(err => helperService.notify('error', "Error during retrieval all Expenses!"));
+
         }).catch(err => helperService.notify('error', "Error during retrieval all Budget Trackers!"));
+    }
+
+    populateData(trackers,expenses){
+        for(let tracker of trackers){
+            for(let expense of expenses){
+                if(tracker['_id']===expense['trackerId']){
+                    tracker['expenses'] =expense;
+                }
+            }
+        }
     }
 
     elementReRender() {
@@ -54,8 +68,6 @@ export default class TrackersList extends Component {
                         {...e}
                         removeElement={this.removeElement}
                     />)}
-
-
                 </div>
             </div>
 
