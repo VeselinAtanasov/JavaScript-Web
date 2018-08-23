@@ -54,9 +54,6 @@ export default class TrackerDetails extends Component {
                 <BudgetStatusSuccess leftMoney={this.state.leftMoney} />
             ); 
         }
-
-        console.log(this.state.leftMoney)
-        console.log(card)
         return (
             <div className="container-fluid">
                 <h1>Details about your current financial status:</h1>
@@ -65,6 +62,8 @@ export default class TrackerDetails extends Component {
                 <div className="col-sm-12" >
                     {<TableReport data={this.state.data.statistic} />}
                 </div>
+                <br/>
+                <br/>
                 <div className="row">
                     <div className="col-sm-4" >
                         {<TrackerInfo data={this.state.data} displayButton={this.state.displayButton}/>}
