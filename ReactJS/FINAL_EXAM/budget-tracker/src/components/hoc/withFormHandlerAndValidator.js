@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import authService from '../../core/services/AuthService';
 import helperService from '../../core/services/HelperService';
 
 export default function withFormHandlerAndValidator(WrappedComponent, model, serviceFunction) {
@@ -13,6 +14,7 @@ export default function withFormHandlerAndValidator(WrappedComponent, model, ser
             this.success = this.props.success || serviceFunction.success.bind(this);
             this.fail = this.props.fail || serviceFunction.fail.bind(this);
         }
+        
         handleChange(event) {
             let fieldName = event.target.name;
             let fieldValue = event.target.value;
@@ -21,6 +23,17 @@ export default function withFormHandlerAndValidator(WrappedComponent, model, ser
         }
 
         componentDidMount() {
+            if(this.props.edit){
+                let id = this.props.match.params.id;
+                authService.getUserProfileById.send(id).then(res => {
+                    this.setState({
+                        username:res['username'],
+                        password:'',
+                        repeatPassword:'',
+                        email:res['email']
+                    });
+                }).catch(err => helperService.notify('error','Error during retrieval of user profile!'));   
+            }
         }
 
         handleSubmit(event) {
@@ -33,6 +46,9 @@ export default function withFormHandlerAndValidator(WrappedComponent, model, ser
                     if(this.props.admin){
                         let successor = this.props.admin.success.bind(this);
                         let failure = this.props.admin.fail.bind(this);
+                        if(this.props.edit){
+                            data['id']= this.props.match.params.id;
+                        }
                         this.props.admin.send(data).then(successor).catch(failure);
                     }else{
                         serviceFunction.send(data).then(this.success).catch(this.fail);

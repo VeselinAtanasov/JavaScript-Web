@@ -17,7 +17,8 @@ import UsersList from './components/admin/UsersList';
 
 const isAdmin = AuthService.isAdmin();
 const isLoggedIn = AuthService.isLoggedIn();
-console.log(isAdmin);
+console.log('User is Admin? +'+isAdmin);
+console.log('User is LoggedIn? +'+isLoggedIn);
 const AppRouter = () => (
     <div>
         <Switch>
@@ -27,18 +28,18 @@ const AppRouter = () => (
             <Route path='/login' component={LoginForm} />
             <Route path='/logout' component={Logout} />
 
-            <Route path='/mtracker'  render={(props) => !isLoggedIn ? <Redirect to="/" /> : <MoneyTracker {...props} />}  />
-            <Route path='/createTracker' render={(props) => !isLoggedIn ? <Redirect to="/" /> : <CreateTrackerForm {...props}/>}  />
-            <Route path='/addExpense/:id' render={(props) =>  !isLoggedIn ? <Redirect to="/" /> : <CreateExpenseForm forUpdate="true" {...props} />} />
-            <Route path='/fillWallet/:id' render={(props) =>  !isLoggedIn ? <Redirect to="/" /> : <WalletForm forUpdate="true" {...props} />} />
-            <Route path='/trackDetails/:id' render={(props) => !isLoggedIn ? <Redirect to="/" /> : <TrackerDetails {...props} />}  />
-            <Route path='/report/:id' render={(props) => !isLoggedIn ? <Redirect to="/" /> : <TrackerReport {...props} />}  />
+            <Route path='/mtracker'  render={(props) => !AuthService.isLoggedIn() ? <Redirect to="/" /> : <MoneyTracker {...props} />}  />
+            <Route path='/createTracker' render={(props) => !AuthService.isLoggedIn() ? <Redirect to="/" /> : <CreateTrackerForm {...props}/>}  />
+            <Route path='/addExpense/:id' render={(props) =>  !AuthService.isLoggedIn() ? <Redirect to="/" /> : <CreateExpenseForm forUpdate="true" {...props} />} />
+            <Route path='/fillWallet/:id' render={(props) =>  !AuthService.isLoggedIn() ? <Redirect to="/" /> : <WalletForm forUpdate="true" {...props} />} />
+            <Route path='/trackDetails/:id' render={(props) => !AuthService.isLoggedIn() ? <Redirect to="/" /> : <TrackerDetails {...props} />}  />
+            <Route path='/report/:id' render={(props) => !AuthService.isLoggedIn() ? <Redirect to="/" /> : <TrackerReport {...props} />}  />
 
-            <Route exact path="/admin" render={(props) => !isAdmin ? <Redirect to="/" /> : <AdminPanel  {...props} />} />
-            <Route path="/admin/allUsers" render={(props) => !isAdmin ? <Redirect to="/" /> : <UsersList  {...props} />} />
-            <Route path="/admin/allTrackers" render={(props) => !isAdmin ? <Redirect to="/" /> : <AdminPanel   {...props}/>} />
-            <Route path="/admin/register" render={(props) => !isAdmin ? <Redirect to="/" /> : <RegisterForm  admin={AuthService.adminRegister} {...props}/>} />
-            <Route path="/admin/editUser/:id" render={(props) => !isAdmin ? <Redirect to="/" /> : <RegisterForm  admin={AuthService.adminEdit} edit={true} {...props}/>} />
+            <Route exact path="/admin" render={(props) => !AuthService.isAdmin() ? <Redirect to="/" /> : <AdminPanel  {...props} />} />
+            <Route path="/admin/allUsers" render={(props) => !AuthService.isAdmin() ? <Redirect to="/" /> : <UsersList  {...props} />} />
+            <Route path="/admin/allTrackers" render={(props) => !AuthService.isAdmin() ? <Redirect to="/" /> : <AdminPanel   {...props}/>} />
+            <Route path="/admin/register" render={(props) => !AuthService.isAdmin() ? <Redirect to="/" /> : <RegisterForm  admin={AuthService.adminRegister} {...props}/>} />
+            <Route path="/admin/editUser/:id" render={(props) => !AuthService.isAdmin() ? <Redirect to="/" /> : <RegisterForm  admin={AuthService.adminEdit} edit={true} {...props}/>} />
 
             <Route component={NotFound} />  }
         </Switch>

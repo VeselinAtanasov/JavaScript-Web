@@ -36,9 +36,10 @@ export default {
         },
     },
     adminEdit: {
-        send: function(id,data){
-            const url = id;
-            return requestor.put('user', url, 'master', data);
+        send: function(data){
+            const url = data['id'];
+            delete data['id'];
+            return requestor.update('user', url, 'master', data);
         },
         success: function(res) {
             helperService.notify('success',"Admin, you just edited a user profile");
@@ -99,6 +100,11 @@ export default {
         fail: function(err) {
             helperService.notify('error',err.responseJSON.description);
         },
+    },
+    getUserProfileById: {
+        send: function (id) { 
+            return requestor.get('user',id, 'master');
+        }
     },
     isAdmin : function(){
         return AdminService.adminId === sessionStorage.getItem('isAdmin');
