@@ -59,7 +59,7 @@ export default {
     adminUpdate:{
         send: function (id) {
             const query = `trackers/`+id;
-            return requestor.get('appdata', query, 'kinvey');
+            return requestor.get('appdata', query, 'master');
         },
         success: function (res) {
             helperService.notify('success', `Admin. you just modified user's wallet`);

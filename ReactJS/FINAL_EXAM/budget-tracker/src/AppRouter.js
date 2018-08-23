@@ -16,6 +16,7 @@ import AuthService from './core/services/AuthService';
 import UsersList from './components/admin/UsersList';
 import TrackersList from './components/admin/TrackersList';
 import TrackerService from './core/services/TrackerService';
+import ExpenseService from './core/services/ExpenseService';
 
 const AppRouter = () => (
     <div>
@@ -56,6 +57,10 @@ const AppRouter = () => (
             <Route path="/admin/changeWallet/:id" 
                 render={(props) => !AuthService.isAdmin() ? <Redirect to="/" /> 
                     : <WalletForm  admin={TrackerService.adminUpdate} {...props}/>} 
+            />
+            <Route path="/admin/changeExpense/:id" 
+                render={(props) => !AuthService.isAdmin() ? <Redirect to="/" /> 
+                    : <CreateExpenseForm  admin={ExpenseService.adminUpdate} {...props}/>} 
             />
             <Route component={NotFound} />  }
         </Switch>

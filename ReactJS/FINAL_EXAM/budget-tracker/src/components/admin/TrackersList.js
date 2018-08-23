@@ -46,8 +46,6 @@ export default class TrackersList extends Component {
 
     render() {
         return (
-
-
             <div className="container-fluid">
                 <h1>List of registered users:</h1>
                 <div className="row">

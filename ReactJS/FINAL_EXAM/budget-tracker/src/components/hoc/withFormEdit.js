@@ -21,14 +21,20 @@ export default function withFormEdit(WrappedComponent, model, serviceFunction) {
         }
 
         componentDidMount() {
+           
             if (this.props.admin) {
                 let trackerId = this.props.match.params.id;
                 let filler = this.props.admin.fill.bind(this);
                 filler(trackerId).then(res => {
-                    this.setState(model.getDataForRequest(res));
+                    let response;
+                    if (Array.isArray(res)) {
+                        response=res[0];
+                    } else {
+                        response=res;
+                    }
+                    this.setState(model.getDataForRequest(response));
                 }).catch(err => console.log(err));
             }
-
         }
 
         handleSubmit(event) {

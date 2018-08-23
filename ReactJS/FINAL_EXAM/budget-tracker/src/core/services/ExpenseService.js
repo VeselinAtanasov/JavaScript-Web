@@ -37,6 +37,38 @@ export default {
             return requestor.update('appdata', endpoint, 'kinvey', data);
         }
     },
+    adminUpdate: {
+        send: function (id) {
+            const query = `expenses?query={"trackerId":"${id}"}`;
+            return requestor.get('appdata', query, 'master');
+        },
+        success: function (res) {
+            helperService.notify('success', `Admin, you just modified user's expenses`);
+            this.props.history.push('/admin/allTrackers');
+        },
+        fill: function(id){
+            const query = `expenses?query={"trackerId":"${id}"}`;
+            return requestor.get('appdata',query,'master');
+        },
+        fail: function (err) {
+            helperService.notify('error', "Database failed. Please try again later!");
+        },
+        dataPreparation: function (dbResponse, state) {
+            let obj = {};
+            for (let s in state) {
+                if (dbResponse.hasOwnProperty(s) && s !== 'trackerId') {
+                    obj[s] = Math.round((Number(state[s]) + 0 ) * 100) / 100;
+                } else if (s === 'trackerId') {
+                    obj[s] = dbResponse[s];
+                }
+            }
+            return obj;
+        },
+        updateById: function (id, data) {
+            const endpoint = 'expenses/' + id;
+            return requestor.update('appdata', endpoint, 'master', data);
+        }
+    },
     getExpenseByTrackerId: {
         send: function (id) {
             const query = `expenses?query={"trackerId":"${id}"}`;
@@ -55,17 +87,17 @@ export default {
         }
     },
     deleteExpenseById: {
-        send: function(id){
-            const url = 'expenses/'+id;
-            return requestor.remove('appdata',url,'master');
+        send: function (id) {
+            const url = 'expenses/' + id;
+            return requestor.remove('appdata', url, 'master');
         }
     },
-    deleteExpenseByTrackerId:{
-        send: function(trackerId){
+    deleteExpenseByTrackerId: {
+        send: function (trackerId) {
             const url = `expenses?query={"trackerId":"${trackerId}"}`;
-            return requestor.remove('appdata',url,'master');
+            return requestor.remove('appdata', url, 'master');
         }
-    
+
     }
 };
 
