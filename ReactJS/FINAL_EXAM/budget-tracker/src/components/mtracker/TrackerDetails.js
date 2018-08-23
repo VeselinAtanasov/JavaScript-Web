@@ -60,7 +60,7 @@ export default class TrackerDetails extends Component {
                 <p>All calculations are based on your overall incomes and expenses till now.</p>
                 <p></p>
                 <div className="col-sm-12" >
-                    {<TableReport data={this.state.data.statistic} />}
+                    {<TableReport data={this.state.data} />}
                 </div>
                 <br/>
                 <br/>
