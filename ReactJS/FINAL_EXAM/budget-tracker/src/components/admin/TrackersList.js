@@ -43,9 +43,13 @@ export default class TrackersList extends Component {
 
     elementReRender() {
         trackerService.getAllTrackers.send().then(trackers => {
-            this.setState({
-                trackers
-            });
+            expenseService.getAllExpenses.send().then(expenses =>{
+                this.populateData(trackers,expenses);
+                this.setState({
+                    trackers
+                });
+            }).catch(err => helperService.notify('error', "Error during retrieval all Expenses!"));
+
         }).catch(err => helperService.notify('error', "Error during retrieval all Budget Trackers!"));
     }
 
@@ -61,7 +65,7 @@ export default class TrackersList extends Component {
     render() {
         return (
             <div className="container-fluid">
-                <h1>List of registered users:</h1>
+                <h1>List of all Budget Tracker accounts and their status:</h1>
                 <div className="row">
                     {this.state.trackers.map(e => <SingleTracker
                         key={e._id}

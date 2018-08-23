@@ -82,7 +82,7 @@ export default function withFormEdit(WrappedComponent, model, serviceFunction) {
                         }).catch(this.fail);
                     }
                 } else {
-                    helperService.notify('error', validated.message, validated.errors);
+                    helperService.notify('error', 'Error in Validation', validated.errors);
                 }
             }
         }

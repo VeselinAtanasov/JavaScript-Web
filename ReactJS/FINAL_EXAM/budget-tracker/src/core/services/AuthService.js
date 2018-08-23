@@ -22,7 +22,7 @@ export default {
     },
     adminRegister: {
         send: function(data){
-            return requestor.post('user', '', 'master', data);
+            return requestor.post('user', '', 'basic', data);
         },
         success: function(res) {
 

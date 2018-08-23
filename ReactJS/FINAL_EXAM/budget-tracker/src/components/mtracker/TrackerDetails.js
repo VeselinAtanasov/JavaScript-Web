@@ -64,7 +64,9 @@ export default class TrackerDetails extends Component {
                 </div>
                 <br/>
                 <br/>
+                <h3>Your Status:</h3>
                 <div className="row">
+               
                     <div className="col-sm-4" >
                         {<TrackerInfo data={this.state.data} displayButton={this.state.displayButton}/>}
                         
