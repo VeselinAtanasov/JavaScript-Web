@@ -6,6 +6,7 @@ import expenseService from '../../core/services/ExpenseService';
 import BudgetStatusDanger from './BudgetStatusDanger';
 import BudgetStatusSuccess from './BudgetStatusSuccess';
 import Tip from './../reports/Tip';
+import TableReport from '../reports/TableReport';
 
 export default class TrackerDetails extends Component {
 
@@ -15,7 +16,8 @@ export default class TrackerDetails extends Component {
             data: '',
             displayButton:true,
             leftMoney:'',
-            tips:[]
+            tips:[],
+            statistic:''
         };
     }
 
@@ -28,14 +30,14 @@ export default class TrackerDetails extends Component {
                 this.setState({
                     data: res
                 });
-
                 expenseService.getExpenseByTrackerId.send(id).then(data => {
                     let expenses = helperService.calculateRemainingAmount(this.state.data,data[0]) ;
                     let tips = helperService.getUsefulTips(this.state.data,data[0]) ;
-                    console.log(tips);
+                    
                     this.setState({
                         leftMoney:expenses,
-                        tips:tips
+                        tips:tips,
+                        statistic:data[0]
                     });
                 }).catch(err => helperService.notify('error', 'Something got wrong with the server!'));
 
@@ -57,8 +59,6 @@ export default class TrackerDetails extends Component {
                 <BudgetStatusSuccess leftMoney={this.state.leftMoney} />
             ); 
         }
-        console.log('...rendering...');
-        console.log(this.state);
         return (
             <div className="container-fluid">
                 <h1>Details about your current financial status:</h1>
@@ -69,36 +69,7 @@ export default class TrackerDetails extends Component {
                     <div className="col-sm-6" >
                         {<TrackerInfo data={this.state.data} displayButton={this.state.displayButton}/>}
                         <div className="col-sm-12" >
-                            <table class="table">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            {<TableReport data={this.state.statistic} />}
                         </div>
                     </div>
                     <div className="col-sm-6" >

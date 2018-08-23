@@ -8,9 +8,6 @@ export default class Report extends Component{
         const displayName = this.props.name;
         let labels = Object.keys(this.props.data);
         let values = Object.values(this.props.data);
-        console.log(displayName);
-        console.log(labels);
-        console.log(values);
         const data = {
             labels:labels,
             datasets: [{
