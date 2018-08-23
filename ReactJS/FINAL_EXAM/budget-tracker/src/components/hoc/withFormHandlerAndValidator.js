@@ -25,9 +25,10 @@ export default function withFormHandlerAndValidator(WrappedComponent, model, ser
         componentDidMount() {
             if(this.props.edit){
                 let id = this.props.match.params.id;
-                authService.getUserProfileById.send(id).then(res => {
+                let filler = this.props.admin.fill.bind(this);
+                filler(id).then(res =>{
                     this.setState(model.getDataForRequest(res));
-                }).catch(err => helperService.notify('error','Error during retrieval of user profile!'));   
+                }).catch(err => helperService.notify('error','Error during retrieval of user profile!'));  
             }
         }
 
@@ -43,6 +44,7 @@ export default function withFormHandlerAndValidator(WrappedComponent, model, ser
                         if(this.props.edit){
                             data['id']= this.props.match.params.id;
                         }
+
                         this.props.admin.send(data).then(successor).catch(failure);
                     }else{
                         serviceFunction.send(data).then(this.success).catch(this.fail);

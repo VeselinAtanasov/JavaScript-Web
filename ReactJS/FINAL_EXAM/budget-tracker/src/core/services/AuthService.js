@@ -41,6 +41,9 @@ export default {
             delete data['id'];
             return requestor.update('user', url, 'master', data);
         },
+        fill: function(id){
+            return requestor.get('user',id, 'master');
+        },
         success: function(res) {
             helperService.notify('success',"Admin, you just edited a user profile");
             this.props.history.push('/admin/allUsers');

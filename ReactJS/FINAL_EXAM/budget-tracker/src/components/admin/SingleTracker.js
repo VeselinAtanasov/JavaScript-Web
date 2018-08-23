@@ -36,18 +36,18 @@ export default class SingleTracker extends Component{
                             </p>
                             <p>
                         Virtual Wallet Status:
-                                <li>Main incomes: {this.props.walletIncomes}</li>
-                                <li>Other incomes {this.props.walletOthers}</li>
+                                <li>Main incomes: <strong>{this.props.walletIncomes}</strong></li>
+                                <li>Other incomes <strong>{this.props.walletOthers}</strong></li>
                             </p>
                             <p>
                          Expenses Status:
-                                <li>Food: {this.props.expenses.foodExpense}</li>		
-                                <li>Bills: {this.props.expenses.billsExpense}</li>		
-                                <li>Medicine: {this.props.expenses.medicineExpense}</li>		
-                                <li>Transport: {this.props.expenses.transportExpense}</li>		
-                                <li>Clothing: {this.props.expenses.clothingExpense}</li>		
-                                <li>Fun: {this.props.expenses.funExpense}</li>		
-                                <li>Others: {this.props.expenses.otherExpense}</li>		
+                                <li>Food: <strong>{this.props.expenses.foodExpense}</strong></li>		
+                                <li>Bills: <strong>{this.props.expenses.billsExpense}</strong></li>		
+                                <li>Medicine: <strong>{this.props.expenses.medicineExpense}</strong></li>		
+                                <li>Transport: <strong>{this.props.expenses.transportExpense}</strong></li>		
+                                <li>Clothing: <strong>{this.props.expenses.clothingExpense}</strong></li>		
+                                <li>Fun: <strong>{this.props.expenses.funExpense}</strong></li>		
+                                <li>Others: <strong>{this.props.expenses.otherExpense}</strong></li>		
                             </p>
                             <p>
                         UserId: <strong> {this.props['_acl']['creator']}</strong>

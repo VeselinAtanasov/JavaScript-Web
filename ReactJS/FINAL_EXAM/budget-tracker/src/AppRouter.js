@@ -63,6 +63,10 @@ const AppRouter = () => (
                 render={(props) => !AuthService.isAdmin() ? <Redirect to="/" /> 
                     : <CreateExpenseForm  admin={ExpenseService.adminUpdate} {...props}/>} 
             />
+            <Route path="/admin/editTracker/:id" 
+                render={(props) => !AuthService.isAdmin() ? <Redirect to="/" /> 
+                    : <CreateTrackerForm  admin={TrackerService.updateTracker} edit={true} {...props}/>} 
+            />
             <Route component={NotFound} />  }
         </Switch>
     </div>
