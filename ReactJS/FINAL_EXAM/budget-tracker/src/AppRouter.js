@@ -14,11 +14,8 @@ import NotFound from './components/common/NotFound';
 import AdminPanel from './components/admin/AdminPanel';
 import AuthService from './core/services/AuthService';
 import UsersList from './components/admin/UsersList';
+import TrackersList from './components/admin/TrackersList';
 
-const isAdmin = AuthService.isAdmin();
-const isLoggedIn = AuthService.isLoggedIn();
-console.log('User is Admin? +'+isAdmin);
-console.log('User is LoggedIn? +'+isLoggedIn);
 const AppRouter = () => (
     <div>
         <Switch>
@@ -37,7 +34,7 @@ const AppRouter = () => (
 
             <Route exact path="/admin" render={(props) => !AuthService.isAdmin() ? <Redirect to="/" /> : <AdminPanel  {...props} />} />
             <Route path="/admin/allUsers" render={(props) => !AuthService.isAdmin() ? <Redirect to="/" /> : <UsersList  {...props} />} />
-            <Route path="/admin/allTrackers" render={(props) => !AuthService.isAdmin() ? <Redirect to="/" /> : <AdminPanel   {...props}/>} />
+            <Route path="/admin/allTrackers" render={(props) => !AuthService.isAdmin() ? <Redirect to="/" /> : <TrackersList   {...props}/>} />
             <Route path="/admin/register" render={(props) => !AuthService.isAdmin() ? <Redirect to="/" /> : <RegisterForm  admin={AuthService.adminRegister} {...props}/>} />
             <Route path="/admin/editUser/:id" render={(props) => !AuthService.isAdmin() ? <Redirect to="/" /> : <RegisterForm  admin={AuthService.adminEdit} edit={true} {...props}/>} />
 

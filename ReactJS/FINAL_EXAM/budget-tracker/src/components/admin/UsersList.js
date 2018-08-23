@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import '../../resource/styles/ListUsers.css';
+// import '../../resource/styles/ListUsers.css';
 import adminService from '../../core/services/AdminService';
 import expenseService from '../../core/services/ExpenseService';
 import trackerService from '../../core/services/TrackerService';
