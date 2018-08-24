@@ -27,8 +27,8 @@ export default class Navigation extends Component{
         let admin = AuthService.isAdmin();
         let loggedInSection;
         //  let user = this.state.username!==''; //|| sessionStorage.getItem('username');
-        if(this.state.username!==''){
-            // if(user){
+        if(sessionStorage.getItem('username')){
+            // if(sessionStorage.getItem('username')){
             loggedInSection =  (<ul className="navbar-nav ml-auto">
                 <li className="nav-item">
                     <NavLink activeClassName="selected" className="nav-link" to="/mtracker">My Money Tracker </NavLink>
@@ -37,7 +37,7 @@ export default class Navigation extends Component{
                     <NavLink activeClassName="selected" className="nav-link" to="/logout">Logout </NavLink>
                 </li>
                 <li className='nav-item'>
-                    <NavLink to='/' className="nav-link"><strong>Hello, {this.state.username}!</strong> | </NavLink>
+                    <NavLink to='/' className="nav-link"><strong>Hello, {sessionStorage.getItem('username')}!</strong> | </NavLink>
                 </li>
             </ul>);
         } else {
