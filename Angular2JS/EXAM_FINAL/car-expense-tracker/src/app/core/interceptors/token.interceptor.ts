@@ -14,22 +14,32 @@ import { dbDescription } from '../utils/db-config/db-configuration';
 
 const appKey = dbDescription['appKey']  // APP KEY HERE;
 const appSecret = dbDescription['appSecret']   // APP SECRET HERE;
+const masterSecret = dbDescription['masterSecret']   // APP SECRET HERE;
+const adminId = dbDescription['adminId']   // APP SECRET HERE;
 
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
     constructor(
         private toastr: ToastrService,
-         private router: Router,
+        private router: Router,
         private authService: AuthService) { }
 
-    getAuthToken():string{
+    getAuthToken(): string {
         return this.authService.authToken;
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log(request)
-        if (request.url.endsWith('login') || request.url.endsWith(appKey) || !this.authService.isAuthenticated()) {
+
+        if ((request.url.indexOf('role') !==-1) || dbDescription['isAdmin'](adminId)) {
+            console.log('Master request')
+            request = request.clone({
+                setHeaders: {
+                    'Authorization': `Basic ${btoa(`${appKey}:${masterSecret}`)}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+        } else if (request.url.endsWith('login') || request.url.endsWith(appKey) || !this.authService.isAuthenticated()) {
             request = request.clone({
                 setHeaders: {
                     'Authorization': `Basic ${btoa(`${appKey}:${appSecret}`)}`,

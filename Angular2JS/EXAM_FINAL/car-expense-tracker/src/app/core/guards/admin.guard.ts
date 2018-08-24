@@ -27,7 +27,7 @@ export class AdminGuard implements CanActivate {
         return Observable.create(observer => {
 
             this.adminService.getRoleByUserId(currentUserID).subscribe(data => {
-                console.log(data)
+             //   console.log('adminGuard',data)
                 if(data.length!==0){
                     observer.next(data.length !== 0)
                 }else{

@@ -13,8 +13,12 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/authentication-service/auth.service';
 import { dbDescription } from '../utils/db-config/db-configuration';
+import { isArray } from 'util';
+import { AdminService } from '../services/admin-service/admin.service';
+ 
 
 const appKey = dbDescription['appKey']  // APP KEY HERE;
+const fakeId = dbDescription['fakeId'];
 
 @Injectable()
 export class SuccessInterceptor implements HttpInterceptor {
@@ -22,33 +26,47 @@ export class SuccessInterceptor implements HttpInterceptor {
     constructor(
         private toastr: ToastrService,
         private router: Router,
-        private authService: AuthService
+        private authService: AuthService,
+        private adminService :AdminService
     ) { }
 
 
-    private saveToken(data) {
+    private saveToken(data,adminId) {
         localStorage.setItem('currentUser', JSON.stringify({
             username: data['username'],
             token: data['_kmd']['authtoken'],
             lastName: data['lastName'],
             firstName: data['firstName'],
             email: data['email'],
-            userId: data['_id']
+            userId: data['_id'],
+            isAdmin:adminId
         }))
         localStorage.setItem('authToken',data['_kmd']['authtoken'])
         this.authService.importSessionData(localStorage.getItem('currentUser'))
+    }
+
+    private checkIsAdmin(response){
+        console.log('CHECK IF ADMIN');
+        this.adminService.getRoleByUserId(response['_id']).subscribe(data =>{
+            let adminId =fakeId;
+            if(data[0] && data[0]['roleId']){
+                adminId=data[0]['roleId']
+                this.saveToken(response,adminId);
+            }
+        })
     }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next
             .handle(req)
             .pipe(tap((res: HttpEvent<any>) => {
 
-              // console.log(res)
-                if (res instanceof HttpResponse && res.ok && res.url.endsWith(appKey)) {
+             //  console.log(res)
+                if (res instanceof HttpResponse && res.ok && res.url.endsWith(appKey) && !Array.isArray(res.body)) {
                     this.toastr.success("Successful registration! Please login", "Success: ")
                     this.router.navigate(['/auth/login'])
                 } else if (res instanceof HttpResponse && res.ok && res.url.endsWith('login')) {
-                    this.saveToken(res['body']);
+                    this.checkIsAdmin(res['body']);
+                    this.saveToken(res['body'],fakeId);
                     this.toastr.success('Hello, ' + this.authService.getUserName() + " and  Welcome to Car Expense Tracker", "Success:")
                     this.router.navigate(['/home'])
                 } else if (res instanceof HttpResponse && res.ok && res.url.endsWith('logout')) {

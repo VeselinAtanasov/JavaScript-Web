@@ -11,7 +11,7 @@ const masterSecret = dbDescription['masterSecret']
 
 const roleUrl = `https://baas.kinvey.com/roles/${appKey}`
 const loginUrl = `https://baas.kinvey.com/user/${appKey}/login`;
-const registerUrl = `https://baas.kinvey.com/user/${appKey}`;
+const basicUrl = `https://baas.kinvey.com/user/${appKey}`;
 const logoutUrl = `https://baas.kinvey.com/user/${appKey}/_logout`;
 const userIdRole = `https://baas.kinvey.com/user/${appKey}/`;
 
@@ -23,7 +23,7 @@ export class AdminService {
     constructor(private http: HttpClient) { }
 
     deleteUser(userId){
-        let url = registerUrl +'/'+userId
+        let url = basicUrl +'/'+userId
         return this.http
         .delete(url, {
             headers: new HttpHeaders({
@@ -39,7 +39,7 @@ export class AdminService {
      * @param userId 
      */
     retrieveUser(userId){
-        let url = registerUrl +'/'+userId
+        let url = basicUrl +'/'+userId
         return this.http
         .get(url, {
             headers: new HttpHeaders({
@@ -50,9 +50,21 @@ export class AdminService {
        // GET to /user/:appKey/:id
     }
 
+    getAllUsers(){
+        let url = basicUrl
+        return this.http
+        .get(url, {
+            headers: new HttpHeaders({
+                'Authorization': `Basic ${btoa(`${appKey}:${masterSecret}`)}`,
+                'Content-Type': 'application/json'
+            })
+        })
+       // GET to /user/:appKey/:id
+    }
+
     register(user) {
         return this.http
-            .post(registerUrl, user, {
+            .post(basicUrl, user, {
                 headers: new HttpHeaders({
                     'Authorization': `Basic ${btoa(`${appKey}:${appSecret}`)}`,
                     'Content-Type': 'application/json'
