@@ -31,7 +31,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        if ((request.url.indexOf('role') !==-1) || dbDescription['isAdmin'](adminId)) {
+        if ((request.url.indexOf('role') !==-1) || (dbDescription['isAdmin'](adminId)) && !request.url.endsWith('_logout')) {
             console.log('Master request')
             request = request.clone({
                 setHeaders: {
