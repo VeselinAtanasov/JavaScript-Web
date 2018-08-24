@@ -4,7 +4,4 @@ export const dbDescription = {
     masterSecret:'2a457533854b434b8e5a417734bc56be',
     adminId:"dfcdec74-e8e6-4da4-9811-5893ebb7130c",
     fakeId:"dfcdec74-e8e6-4da4-1711-5893ebb7130c",
-    isAdmin: function(adminId){
-        return localStorage.length!==0 && JSON.parse(localStorage.getItem('currentUser'))['isAdmin'] && JSON.parse(localStorage.getItem('currentUser'))['isAdmin'] === adminId
-    }
 }

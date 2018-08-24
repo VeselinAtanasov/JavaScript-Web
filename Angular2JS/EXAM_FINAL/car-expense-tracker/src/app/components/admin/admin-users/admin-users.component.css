@@ -1,0 +1,17 @@
+
+.modal-content{
+    margin-bottom: 3%;
+    background-color:#cccccc; 
+    overflow: auto;
+}
+.close{
+    background-color: black
+}
+h{
+    vertical-align: middle;
+    text-align: center;
+}
+btn-success{
+    vertical-align: middle;
+    text-align: center;
+}

@@ -46,10 +46,9 @@ export class SuccessInterceptor implements HttpInterceptor {
     }
 
     private checkIsAdmin(response){
-        console.log('CHECK IF ADMIN');
         this.adminService.getRoleByUserId(response['_id']).subscribe(data =>{
             let adminId =fakeId;
-            if(data[0] && data[0]['roleId']){
+            if(data.length!==0 && data[0] && data[0]['roleId']){
                 adminId=data[0]['roleId']
                 this.saveToken(response,adminId);
             }

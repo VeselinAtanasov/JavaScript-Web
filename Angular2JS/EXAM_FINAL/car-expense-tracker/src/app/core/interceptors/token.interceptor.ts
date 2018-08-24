@@ -11,11 +11,12 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/authentication-service/auth.service';
 import { dbDescription } from '../utils/db-config/db-configuration';
+import { AdminService } from '../services/admin-service/admin.service';
 
 const appKey = dbDescription['appKey']  // APP KEY HERE;
 const appSecret = dbDescription['appSecret']   // APP SECRET HERE;
 const masterSecret = dbDescription['masterSecret']   // APP SECRET HERE;
-const adminId = dbDescription['adminId']   // APP SECRET HERE;
+
 
 
 @Injectable()
@@ -23,6 +24,7 @@ export class TokenInterceptor implements HttpInterceptor {
     constructor(
         private toastr: ToastrService,
         private router: Router,
+        private adminService: AdminService,
         private authService: AuthService) { }
 
     getAuthToken(): string {
@@ -31,8 +33,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        if ((request.url.indexOf('role') !==-1) || (dbDescription['isAdmin'](adminId)) && !request.url.endsWith('_logout')) {
-            console.log('Master request')
+        if ((request.url.indexOf('role') !==-1) || this.adminService.isAdmin() && !request.url.endsWith('_logout')) {
             request = request.clone({
                 setHeaders: {
                     'Authorization': `Basic ${btoa(`${appKey}:${masterSecret}`)}`,

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { CarModel } from '../../models/cars/car.model';
 import { Observable } from 'rxjs';
 import { dbDescription } from '../../utils/db-config/db-configuration';
+import { UserModel } from '../../models/user/user.model';
 
 
 const appKey =dbDescription['appKey']   // APP KEY HERE;
@@ -21,6 +22,10 @@ const userIdRole = `https://baas.kinvey.com/user/${appKey}/`;
 export class AdminService {
 
     constructor(private http: HttpClient) { }
+
+    isAdmin(){
+        return localStorage.length!==0 && JSON.parse(localStorage.getItem('currentUser'))['isAdmin'] && JSON.parse(localStorage.getItem('currentUser'))['isAdmin'] ===dbDescription['adminId']
+    }
 
     deleteUser(userId){
         let url = basicUrl +'/'+userId
@@ -50,16 +55,10 @@ export class AdminService {
        // GET to /user/:appKey/:id
     }
 
-    getAllUsers(){
+    getAllUsers() :Observable<Array<UserModel>>{
         let url = basicUrl
         return this.http
-        .get(url, {
-            headers: new HttpHeaders({
-                'Authorization': `Basic ${btoa(`${appKey}:${masterSecret}`)}`,
-                'Content-Type': 'application/json'
-            })
-        })
-       // GET to /user/:appKey/:id
+        .get<Array<UserModel>>(url)
     }
 
     register(user) {
