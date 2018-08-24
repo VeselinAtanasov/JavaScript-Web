@@ -28,7 +28,7 @@ export class TokenInterceptor implements HttpInterceptor {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
+        console.log(request)
         if (request.url.endsWith('login') || request.url.endsWith(appKey) || !this.authService.isAuthenticated()) {
             request = request.clone({
                 setHeaders: {

@@ -6,6 +6,8 @@ import { AuthenticationModule } from './components/authentication/authentication
 import { CarsModule } from './components/cars/cars.module';
 import { AuthGuard } from './core/guards/auth.guard';
 import { AdminModule } from './components/admin/admin.module';
+import { AdminGuard } from './core/guards/admin.guard';
+
 
 
 
@@ -15,7 +17,7 @@ const routes: Route[] = [
     { path: 'auth', loadChildren: () => AuthenticationModule },
     { path: 'garage', loadChildren: () => GarageModule, canActivate: [AuthGuard]  },
     { path: 'cars', loadChildren: () => CarsModule , canActivate: [AuthGuard] },
-    { path: 'admin', loadChildren: () => AdminModule , canActivate: [AuthGuard] },
+    { path: 'admin', loadChildren: () => AdminModule , canActivate: [AuthGuard, AdminGuard]},
 ]
 
 @NgModule({

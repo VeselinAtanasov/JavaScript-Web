@@ -8,8 +8,10 @@ import { RouterModule } from "@angular/router";
 import { CommonModule } from '@angular/common';  //Always add CommonModule in custom modules, otherwise we need to import BrowserModule
 import { ReactiveFormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
-import { AuthGuard } from '../../core/guards/auth.guard';
-import { AuthService } from '../../core/services/authentication-service/auth.service';
+
+import { AdminGuard } from '../../core/guards/admin.guard';
+import { AdminService } from '../../core/services/admin-service/admin.service';
+
 
 //Services
 
@@ -24,12 +26,11 @@ import { AuthService } from '../../core/services/authentication-service/auth.ser
         AdminRoutingModule
     ],
     providers: [
-     AuthGuard,AuthService
+    AdminGuard,AdminService
     ],
     bootstrap: [
     ],
     exports: [
-        AdminRoutingModule
     ]
 })
 

@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { RegisterModel } from '../../models/auth-models/register.model';
 import { LoginModel } from '../../models/auth-models/login-model';
 import { dbDescription } from '../../utils/db-config/db-configuration';
-
+import { Observable } from 'rxjs';
 
 const appKey = dbDescription['appKey']   // APP KEY HERE;
 const appSecret = dbDescription['appSecret']// APP SECRET HERE;

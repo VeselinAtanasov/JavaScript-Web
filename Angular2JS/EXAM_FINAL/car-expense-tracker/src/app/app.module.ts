@@ -17,6 +17,7 @@ import { AuthService } from './core/services/authentication-service/auth.service
 import { GarageModule } from './components/garage/garage.module';
 import { CarsModule } from './components/cars/cars.module';
 import { AdminModule } from './components/admin/admin.module';
+import { AdminService } from './core/services/admin-service/admin.service';
 
 
 
@@ -39,6 +40,7 @@ import { AdminModule } from './components/admin/admin.module';
   ],
   providers: [
     AuthService,
+    AdminService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

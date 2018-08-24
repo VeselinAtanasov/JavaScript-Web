@@ -27,7 +27,9 @@ import { ChartsModule } from 'ng2-charts';
         ChartsModule
     ],
     providers: [  
-    CarsService,AuthGuard,ExpenseService
+    CarsService,
+    AuthGuard,
+    ExpenseService
     ],
     bootstrap: [
     ],
