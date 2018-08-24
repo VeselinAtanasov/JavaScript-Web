@@ -66,6 +66,7 @@ export class CreateCarComponent implements OnInit {
   createCar() {
     this.carForm.value['garageId'] = ''
     this.carService.createCar(this.carForm.value).subscribe(data => {
+      console.log(data)
       this.currentCarModel = new CarModel(data['carName'], data['garageId'], data['carDescription'], data['carBrand'], data['carModel'], data['initialInvestment'], data['carPicture'])
       let carId = data['_id'];
       let creatorId = data['_acl']['creator']

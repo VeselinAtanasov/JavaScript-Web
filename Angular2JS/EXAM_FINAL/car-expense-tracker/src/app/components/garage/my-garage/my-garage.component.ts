@@ -30,6 +30,7 @@ export class MyGarageComponent implements OnInit {
     this.garageService
       .getMyGarage(this.userID)
       .subscribe(data => {
+        console.log(data)
         
         this.garageData = data
         if (this.garageData.length === 0) {
