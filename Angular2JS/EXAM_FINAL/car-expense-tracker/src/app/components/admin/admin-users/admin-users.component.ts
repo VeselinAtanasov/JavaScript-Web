@@ -15,40 +15,58 @@ import { Router } from '@angular/router';
 export class AdminUsersComponent implements OnInit {
 
 
-  public users :Array<UserModel>;
+  public users: Array<UserModel>;
   constructor(
     private toastr: ToastrService,
-    private adminService :AdminService,
+    private adminService: AdminService,
     private garageService: GarageService,
     private expenseService: ExpenseService,
-    private carService : CarsService,
-    private route :  Router
+    private carService: CarsService,
+    private route: Router
   ) { }
 
   ngOnInit() {
-    this.adminService.getAllUsers().subscribe(data =>{
-      let users  = data.filter(e => !e['_kmd']['status']);
+    this.adminService.getAllUsers().subscribe(data => {
+      let users = data.filter(e => !e['_kmd']['status']);
       this.users = users
     })
   }
 
-  deleteUser(id: string): void{
+  deleteUser(id: string): void {
     this.garageService.deleteGarageByCreatorId(id).subscribe(deletedGarage => {
-      this.expenseService.deleteExpensesByCreatorId(id).subscribe(deletedExpense =>{
-        this.carService.deleteCarByCreatorId(id).subscribe(deletedCar =>{
-          this.adminService.deleteUser(id).subscribe(deletedUser =>{
-           this.users = this.users.filter(user => user['_id']!==id)
+      this.expenseService.deleteExpensesByCreatorId(id).subscribe(deletedExpense => {
+        this.carService.deleteCarByCreatorId(id).subscribe(deletedCar => {
+          this.adminService.deleteUser(id).subscribe(deletedUser => {
+            this.users = this.users.filter(user => user['_id'] !== id)
             this.toastr.success("User successfully deleted!", "Success: ")
-          },err => this.toastr.success("Error during deleting user", "Error: "))
-        },err => this.toastr.success("Error during deleting user's car", "Error: "))
-      },err => this.toastr.success("Error during deleting user's expenses", "Error: "))
-    },err =>  this.toastr.success("Error during deleting user's garage", "Error: "));
+          }, err => this.toastr.error("Error during deleting user", "Error: "))
+        }, err => this.toastr.error("Error during deleting user's car", "Error: "))
+      }, err => this.toastr.error("Error during deleting user's expenses", "Error: "))
+    }, err => this.toastr.error("Error during deleting user's garage", "Error: "));
   }
-  makeAnAdmin(id: string) :void{
-    console.log(id)
+  makeAnAdmin(id: string): void {
+    this.adminService.getRoleByUserId(id).subscribe(role => {
+      if (role.length !== 0) {
+        this.toastr.error("This user is already an Admin!", "Error: ")
+        return;
+      }
+      this.adminService.assignRoleToUser(id, this.adminService.getAdminRoleId()).subscribe(data => {
+        this.ngOnInit()
+        this.toastr.success("You just added this user as an Admin!", "Success: ")
+      }, err => this.toastr.error("Error during assignment of Admin role to a user", "Error: "))
+    }, err => this.toastr.error("Error during retrieval user roles!", "Error: "))
   }
-  removeFromAdmin(id: string) : void{
-    console.log(id)
+  removeFromAdmin(id: string): void {
+    this.adminService.getRoleByUserId(id).subscribe(role => {
+      if (role.length === 0) {
+        this.toastr.error("This user is not an Admin!", "Error: ")
+        return;
+      }
+      this.adminService.deleteRoleFromUser(id, this.adminService.getAdminRoleId()).subscribe(data => {
+        this.ngOnInit()
+        this.toastr.success("You just removed Admin role from user!", "Success: ")
+      }, err => this.toastr.error("Error during assignment of Admin role to a user", "Error: "))
+    }, err => this.toastr.error("Error during retrieval user roles!", "Error: "))
   }
 
 }

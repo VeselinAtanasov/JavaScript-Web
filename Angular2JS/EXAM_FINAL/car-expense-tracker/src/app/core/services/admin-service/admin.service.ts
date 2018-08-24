@@ -26,12 +26,15 @@ export class AdminService {
     isAdmin() {
         return localStorage.length !== 0 && JSON.parse(localStorage.getItem('currentUser'))['isAdmin'] && JSON.parse(localStorage.getItem('currentUser'))['isAdmin'] === dbDescription['adminId']
     }
+    getAdminRoleId() {
+        return dbDescription['adminId']
+    }
 
     deleteUser(userId: string): Observable<UserModel> {
         let url = basicUrl + '/' + userId
         return this.http.delete<UserModel>(url)
         // GET to /user/:appKey/:id
-    }
+    } 
 
     /**
      * This method retrieve all user Information
@@ -97,15 +100,10 @@ export class AdminService {
      * @param userId 
      * @param userRoleId 
      */
-    assignRoleToUser(userId, userRoleId) {
+    assignRoleToUser(userId, userRoleId) :Observable<UserModel> {
         let url = userIdRole + userId + '/roles/' + userRoleId
         console.log(url)
-        return this.http.put(url, JSON.stringify({}), {
-            headers: new HttpHeaders({
-                'Authorization': `Basic ${btoa(`${appKey}:${masterSecret}`)}`,
-                'Content-Type': 'application/json'
-            })
-        })
+        return this.http.put<UserModel>(url, JSON.stringify({}))
 
         // 
         //send a PUT request to /user/:appKey/:userId/roles/:roleId with an empty JSON body.
@@ -134,15 +132,7 @@ export class AdminService {
      */
     deleteRoleFromUser(userId, userRoleId) {
         let url = userIdRole + userId + '/roles/' + userRoleId
-        console.log(url)
-        return this.http.delete(url, {
-            headers: new HttpHeaders({
-                'Authorization': `Basic ${btoa(`${appKey}:${masterSecret}`)}`,
-                'Content-Type': 'application/json'
-            })
-        })
-
-        //DELETE request to /user/:appKey/:userId/roles/:roleId
+        return this.http.delete(url)
     }
 
     /**

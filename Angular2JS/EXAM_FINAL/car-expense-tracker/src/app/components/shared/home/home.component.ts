@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GarageService } from '../../../core/services/garage-services/garage.service';
 import { GarageModel } from '../../../core/models/garage/garage.model';
 import { AuthService } from '../../../core/services/authentication-service/auth.service';
+import { AdminService } from './../../../core/services/admin-service/admin.service';
 
 @Component({
   selector: 'app-home',
@@ -16,15 +17,26 @@ export class HomeComponent implements OnInit {
   public allPublicGarages: Array<GarageModel>;
   public isAuth: any;
 
-  constructor(private garageService: GarageService, private authService: AuthService) { }
+  constructor(
+    private garageService: GarageService,
+     private authService: AuthService,
+     private adminService: AdminService
+    ) { }
 
   ngOnInit() {
     this.isAuth = this.authService.isAuthenticated()
 
     if (this.isAuth) {
-      this.garageService.getAllGarages('public').subscribe(data => {
-        this.allPublicGarages = data
-      })
+      if(this.adminService.isAdmin()){
+        this.garageService.getAllGarages('').subscribe(data => {
+          this.allPublicGarages = data
+        })
+      }else{
+        this.garageService.getAllGarages('public').subscribe(data => {
+          this.allPublicGarages = data
+        })
+      }
+
     }
   }
 

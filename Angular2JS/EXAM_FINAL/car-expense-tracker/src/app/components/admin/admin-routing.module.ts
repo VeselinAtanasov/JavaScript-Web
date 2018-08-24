@@ -4,9 +4,12 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 
 
+
+
 const adminRoutes: Routes = [
     { path: 'panel', component: AdminPanelComponent },
     { path: 'users', component: AdminUsersComponent },
+
   ]
   
   @NgModule({

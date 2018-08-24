@@ -13,12 +13,11 @@ import { AdminGuard } from '../../core/guards/admin.guard';
 import { AdminService } from '../../core/services/admin-service/admin.service';
 
 
-
 //Services
 
 @NgModule({
     declarations: [
-        ...adminComponents
+        ...adminComponents,
     ],
     imports: [
         CommonModule,
