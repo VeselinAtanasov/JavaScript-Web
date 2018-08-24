@@ -13,13 +13,7 @@ import { AuthGuard } from '../../core/guards/auth.guard';
 import { ExpenseService } from '../../core/services/expense-service/expense.service';
 import { ChartsModule } from 'ng2-charts';
 
-
-
-
-
 //Services
-
-
 
 @NgModule({
     declarations: [

@@ -16,6 +16,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AuthService } from './core/services/authentication-service/auth.service';
 import { GarageModule } from './components/garage/garage.module';
 import { CarsModule } from './components/cars/cars.module';
+import { AdminModule } from './components/admin/admin.module';
+
 
 
 
@@ -29,6 +31,7 @@ import { CarsModule } from './components/cars/cars.module';
     AuthenticationModule,
     GarageModule,
     CarsModule,
+    AdminModule,
     HttpClientModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
