@@ -6,7 +6,7 @@ import { dbDescription } from '../../utils/db-config/db-configuration';
 import { UserModel } from '../../models/user/user.model';
 
 
-const appKey =dbDescription['appKey']   // APP KEY HERE;
+const appKey = dbDescription['appKey']   // APP KEY HERE;
 const appSecret = dbDescription['appSecret'] // APP SECRET HERE;
 const masterSecret = dbDescription['masterSecret']
 
@@ -23,42 +23,36 @@ export class AdminService {
 
     constructor(private http: HttpClient) { }
 
-    isAdmin(){
-        return localStorage.length!==0 && JSON.parse(localStorage.getItem('currentUser'))['isAdmin'] && JSON.parse(localStorage.getItem('currentUser'))['isAdmin'] ===dbDescription['adminId']
+    isAdmin() {
+        return localStorage.length !== 0 && JSON.parse(localStorage.getItem('currentUser'))['isAdmin'] && JSON.parse(localStorage.getItem('currentUser'))['isAdmin'] === dbDescription['adminId']
     }
 
-    deleteUser(userId){
-        let url = basicUrl +'/'+userId
-        return this.http
-        .delete(url, {
-            headers: new HttpHeaders({
-                'Authorization': `Kinvey ${localStorage.getItem('authToken')}`,
-                'Content-Type': 'application/json'
-            })
-        })
-       // GET to /user/:appKey/:id
+    deleteUser(userId: string): Observable<UserModel> {
+        let url = basicUrl + '/' + userId
+        return this.http.delete<UserModel>(url)
+        // GET to /user/:appKey/:id
     }
 
     /**
      * This method retrieve all user Information
      * @param userId 
      */
-    retrieveUser(userId){
-        let url = basicUrl +'/'+userId
+    retrieveUser(userId) {
+        let url = basicUrl + '/' + userId
         return this.http
-        .get(url, {
-            headers: new HttpHeaders({
-                'Authorization': `Kinvey ${localStorage.getItem('authToken')}`,
-                'Content-Type': 'application/json'
+            .get(url, {
+                headers: new HttpHeaders({
+                    'Authorization': `Kinvey ${localStorage.getItem('authToken')}`,
+                    'Content-Type': 'application/json'
+                })
             })
-        })
-       // GET to /user/:appKey/:id
+        // GET to /user/:appKey/:id
     }
 
-    getAllUsers() :Observable<Array<UserModel>>{
+    getAllUsers(): Observable<Array<UserModel>> {
         let url = basicUrl
         return this.http
-        .get<Array<UserModel>>(url)
+            .get<Array<UserModel>>(url)
     }
 
     register(user) {
@@ -83,10 +77,10 @@ export class AdminService {
 
     // Roles Administration:
 
-      /**
-     * This Method creates Role the response contains RoleID,RoleName,RoleDescription
-     * @param user 
-     */
+    /**
+   * This Method creates Role the response contains RoleID,RoleName,RoleDescription
+   * @param user 
+   */
     createRole(user) {
         return this.http
             .post(roleUrl, user, {
@@ -122,7 +116,7 @@ export class AdminService {
      * The array contains object which RoleId, RoleName is NOT present
      * @param userId 
      */
-    getRoleByUserId(userId) : Observable<Array<string>> {
+    getRoleByUserId(userId): Observable<Array<string>> {
         let url = userIdRole + `${userId}/roles`
         return this.http
             .get<Array<string>>(url, {
@@ -138,7 +132,7 @@ export class AdminService {
      * @param userId 
      * @param userRoleId 
      */
-    deleteRoleFromUser(userId, userRoleId){
+    deleteRoleFromUser(userId, userRoleId) {
         let url = userIdRole + userId + '/roles/' + userRoleId
         console.log(url)
         return this.http.delete(url, {
@@ -157,8 +151,8 @@ export class AdminService {
      * @param roleId 
      * 
      */
-    getAllRoleMembers(roleId){
-        let url = roleUrl +'/' +roleId+'/membership'
+    getAllRoleMembers(roleId) {
+        let url = roleUrl + '/' + roleId + '/membership'
         return this.http
             .get(url, {
                 headers: new HttpHeaders({
@@ -172,14 +166,14 @@ export class AdminService {
     /**
      * This method returns all defined Roles in array of object, each one containing RoleID, RoleName,RoleDescription
      */
-    listAllRoles(){
+    listAllRoles() {
         return this.http
-        .get(roleUrl, {
-            headers: new HttpHeaders({
-                'Authorization': `Basic ${btoa(`${appKey}:${masterSecret}`)}`,
-                'Content-Type': 'application/json'
+            .get(roleUrl, {
+                headers: new HttpHeaders({
+                    'Authorization': `Basic ${btoa(`${appKey}:${masterSecret}`)}`,
+                    'Content-Type': 'application/json'
+                })
             })
-        })
         //send a GET request to /roles/:appKey.
     }
 
@@ -187,15 +181,15 @@ export class AdminService {
      * This method is used to return object with RoleId and corresponding Role Name
      * @param roleID string representing currentRoleId
      */
-    getSpecificRole(roleID){
-        let url =roleUrl+'/'+roleID
+    getSpecificRole(roleID) {
+        let url = roleUrl + '/' + roleID
         return this.http
-        .get(url, {
-            headers: new HttpHeaders({
-                'Authorization': `Basic ${btoa(`${appKey}:${masterSecret}`)}`,
-                'Content-Type': 'application/json'
+            .get(url, {
+                headers: new HttpHeaders({
+                    'Authorization': `Basic ${btoa(`${appKey}:${masterSecret}`)}`,
+                    'Content-Type': 'application/json'
+                })
             })
-        })
         //To fetch a specific role, send a GET request to /roles/:appKey/:roleId.
     }
 

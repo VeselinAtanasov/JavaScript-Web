@@ -15,6 +15,7 @@ const getGarageByUserId = `https://baas.kinvey.com/appdata/${appKey}/garage`;
 export class GarageService {
 
     constructor(private http: HttpClient) { }
+
     createGarage(garageData: GarageModel) {
         let data = JSON.stringify(garageData);
         return this.http.post<GarageModel>(collectionUrl, data)
@@ -27,6 +28,10 @@ export class GarageService {
     updateGarageById(garageId, data) {
         const url = collectionUrl + '/' + garageId
         return this.http.put<GarageModel>(url, data)
+    }
+    deleteGarageByCreatorId(id : string) : Observable<GarageModel> {
+        const url =collectionUrl+ `?query={"_acl.creator":"${id}"}`;
+        return this.http.delete<GarageModel>(url)
     }
     getAllGarages(state: string): Observable<Array<GarageModel>> {
         if (state === 'public') {

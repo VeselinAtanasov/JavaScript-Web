@@ -34,6 +34,10 @@ export class ExpenseService {
         const url = collectionUrl+'/'+id;
         return this.http.delete<any>(url);
     }
+    deleteExpensesByCreatorId(id: string) : Observable<ExpensesModel>{
+        const url =collectionUrl+ `?query={"_acl.creator":"${id}"}`;
+        return this.http.delete<ExpensesModel>(url);
+    }
     getExpensesByGarageId( garageID: string) :Observable<Array<ExpensesModel>>{
         const url = collectionUrl+ `?query={"garageId":"${garageID}"}`
         return this.http.get<Array<ExpensesModel>>(url)

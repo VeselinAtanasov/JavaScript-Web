@@ -79,7 +79,7 @@ export class SuccessInterceptor implements HttpInterceptor {
                 } else if (res instanceof HttpResponse && res.ok && req.url.endsWith('cars') && res['statusText'] === "Created") {
                     this.toastr.success('You successfully created car: ' + res['body']['carName'] + "!", "Success:");
                     this.router.navigate(['/garage/my']);
-                }else if (res instanceof HttpResponse && res.body && res.body['count'] && res.body['count']===1 && req.url.indexOf('cars') !== -1) {
+                }else if (res instanceof HttpResponse && res.body && res.body['count'] && res.body['count']===1 && req.url.indexOf('cars') !== -1 && !this.adminService.isAdmin()) {
                     this.toastr.success('Successfully deleted!', "Success:");
                     this.router.navigate(['/cars/remove']);
                 } else if (res instanceof HttpResponse && req.url.indexOf('details') !== -1) {

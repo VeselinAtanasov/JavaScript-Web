@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { dbDescription } from '../../utils/db-config/db-configuration';
 
 
+
 const appKey =dbDescription['appKey']   // APP KEY HERE;
 const appSecret = dbDescription['appSecret'] // APP SECRET HERE;
 const collectionUrl = `https://baas.kinvey.com/appdata/${appKey}/cars`;
@@ -27,6 +28,10 @@ export class CarsService {
     getAllCarsByGarageId(garageId :string): Observable<Array<CarModel>>{
         const url = collectionUrl+`?query={"garageId":"${garageId}"}`
         return this.http.get<Array<CarModel>>(url)
+    }
+    deleteCarByCreatorId(id:string) : Observable<CarModel>{
+        const url =collectionUrl+ `?query={"_acl.creator":"${id}"}`;
+        return this.http.delete<CarModel>(url);
     }
     deleteCar(id :string) :Observable<any> {
         const url=collectionUrl+'/' +id;
