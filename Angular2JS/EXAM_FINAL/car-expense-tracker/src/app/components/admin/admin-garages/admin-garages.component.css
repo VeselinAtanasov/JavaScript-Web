@@ -50,3 +50,8 @@ h{
     margin: 0 auto; 
 
 }
+
+.modal-body{
+    border-color: black;
+    margin-top: 4%
+}

@@ -26,6 +26,10 @@ export class ExpenseService {
         const url = collectionUrl+ `?query={"carId":"${id}"}`
         return this.http.get<ExpensesModel>(url)
     }
+    getAllExpenses() : Observable<Array<ExpensesModel>>{
+        //`?query={"_acl.creator":"${userID}"}`
+        return this.http.get<Array<ExpensesModel>>(collectionUrl)
+    }
     updateExpenseById(id: string, data: ExpensesModel) : Observable<ExpensesModel>{
         const url = collectionUrl+'/'+id
         return this.http.put<ExpensesModel>(url, JSON.stringify(data))
