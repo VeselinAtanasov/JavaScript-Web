@@ -32,16 +32,16 @@
           <div class="modal-body" *ngFor="let c of u['garage']['allCars']">
             <p>Car: {{c['carName']}}</p>
             <div class="modal-footer">
-              <span class="badge badge-warning">Edit Car</span>
+              <span routerLink="/admin/carEdit/{{c['_id']}}" class="badge badge-warning">Edit Car</span>
               <span (click)="deleteCar(u['user']['_id'], c['_id'],c['expenses']['_id'],u['garage']['_id'])" class="badge badge-danger">Delete Car</span>
-              <span class="badge badge-warning">Modify Car Expenses</span>
+              <span routerLink="/admin/expenseEdit/{{c['_id']}}" class="badge badge-warning">Modify Car Expenses</span>
             </div>
             <img class="center" src="{{c['carPicture']}}" />
           </div>
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Edit Garage</button>
+          <button routerLink="/admin/modifyGarage/{{u['garage']['_id']}}" type="button" class="btn btn-primary">Edit Garage</button>
         </div>
       </div>
     </div>

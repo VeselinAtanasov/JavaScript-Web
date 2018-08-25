@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { GarageModel } from '../../../core/models/garage/garage.model';
 import { GarageService } from '../../../core/services/garage-services/garage.service';
+import { AdminService } from './../../../core/services/admin-service/admin.service';
 
 const urlValidator: RegExp = /^(ftp|http|https):\/\/[^ "]+$/;
 
@@ -13,13 +14,17 @@ const urlValidator: RegExp = /^(ftp|http|https):\/\/[^ "]+$/;
 
 export class CreateGarageComponent implements OnInit {
 
-
   public garageFrom: FormGroup;
-  public garageModel: GarageModel
+  public garageModel :GarageModel
 
-  constructor(private garageService: GarageService) { }
+  @Input('garageId') garageId: any;
+  @Output() garageEmitter = new EventEmitter<any>()
+  constructor(
+    private garageService: GarageService,
+    private adminService :AdminService
+  ) { }
 
-  ngOnInit() {
+  initForm() {
     this.garageFrom = new FormGroup({
       'garageName': new FormControl('', [
         Validators.required
@@ -27,11 +32,21 @@ export class CreateGarageComponent implements OnInit {
       'garageDescription': new FormControl('', [
         Validators.required
       ]),
-      'garagePicture': new FormControl('',[
+      'garagePicture': new FormControl('', [
         Validators.pattern(urlValidator)
       ]),
       'isPublic': new FormControl(false)
     });
+  }
+  ngOnInit() {
+    this.initForm();
+    if (this.garageId) {
+      this.garageService.getGarageById(this.garageId).subscribe(data => {
+        this.garageModel = data
+       this.garageFrom.patchValue({ ...data })
+      })
+
+    }
   }
   get garageName(): AbstractControl {
     return this.garageFrom.get('garageName');
@@ -42,13 +57,23 @@ export class CreateGarageComponent implements OnInit {
   get isPublic(): AbstractControl {
     return this.garageFrom.get('isPublic');
   }
-  get garagePicture(): AbstractControl{
+  get garagePicture(): AbstractControl {
     return this.garageFrom.get('garagePicture');
   }
   createGarage() {
-    console.log(this.garageFrom.value)
     let garage = this.garageFrom.value;
-    garage['cars']=[]
+    garage['cars'] = []
+
+    if (this.garageId) {
+      let obj={
+        edited : this.garageFrom.value,
+        original:this.garageModel
+      }
+      this.garageEmitter.emit(obj);
+      return;
+    }
+
+
     this.garageService.createGarage(this.garageFrom.value).subscribe(data => console.log(data), err => console.log(err))
   }
 

@@ -12,6 +12,8 @@ import { GarageModule } from '../garage/garage.module';
 import { AuthGuard } from '../../core/guards/auth.guard';
 import { ExpenseService } from '../../core/services/expense-service/expense.service';
 import { ChartsModule } from 'ng2-charts';
+import { CreateCarComponent } from './create-car/create-car.component';
+import { AddExpenseComponent } from './add-expense/add-expense.component';
 
 //Services
 
@@ -20,7 +22,7 @@ import { ChartsModule } from 'ng2-charts';
         ...carComponents    
     ],
     imports: [
-        CommonModule,
+    CommonModule,
         ReactiveFormsModule,
         CarsRoutingModule,
         GarageModule,
@@ -34,6 +36,8 @@ import { ChartsModule } from 'ng2-charts';
     bootstrap: [
     ],
     exports: [
+        CreateCarComponent,
+        AddExpenseComponent
     ]
 })
 

@@ -11,22 +11,27 @@ import { AdminRoutingModule } from './admin-routing.module';
 
 import { AdminGuard } from '../../core/guards/admin.guard';
 import { AdminService } from '../../core/services/admin-service/admin.service';
+import { GarageModule } from './../garage/garage.module';
+import { CarsModule } from './../cars/cars.module';
+
 
 
 //Services
 
 @NgModule({
     declarations: [
-        ...adminComponents,
+        ...adminComponents
     ],
     imports: [
         CommonModule,
         RouterModule,
         ReactiveFormsModule,
-        AdminRoutingModule
+        AdminRoutingModule,
+        CarsModule,
+        GarageModule,
     ],
     providers: [
-    AdminGuard,AdminService
+        AdminGuard, AdminService
     ],
     bootstrap: [
     ],

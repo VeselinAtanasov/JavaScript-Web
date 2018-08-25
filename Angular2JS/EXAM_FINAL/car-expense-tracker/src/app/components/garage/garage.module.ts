@@ -10,7 +10,7 @@ import { GarageRoutingModule } from './garage-routing.module';
 import { GarageService } from '../../core/services/garage-services/garage.service';
 import { CreateGarageGuard } from '../../core/guards/create-garage.guard';
 import { ChartsModule } from 'ng2-charts';
-
+import { CreateGarageComponent } from './create-garage/create-garage.component';
 
 
 //Services
@@ -22,7 +22,8 @@ import { ChartsModule } from 'ng2-charts';
         ...garageComponents
     ],
     imports: [
-        CommonModule,
+
+    CommonModule,
         ReactiveFormsModule,
         GarageRoutingModule,
         ChartsModule
@@ -34,6 +35,7 @@ import { ChartsModule } from 'ng2-charts';
     bootstrap: [
     ],
     exports: [
+        CreateGarageComponent
     ]
 })
 

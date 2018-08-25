@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { CarModel } from '../../../core/models/cars/car.model';
 import { CarsService } from '../../../core/services/cars-service/cars.service';
@@ -18,14 +18,16 @@ export class CreateCarComponent implements OnInit {
 
   public carForm: FormGroup;
   public currentCarModel: CarModel;
+  public editCarModel: CarModel;
+  @Input('carId') carId: any;
+  @Output() carEmitter = new EventEmitter<any>()
   constructor(
     private carService: CarsService,
     private garageService: GarageService,
     private expenseService: ExpenseService
   ) { }
 
-  ngOnInit() {
-
+  initForm() {
     this.carForm = new FormGroup({
       'carName': new FormControl('', [
         Validators.required
@@ -43,6 +45,17 @@ export class CreateCarComponent implements OnInit {
         Validators.pattern(urlValidator)
       ]),
     });
+  }
+  ngOnInit() {
+    this.initForm();
+
+    if (this.carId) {
+      this.carService.getCarById(this.carId).subscribe(data => {
+        this.editCarModel = data;
+        this.carForm.patchValue({ ...data })
+      })
+    }
+
   }
   get carName(): AbstractControl {
     return this.carForm.get('carName');
@@ -64,9 +77,18 @@ export class CreateCarComponent implements OnInit {
   }
 
   createCar() {
+
+    if (this.carId) {
+      let obj = {
+        edited: this.carForm.value,
+        original: this.editCarModel
+      }
+      this.carEmitter.emit(obj);
+      return;
+    }
+
     this.carForm.value['garageId'] = ''
     this.carService.createCar(this.carForm.value).subscribe(data => {
-      console.log(data)
       this.currentCarModel = new CarModel(data['carName'], data['garageId'], data['carDescription'], data['carBrand'], data['carModel'], data['initialInvestment'], data['carPicture'])
       let carId = data['_id'];
       let creatorId = data['_acl']['creator']
@@ -81,10 +103,14 @@ export class CreateCarComponent implements OnInit {
           allCars.push(carId)
 
           this.currentCarModel['garageId'] = garageId
+
+
+
+
           this.carService.updateCarById(carId, this.currentCarModel).subscribe();
 
           //Create record for expenses:
-          const carExpense = new ExpensesModel(carId, garageId, Number(carInvestment), 0, 0, 0, 0, 0, 0,0)
+          const carExpense = new ExpensesModel(carId, garageId, Number(carInvestment), 0, 0, 0, 0, 0, 0, 0)
           this.expenseService.initExpenseForCarId(carExpense).subscribe()
 
           let garageData = {

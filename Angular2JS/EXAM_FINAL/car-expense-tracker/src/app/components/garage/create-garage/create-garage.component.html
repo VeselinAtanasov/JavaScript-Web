@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Create Garage Form</h1>
+  <h1 *ngIf="!garageId">Create Garage Form</h1>
   <br>
   <form [formGroup]="garageFrom" (ngSubmit)="createGarage()">
     <div class="form-group">
