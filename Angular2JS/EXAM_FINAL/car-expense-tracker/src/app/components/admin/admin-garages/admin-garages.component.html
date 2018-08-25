@@ -26,17 +26,31 @@
           <h4>Garage Information:</h4>
           <img class="center" src="{{u['garage']['garagePicture']}}" />
           <p>There are {{u['garage']['allCars'].length}} cars in this garage!</p>
+          <p>Garage Description:
+              <strong>{{u['garage']['garageDescription']}}</strong>
+            </p>
         </div>
         <div class="modal-body" *ngIf="u['garage']['allCars'].length!==0">
           <h4>Cars Information:</h4>
           <div class="modal-body" *ngFor="let c of u['garage']['allCars']">
-            <p>Car: {{c['carName']}}</p>
+            <p>Car: <strong>{{c['carName']}}</strong></p>
+            <p>Model: <strong>{{c['carBrand']}} / {{c['carModel']}}</strong></p>
+            <p>Initial Investment: <strong>{{c['expenses']['initialInvestment']}} lv</strong></p>
+            <p>Cleaning Expenses: <strong>{{c['expenses']['cleaning']}} lv</strong></p>
+            <p>Accessories Expenses: <strong>{{c['expenses']['accessories']}} lv</strong></p>
+            <p>Repair Expenses: <strong>{{c['expenses']['carRepair']}} lv</strong></p>
+            <p>Consumables Expense: <strong>{{c['expenses']['consumables']}} lv</strong></p>
+            <p>Fuel Expense: <strong>{{c['expenses']['fuel']}} lv</strong></p>
+            <p>Taxes Expense: <strong>{{c['expenses']['taxes']}} lv</strong></p>
+            <p>Others Expense: <strong>{{c['expenses']['others']}} lv</strong></p>
             <div class="modal-footer">
               <span routerLink="/admin/carEdit/{{c['_id']}}" class="badge badge-warning">Edit Car</span>
               <span (click)="deleteCar(u['user']['_id'], c['_id'],c['expenses']['_id'],u['garage']['_id'])" class="badge badge-danger">Delete Car</span>
               <span routerLink="/admin/expenseEdit/{{c['_id']}}" class="badge badge-warning">Modify Car Expenses</span>
             </div>
             <img class="center" src="{{c['carPicture']}}" />
+
+
           </div>
 
         </div>

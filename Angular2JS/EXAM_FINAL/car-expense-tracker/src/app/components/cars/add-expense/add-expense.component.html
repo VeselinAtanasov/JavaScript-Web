@@ -1,9 +1,9 @@
 <div class="container">
-  <h4 *ngIf="car">Add Expenses for car: <i>{{car.carName}} / {{car.carBrand}} {{car.carModel}}</i> </h4>
+  <h4 *ngIf="car && !editCarId">Add Expenses for car: <i>{{car.carName}} / {{car.carBrand}} {{car.carModel}}</i> </h4>
   <br>
   <form [formGroup]="expenseForm" (ngSubmit)="updateCarExpenses()">
 
-    <div class="form-group">
+    <div class="form-group" *ngIf="!editCarId">
       <label for="initialInvestment">Initial Investment</label>
       <input  type="number" class="form-control" id="initialInvestment" formControlName="initialInvestment">
       <div *ngIf="initialInvestment.invalid " class="alert alert-danger">

@@ -33,7 +33,6 @@ export class AdminEditCarComponent implements OnInit {
 
     if (event['edited']['initialInvestment'] !== event['original']['initialInvestment']) {
       this.expenseService.getExpensesByCarId(this.id).subscribe(expense => {
-
         let currentExpense = {
           accessories: expense[0]['accessories'],
           carId: expense[0]['carId'],
@@ -46,28 +45,19 @@ export class AdminEditCarComponent implements OnInit {
           others: expense[0]['others'],
           taxes: expense[0]['taxes'],
         }
-
         this.expenseService.updateExpenseById(expense[0]['_id'], currentExpense).subscribe(updated => {
-          console.log(updated);
           this.carService.updateCarById(this.id, car).subscribe(resp => {
-            console.log(resp)
             this.toastr.success("You just modified the car content!", "Success: ")
             this.router.navigate(['/admin/garages'])
           }, err => this.toastr.error("Error during car modification!", "Error: "))
-        },err => this.toastr.error("Error during expense modification!", "Error: "))
-
+        }, err => this.toastr.error("Error during expense modification!", "Error: "))
       })
-
       return;
-
     }
-    console.log("STOPP")
-
-    this.carService.updateCarById(this.id,car).subscribe(resp =>{
-      console.log(resp)
+    this.carService.updateCarById(this.id, car).subscribe(resp => {
       this.toastr.success("You just modified the car content!", "Success: ")
       this.router.navigate(['/admin/garages'])
-    },err =>this.toastr.error("Error during car modification!", "Error: "))
+    }, err => this.toastr.error("Error during car modification!", "Error: "))
 
   }
 
