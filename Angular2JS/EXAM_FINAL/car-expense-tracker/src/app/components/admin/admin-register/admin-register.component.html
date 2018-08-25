@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Registration Form</h1>
+  <h1 *ngIf="!modify">Registration Form</h1>
   <form [formGroup]="registerForm" (ngSubmit)="register()">
     <div class="form-group">
       <label for="username">Username</label>

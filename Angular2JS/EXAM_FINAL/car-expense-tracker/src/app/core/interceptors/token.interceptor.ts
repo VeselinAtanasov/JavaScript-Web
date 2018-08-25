@@ -34,7 +34,6 @@ export class TokenInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         if (request.url.endsWith('user/' + appKey) && request.method === "POST" && this.adminService.isAdmin()) {
-            console.log("FROM HERE")
             request = request.clone({
                 setHeaders: {
                     'Authorization': `Basic ${btoa(`${appKey}:${appSecret}`)}`,
@@ -42,7 +41,6 @@ export class TokenInterceptor implements HttpInterceptor {
                 }
             })
         }else  if ((request.url.indexOf('role') !==-1) || this.adminService.isAdmin() && !request.url.endsWith('_logout')) {
-            console.log("MASTER.....")
             request = request.clone({
                 setHeaders: {
                     'Authorization': `Basic ${btoa(`${appKey}:${masterSecret}`)}`,

@@ -1,8 +1,8 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { RegisterModel } from '../../../core/models/auth-models/register.model';
-import { passwordMatcher } from  '../../authentication/password-matcher.directive'  
+import { passwordMatcher } from '../../authentication/password-matcher.directive'
 import { ToastrService } from 'ngx-toastr';
 import { AdminService } from './../../../core/services/admin-service/admin.service';
 import { Router } from '@angular/router';
@@ -22,15 +22,17 @@ const emailRegex: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*
 
 export class AdminRegisterComponent implements OnInit {
   public registerForm: FormGroup;
-  public registerModel: RegisterModel;
+  //public registerModel: RegisterModel;
 
+  @Input('modify') modify: any;
+  @Output() userEmitter = new EventEmitter<any>()
   constructor(
     private adminService: AdminService,
     private router: Router,
     private toastr: ToastrService,
   ) { }
 
-  ngOnInit() {
+  private initForm() {
     this.registerForm = new FormGroup({
       'username': new FormControl('', [
         Validators.required,
@@ -58,15 +60,29 @@ export class AdminRegisterComponent implements OnInit {
     }, { validators: passwordMatcher })
   }
 
-  register() {
+  ngOnInit() {
+    this.initForm();
+    if (this.modify) {
+      this.adminService.retrieveUser(this.modify).subscribe(data => {
+        this.registerForm.patchValue({ ...data })
+      })
+    }
 
+  }
+
+  register() {
     let userData = this.registerForm.value;
-    delete userData['confirmPassword']
-    this.registerModel = Object.assign(userData)
-    this.adminService.register(userData).subscribe(res =>{
+    delete userData['confirmPassword'];
+    //   this.registerModel = Object.assign(userData);
+
+    if (this.modify) {
+      this.userEmitter.emit(userData);
+      return;
+    }
+    this.adminService.register(userData).subscribe(res => {
       this.toastr.success("You Just Register a new User!", "Success: ")
-        this.router.navigate(['/admin/users'])
-    })
+      this.router.navigate(['/admin/users'])
+    });
   }
 
   get username(): AbstractControl {

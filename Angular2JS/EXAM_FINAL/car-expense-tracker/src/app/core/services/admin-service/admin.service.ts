@@ -33,29 +33,33 @@ export class AdminService {
     deleteUser(userId: string): Observable<UserModel> {
         let url = basicUrl + '/' + userId
         return this.http.delete<UserModel>(url)
-        // GET to /user/:appKey/:id
-    } 
+    }
 
     /**
      * This method retrieve all user Information
      * @param userId 
      */
-    retrieveUser(userId) {
+    retrieveUser(userId): Observable<UserModel> {
         let url = basicUrl + '/' + userId
-        return this.http
-            .get(url, {
-                headers: new HttpHeaders({
-                    'Authorization': `Kinvey ${localStorage.getItem('authToken')}`,
-                    'Content-Type': 'application/json'
-                })
-            })
+        return this.http.get<UserModel>(url
+            //      {
+            //     headers: new HttpHeaders({
+            //         'Authorization': `Kinvey ${localStorage.getItem('authToken')}`,
+            //         'Content-Type': 'application/json'
+            //     })
+            // }
+        )
         // GET to /user/:appKey/:id
     }
 
     getAllUsers(): Observable<Array<UserModel>> {
         let url = basicUrl
-        return this.http
-            .get<Array<UserModel>>(url)
+        return this.http.get<Array<UserModel>>(url)
+    }
+
+    updateUser(userID: string, user:UserModel): Observable<UserModel> {
+        const url =basicUrl +'/'+userID;
+        return this.http.put<UserModel>(url,JSON.stringify(user))
     }
 
     register(user) {
@@ -100,7 +104,7 @@ export class AdminService {
      * @param userId 
      * @param userRoleId 
      */
-    assignRoleToUser(userId, userRoleId) :Observable<UserModel> {
+    assignRoleToUser(userId, userRoleId): Observable<UserModel> {
         let url = userIdRole + userId + '/roles/' + userRoleId
         console.log(url)
         return this.http.put<UserModel>(url, JSON.stringify({}))
