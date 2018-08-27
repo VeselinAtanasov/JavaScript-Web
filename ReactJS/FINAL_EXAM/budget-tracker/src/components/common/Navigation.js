@@ -27,7 +27,7 @@ export default class Navigation extends Component{
         let admin = AuthService.isAdmin();
         let loggedInSection;
         //  let user = this.state.username!==''; //|| sessionStorage.getItem('username');
-        if(sessionStorage.getItem('username')){
+        if(this.state.username){
             // if(sessionStorage.getItem('username')){
             loggedInSection =  (<ul className="navbar-nav ml-auto">
                 <li className="nav-item">

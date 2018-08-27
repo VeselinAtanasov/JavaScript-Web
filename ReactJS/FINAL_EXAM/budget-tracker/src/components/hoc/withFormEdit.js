@@ -44,12 +44,9 @@ export default function withFormEdit(WrappedComponent, model, serviceFunction) {
                 let validated = model.validate(this.state);  // { success: "true"/"false", message: "Successcul", errors: {} }
                 if (validated.success) {
                     if(this.props.admin){
-                        console.log('Admin will  modify');
-                        console.log(this.props);
                         let successor = this.props.admin.success.bind(this);
                         let failure = this.props.admin.fail.bind(this);
                         this.props.admin.send(id).then(res =>{
-                            console.log(res);
                             let elementId;
                             let element;
                             if (Array.isArray(res)) {
@@ -65,7 +62,6 @@ export default function withFormEdit(WrappedComponent, model, serviceFunction) {
                       
                     }else{
                         serviceFunction.send(id).then(res => {
-                            console.log(res);
                             let elementId;
                             let element;
                             if (Array.isArray(res)) {

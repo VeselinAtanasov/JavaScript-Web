@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import authService from '../../core/services/AuthService';
 import helperService from '../../core/services/HelperService';
 
 export default function withFormHandlerAndValidator(WrappedComponent, model, serviceFunction) {

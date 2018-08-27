@@ -106,7 +106,6 @@ export default {
     },
     getUserProfileById: {
         send: function (id) { 
-            console.log('executed')
             return requestor.get('user',id, 'master');
         }
     },
