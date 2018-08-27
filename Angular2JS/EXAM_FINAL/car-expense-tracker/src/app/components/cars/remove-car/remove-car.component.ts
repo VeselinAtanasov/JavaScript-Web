@@ -22,34 +22,22 @@ export class RemoveCarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.cars)
     this.userID = JSON.parse(localStorage.getItem('currentUser'))['userId']
     if (!this.userID) {
       return
     }
     this.carService.getAllCarsByUserID(this.userID).subscribe(data => {
       this.cars = data
-      console.log(this.cars)
     })
   }
 
   deleteCar(id: string) {
 
-    this.carService.deleteCar(id).subscribe(data => console.log(data), err => console.log(err))
+    this.carService.deleteCar(id).subscribe()
     this.garageService.getMyGarage(this.userID).subscribe(resp => {
-      // let customCars = []
-      // let allCars = []
-      // for (let car of this.cars) {
-      //   if (id !== car['_id']) {
-      //     customCars.push(car)
-      //     allCars.push(car['_id'])
-      //   }
-      // }
+
       this.cars = this.cars.filter(car => car['_id'] !== id)
       let custom = this.cars.map(car => car['_id'])
-      // console.log("custom")
-      // console.log(custom)
-      // this.cars = customCars;
       let myGarage = resp[0];
 
       let garageData = {

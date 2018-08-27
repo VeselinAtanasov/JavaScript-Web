@@ -106,10 +106,7 @@ export class AdminService {
      */
     assignRoleToUser(userId, userRoleId): Observable<UserModel> {
         let url = userIdRole + userId + '/roles/' + userRoleId
-        console.log(url)
         return this.http.put<UserModel>(url, JSON.stringify({}))
-
-        // 
         //send a PUT request to /user/:appKey/:userId/roles/:roleId with an empty JSON body.
     }
 

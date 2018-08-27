@@ -20,7 +20,6 @@ export class AdminEditGarageComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
-    console.log(this.id)
   }
 
   getGarageProfile(event){
@@ -28,7 +27,6 @@ export class AdminEditGarageComponent implements OnInit {
     garageData['cars']=event['original']['cars'];
 
     this.garageService.updateGarageById(this.id,garageData).subscribe(resp =>{
-      console.log(resp)
       this.toastr.success("You just modified the garage content!", "Success: ")
       this.router.navigate(['/admin/garages'])
     },err =>this.toastr.error("Error during garage modification!", "Error: "))

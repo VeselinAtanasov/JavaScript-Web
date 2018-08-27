@@ -44,14 +44,12 @@ export class ReportCarComponent implements OnInit {
 
  private  loadChartData(expense): void {
     this.pieChartLabels = Object.values(Object.keys(label).sort((a, b) => a.localeCompare(b)));
-    //console.log(expense)
     this.pieChartData = ReportCalculator.fillChartData(expense, this.pieChartLabels);
-    //console.log( this.pieChartData)
     this.pieChartDataPercentage = ReportCalculator.fillPercentageChartData(expense, this.pieChartLabels)
   }
 
   public chartClicked(e: any): void {
-    let index = e['active'][0]['_index']
+   
   }
 
   public chartHovered(e: any): void {

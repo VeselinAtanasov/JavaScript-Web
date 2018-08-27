@@ -59,7 +59,6 @@ export class SuccessInterceptor implements HttpInterceptor {
             .handle(req)
             .pipe(tap((res: HttpEvent<any>) => {
 
-             //  console.log(res)
                 if (res instanceof HttpResponse && res.ok && res.url.endsWith(appKey) && !Array.isArray(res.body)) {
                     this.toastr.success("Successful registration! Please login", "Success: ")
                     this.router.navigate(['/auth/login'])
@@ -72,7 +71,6 @@ export class SuccessInterceptor implements HttpInterceptor {
                     this.toastr.success('GoodBye, ' + this.authService.getUserName() + "!", "Success:")
                     this.authService.eraseSessionData()
                     localStorage.clear();
-                  //  this.router.navigate(['/'])
                 } else if (res instanceof HttpResponse && res.ok && req.url.endsWith('garage') && res['body'] && res['body']['garageName']) {
                     this.toastr.success('You successfully created your own garage: ' + res['body']['garageName'] + "!", "Success:");
                     this.router.navigate(['/garage/my']);
@@ -87,14 +85,7 @@ export class SuccessInterceptor implements HttpInterceptor {
                         this.toastr.error(res.body.message);
                         this.router.navigate(['/all']);
                     }
-                } else if (res instanceof HttpResponse && req.url.indexOf('delete') !== -1) {
-                    if (res.body.success) {
-                        this.toastr.success(res.body.message);
-                    } else {
-                        this.toastr.error(res.body.message);
-                        this.router.navigate(['/myFurniture']);
-                    }
-                }
+                } 
             }))
     }
 

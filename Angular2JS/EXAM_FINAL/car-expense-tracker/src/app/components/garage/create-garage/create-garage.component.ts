@@ -74,7 +74,7 @@ export class CreateGarageComponent implements OnInit {
     }
 
 
-    this.garageService.createGarage(this.garageFrom.value).subscribe(data => console.log(data), err => console.log(err))
+    this.garageService.createGarage(this.garageFrom.value).subscribe()
   }
 
 }

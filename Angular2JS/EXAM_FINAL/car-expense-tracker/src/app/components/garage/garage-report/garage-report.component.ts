@@ -16,8 +16,6 @@ import { label } from '../../../core/utils/chart-config/chart-configuration';
 })
 export class GarageReportComponent implements OnInit {
 
-  // public pieChartLabels:string[] = ['Гориво', 'Ремон', 'Автомивка','Части'];
-  // public pieChartData:number[] = [22.2, 44.8, 11.6,17.8,3.6];
 
   public userID: string;
   public garageID: string;
@@ -72,6 +70,10 @@ export class GarageReportComponent implements OnInit {
         this.collectData()
       })
     this.collectData()
+  }
+  public chartClicked(e: any): void {
+  }
+  public chartHovered(e: any): void {
   }
 
   private collectData() {

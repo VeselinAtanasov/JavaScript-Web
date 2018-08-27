@@ -42,7 +42,8 @@ export class CreateCarComponent implements OnInit {
         Validators.pattern(priceRegex)
       ]),
       'carPicture': new FormControl('', [
-        Validators.pattern(urlValidator)
+        Validators.pattern(urlValidator),
+        Validators.required,
       ]),
     });
   }

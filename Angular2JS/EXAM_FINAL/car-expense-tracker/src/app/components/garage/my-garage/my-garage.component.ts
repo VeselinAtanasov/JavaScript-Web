@@ -14,30 +14,29 @@ export class MyGarageComponent implements OnInit {
 
   public garageId: string;
   public userID: string;
-  public garageData : Array<GarageModel>;
-  public cars : Array<CarModel>
+  public garageData: Array<GarageModel>;
+  public cars: Array<CarModel>
   constructor(
-    private garageService: GarageService, 
+    private garageService: GarageService,
     private authService: AuthService,
-    private carService :CarsService
+    private carService: CarsService
   ) { }
 
   ngOnInit() {
     this.userID = JSON.parse(localStorage.getItem('currentUser'))['userId']
-    if (!this.userID){
+    if (!this.userID) {
       return
     }
     this.garageService
       .getMyGarage(this.userID)
       .subscribe(data => {
-        console.log(data)
-        
+
         this.garageData = data
         if (this.garageData.length === 0) {
           return
         }
-        this.garageId=data[0]['_id']
-        this.carService.getAllCarsByUserID(this.userID).subscribe(data =>{ this.cars=data})
+        this.garageId = data[0]['_id']
+        this.carService.getAllCarsByUserID(this.userID).subscribe(data => { this.cars = data })
       })
   }
 

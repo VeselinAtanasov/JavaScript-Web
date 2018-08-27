@@ -37,8 +37,6 @@ export const ReportCalculator = {
         let expenseModel = new ExpensesModel('', '', 0, 0, 0, 0, 0, 0, 0, 0);
         delete expenseModel['carId']
         delete expenseModel['garageId'];
-
-        console.dir(expenses)
         for (let e of expenses) {
             for (let p in e) {
                 if (expenseModel.hasOwnProperty(p)) {
