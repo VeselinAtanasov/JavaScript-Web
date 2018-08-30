@@ -97,6 +97,7 @@ export default {
         success: function(res) {
             const username = sessionStorage.getItem('username');
             helperService.notify('success',`Goodbye, ${username}`);  
+            sessionStorage.clear();
             observer.trigger(observer.events.logoutUser);
             sessionStorage.clear();
         },

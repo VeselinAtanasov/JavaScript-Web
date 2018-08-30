@@ -73,8 +73,8 @@ export default class TrackerDetails extends Component {
                     </div>
                     <div className="col-sm-8" >
                         {card}
-                        {this.state.leftMoney !==0 ? <h4>Here are some useful tips for you:</h4> : null }
-                        {this.state.leftMoney !==0 ? this.state.tips.map((e,i) => <Tip key={i}  value={e} index={i}  />) : null }  
+                        {this.state.leftMoney !==0 && this.state.leftMoney<0 ? <h4>Here are some useful tips for you:</h4> : null }
+                        {this.state.leftMoney !==0 && this.state.leftMoney<0 ? this.state.tips.map((e,i) => <Tip key={i}  value={e} index={i}  />) : null }  
                     
                     </div>
                    
