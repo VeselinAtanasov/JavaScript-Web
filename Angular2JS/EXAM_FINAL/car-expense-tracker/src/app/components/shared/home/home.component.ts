@@ -11,7 +11,7 @@ import { AdminService } from './../../../core/services/admin-service/admin.servi
 })
 export class HomeComponent implements OnInit {
 
-  public currentPage: number =1;
+  public currentPage: number = 1;
   public pageSize: number = 6;
 
   public allPublicGarages: Array<GarageModel>;
@@ -19,19 +19,19 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private garageService: GarageService,
-     private authService: AuthService,
-     private adminService: AdminService
-    ) { }
+    private authService: AuthService,
+    private adminService: AdminService
+  ) { }
 
   ngOnInit() {
     this.isAuth = this.authService.isAuthenticated()
 
     if (this.isAuth) {
-      if(this.adminService.isAdmin()){
+      if (this.adminService.isAdmin()) {
         this.garageService.getAllGarages('').subscribe(data => {
           this.allPublicGarages = data
         })
-      }else{
+      } else {
         this.garageService.getAllGarages('public').subscribe(data => {
           this.allPublicGarages = data
         })
@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
 
   pageChange(page) {
     this.currentPage = page
-    
+
   }
 
 }
